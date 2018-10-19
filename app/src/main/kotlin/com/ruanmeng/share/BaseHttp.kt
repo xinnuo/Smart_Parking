@@ -20,8 +20,11 @@ object BaseHttp {
     val identify_getbyforget = "$baseIp/identify_getbyforget.rm" //忘记验证码
 
     val userinfo_uploadhead_sub = "$baseIp/userinfo_uploadhead_sub.rm" //修改头像
-    val nickName_change_sub = "$baseIp/nickName_change_sub.rm" //修改昵称
-    val sex_change_sub = "$baseIp/sex_change_sub.rm" //修改性别
-    val user_msg_data = "$baseIp/user_msg_data.rm" //个人资料
-    val add_car = "$baseIp/add_car.rm" //添加车牌
+    val nickName_change_sub = "$baseIp/nickName_change_sub.rm"         //修改昵称
+    val sex_change_sub = "$baseIp/sex_change_sub.rm"                   //修改性别
+    val user_msg_data = "$baseIp/user_msg_data.rm"                     //个人资料
+    val add_car = "$baseIp/add_car.rm"                                 //添加车牌
+    val car_list_data = "$baseIp/car_list_data.rm"                     //车牌列表
+
+    val leave_message_sub = "$baseIp/leave_message_sub.rm" //意见反馈
 }

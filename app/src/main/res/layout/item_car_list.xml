@@ -6,13 +6,6 @@
     android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
-    <View
-        android:id="@+id/item_car_divider3"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_height"
-        android:layout_marginTop="@dimen/dimen_size_10"
-        android:background="@color/divider" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
