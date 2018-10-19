@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_title"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="?attr/colorPrimary">
+
+    <TextView
+        android:id="@id/tv_nav_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/dimen_size_60"
+        android:layout_marginStart="@dimen/dimen_size_60"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_size_18" />
+
+    <TextView
+        android:id="@id/tv_nav_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:onClick="doClick"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_size_15" />
+
+    <ImageView
+        android:id="@id/iv_nav_back"
+        android:layout_width="@dimen/dimen_size_90"
+        android:layout_height="@dimen/dimen_size_45"
+        android:layout_gravity="center_vertical"
+        android:onClick="doClick"
+        android:paddingEnd="@dimen/dimen_size_45"
+        android:paddingStart="@dimen/dimen_size_0"
+        android:src="@mipmap/nav_back"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@id/iv_nav_right"
+        android:layout_width="@dimen/dimen_size_45"
+        android:layout_height="@dimen/dimen_size_45"
+        android:layout_gravity="center_vertical|end"
+        android:onClick="doClick"
+        android:visibility="invisible"
+        tools:ignore="ContentDescription" />
+
+</FrameLayout>

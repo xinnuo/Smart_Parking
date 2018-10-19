@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_bill"
+            android:icon="@mipmap/personal_icon01"
+            android:title="我的账单" />
+        <item
+            android:id="@+id/nav_car"
+            android:icon="@mipmap/personal_icon02"
+            android:title="我的车辆管理" />
+        <item
+            android:id="@+id/nav_wallet"
+            android:icon="@mipmap/personal_icon03"
+            android:title="我的钱包" />
+        <item
+            android:id="@+id/nav_contact"
+            android:icon="@mipmap/personal_icon04"
+            android:title="联系我们" />
+        <item
+            android:id="@+id/nav_feedback"
+            android:icon="@mipmap/personal_icon05"
+            android:title="帮助与反馈" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@mipmap/personal_icon06"
+            android:title="设置" />
+    </group>
+
+</menu>

@@ -1,0 +1,116 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+repositories {
+    mavenCentral()
+    flatDir { dir 'libs' }
+}
+
+android {
+    compileSdkVersion versions.compileSdkVersion
+    defaultConfig {
+        applicationId "com.ruanmeng.park_inspector"
+        minSdkVersion versions.minSdkVersion
+        targetSdkVersion versions.targetSdkVersion
+        versionCode 100
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
+        applicationVariants.all { variant ->
+            if (variant.buildType.name == "release") {
+                variant.outputs.all { output ->
+                    def file = output.outputFile
+                    if (file != null && file.name.endsWith('.apk')) {
+                        // def version = "v${versionName}(${versionCode})"
+                        // def formatDate = new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("UTC"))
+                        // def fileName = file.name.replace(".apk", "-${version}-${formatDate}.apk")
+                        // def fileName = file.name.replace(".apk", "-v${versionName}.apk")
+                        def fileName = "${applicationId}-v${versionName}.apk"
+                        outputFileName = fileName
+                    }
+                }
+            }
+        }
+
+        //支持 armeabi-v7a 和 x86 架构 CPU
+        //处理.so文件时的重要法则:要么全部支持，要么都不支持
+        ndk { abiFilters "armeabi-v7a", "x86" }
+    }
+
+    buildTypes {
+        debug {
+            //显示Log打印输出
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            buildConfigField "String", "API_HOST", "\"http://www.qianbaoxianjingji.com\""
+            minifyEnabled false   //混淆编译
+            zipAlignEnabled false //Zip代码压缩优化
+        }
+        release {
+            //不显示Log打印输出
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            buildConfigField "String", "API_HOST", "\"http://www.qianbaoxianjingji.com\""
+            minifyEnabled false  //混淆编译
+            zipAlignEnabled true //Zip代码压缩优化
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('../Park_Inspector.jks')
+            storePassword "123456"
+            keyAlias "Park_Inspector"
+            keyPassword "123456"
+        }
+    }
+
+    //移除lint检查的error（程序在buid的时候，会执行lint检查）
+    lintOptions {
+        abortOnError false  // true--错误发生后停止gradle构建
+        ignoreWarnings true // true--只报告error
+        showAll true        // true--显示错误的所有发生位置，不截取
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        main { jniLibs.srcDirs = ['libs'] }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //单引号''中的内容严格对应Java中的String，不会对$符号进行转义
+    def support = ['appcompat-v7:', 'recyclerview-v7:', 'cardview-v7:', 'design:', 'support-v4:']
+    support.each { implementation 'com.android.support:' + it + versions.supportLibraryVersion }
+
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:' + versions.kotlinPlugin
+    implementation 'com.android.support.constraint:constraint-layout:' + versions.constraintLayoutVersion
+    implementation 'com.android.support:multidex:' + versions.multidexVersion
+    testImplementation 'junit:junit:4.12'
+
+    def anko = ['sdk25:', 'sdk25-listeners:', 'appcompat-v7:',
+                'recyclerview-v7:', 'recyclerview-v7-listeners:',
+                'cardview-v7:', 'design:', 'design-listeners:',
+                'support-v4:']
+    anko.each { implementation 'org.jetbrains.anko:anko-' + it + versions.ankoVersion }
+
+    implementation project(':okgo')
+    def aar = ['FlycoDialog-1.3.2', 'GlideImageView-1.3.0', 'MNProgressHUD-1.0.1']
+    aar.each { implementation(name: it, ext: 'aar') }
+
+    //图片加载
+    implementation 'com.github.bumptech.glide:glide:' + versions.glideVersion
+    kapt 'com.github.bumptech.glide:compiler:' + versions.glideVersion
+    implementation "com.github.bumptech.glide:okhttp3-integration:" + versions.glideVersion
+
+    implementation 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.1.1'
+    implementation 'com.yanzhenjie:permission:1.1.2'
+    implementation 'net.idik:slimadapter:2.1.2'
+}

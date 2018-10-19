@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ruanmeng.smart_parking">
+
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name="com.ruanmeng.Application"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".GuideActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ForgetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".InfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BillActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TicketActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CarActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CarAddActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WalletActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HelpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FeedbackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PasswordActivity"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>

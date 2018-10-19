@@ -1,0 +1,23 @@
+ext.versions = [
+        kotlinPlugin: '1.2.71',
+        gradlePlugin: '3.2.1',
+
+        compileSdkVersion: 28,
+        minSdkVersion: 17,
+        targetSdkVersion: 28,
+
+        supportLibraryVersion: '28.0.0',
+        constraintLayoutVersion: '1.1.3',
+        multidexVersion: '1.0.3',
+        glideVersion: '4.6.1',
+
+        ankoVersion: '0.10.7',
+
+        umengSocialVersion: '6.9.1',
+        jpushSdkVersion: '3.1.2',
+        jpushCoreVersion: '1.2.0',
+        amapLocationVersion: '4.2.0',
+        amapSearch: '6.1.0',
+        amap3DVersion: '6.4.1',
+        amapNavi3DVersion: '6.3.0_3dmap6.4.1',
+]

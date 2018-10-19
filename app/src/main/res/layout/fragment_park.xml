@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ruanmeng.fragment.ParkFragment">
+
+    <com.amap.api.maps.MapView
+        android:id="@+id/park_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_size_48"
+        android:background="@drawable/ic_park_header">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/dimen_size_15"
+            android:layout_marginTop="@dimen/dimen_size_10"
+            android:layout_marginBottom="@dimen/dimen_size_10"
+            android:layout_weight="1"
+            android:background="@drawable/rec_bg_ova_f0f0f0"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_size_20"
+                android:layout_height="@dimen/dimen_size_20"
+                android:layout_marginStart="@dimen/dimen_size_12"
+                android:src="@mipmap/index_icon07"
+                tools:ignore="ContentDescription" />
+
+            <EditText
+                android:id="@+id/park_search"
+                style="@style/Font14_black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:hint="搜索地址"
+                android:imeOptions="actionSearch"
+                android:paddingStart="@dimen/dimen_size_10"
+                android:paddingEnd="@dimen/dimen_size_10"
+                android:singleLine="true" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/park_add"
+            android:layout_width="@dimen/dimen_size_60"
+            android:layout_height="match_parent"
+            android:onClick="doClick"
+            android:paddingTop="@dimen/dimen_size_10"
+            android:paddingBottom="@dimen/dimen_size_10"
+            android:src="@mipmap/index_icon08"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/park_location"
+            android:layout_width="@dimen/dimen_size_50"
+            android:layout_height="@dimen/dimen_size_50"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/dimen_size_10"
+            android:src="@mipmap/index_icon04"
+            tools:ignore="ContentDescription" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/park_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_size_15"
+            android:layout_marginEnd="@dimen/dimen_size_15"
+            android:layout_marginBottom="@dimen/dimen_size_20"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/dimen_size_5"
+            app:cardElevation="@dimen/dimen_size_10"
+            app:cardPreventCornerOverlap="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_size_10">
+
+                    <TextView
+                        android:id="@+id/park_hint"
+                        style="@style/Font14_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/index_bj01"
+                        android:paddingStart="@dimen/dimen_size_10"
+                        android:paddingTop="@dimen/dimen_size_3"
+                        android:paddingEnd="@dimen/dimen_size_0"
+                        android:text="前0分钟免费，首小时0元" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dimen_size_1"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/park_nav"
+                        style="@style/Font15_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dimen_size_25"
+                        android:layout_marginTop="@dimen/dimen_size_2"
+                        android:layout_marginEnd="@dimen/dimen_size_15"
+                        android:background="@drawable/rec_bg_ova_trans_stroke_blue"
+                        android:drawableStart="@mipmap/index_icon17"
+                        android:drawablePadding="@dimen/dimen_size_5"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/dimen_size_15"
+                        android:paddingEnd="@dimen/dimen_size_15"
+                        android:text="导航"
+                        android:textColor="@color/colorAccent" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_size_5"
+                    android:layout_marginBottom="@dimen/dimen_size_15"
+                    android:gravity="center_vertical">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dimen_size_1"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_size_20"
+                        android:layout_height="@dimen/dimen_size_20"
+                        android:layout_marginEnd="@dimen/dimen_size_5"
+                        android:src="@mipmap/index_icon05"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        style="@style/Font14_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="空车位：" />
+
+                    <TextView
+                        android:id="@+id/park_number"
+                        style="@style/Font14_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_size_2"
+                        android:text="0"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/sp_size_20" />
+
+                    <TextView
+                        style="@style/Font14_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="个" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dimen_size_1"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_size_20"
+                        android:layout_height="@dimen/dimen_size_20"
+                        android:layout_marginEnd="@dimen/dimen_size_5"
+                        android:src="@mipmap/index_icon06"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        style="@style/Font14_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="价格：" />
+
+                    <TextView
+                        android:id="@+id/park_price"
+                        style="@style/Font14_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_size_2"
+                        android:text="0"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/sp_size_20" />
+
+                    <TextView
+                        style="@style/Font14_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="元/小时" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dimen_size_1"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</FrameLayout>
