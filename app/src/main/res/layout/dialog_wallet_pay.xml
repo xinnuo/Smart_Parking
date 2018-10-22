@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/pay_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_size_15"
+        android:layout_marginEnd="@dimen/dimen_size_15"
+        android:background="@drawable/rec_bg_white">
+
+        <RadioButton
+            android:id="@+id/pay_check1"
+            style="@style/Font15_black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:button="@null"
+            android:drawableStart="@mipmap/pay_icon01"
+            android:drawableEnd="@drawable/rb_pay_selector"
+            android:drawablePadding="@dimen/dimen_size_10"
+            android:gravity="start|center_vertical"
+            android:padding="@dimen/dimen_size_10"
+            android:text="微信支付" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/dimen_size_10"
+            android:layout_marginEnd="@dimen/dimen_size_10"
+            android:background="@color/divider" />
+
+        <RadioButton
+            android:id="@+id/pay_check2"
+            style="@style/Font15_black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:button="@null"
+            android:drawableStart="@mipmap/pay_icon02"
+            android:drawableEnd="@drawable/rb_pay_selector"
+            android:drawablePadding="@dimen/dimen_size_10"
+            android:gravity="start|center_vertical"
+            android:padding="@dimen/dimen_size_10"
+            android:text="支付宝支付" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/bt_pay"
+        style="@style/Font15_white_borderless"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_size_40"
+        android:layout_margin="@dimen/dimen_size_15"
+        android:background="@drawable/rec_bg_ova_blue"
+        android:onClick="doClick"
+        android:text="付款" />
+
+</LinearLayout>

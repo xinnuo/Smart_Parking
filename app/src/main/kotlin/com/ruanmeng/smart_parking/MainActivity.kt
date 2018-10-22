@@ -65,6 +65,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 drawer_layout.closeDrawer(GravityCompat.START)
                 v.postDelayed({ startActivity<InfoActivity>() }, 300)
             }
+            R.id.park_add -> startActivity<CarAddActivity>()
         }
     }
 

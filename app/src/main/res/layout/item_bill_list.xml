@@ -45,9 +45,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_size_10"
-            android:layout_marginTop="@dimen/dimen_size_10"
-            android:layout_marginEnd="@dimen/dimen_size_10">
+            android:layout_margin="@dimen/dimen_size_10">
 
             <TextView
                 style="@style/Font14_black"
@@ -64,34 +62,64 @@
                 android:textColor="@color/orange"
                 android:textSize="@dimen/sp_size_18" />
 
+            <LinearLayout
+                android:id="@+id/item_bill_late"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_size_20">
+
+                <TextView
+                    style="@style/Font14_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="滞纳金：" />
+
+                <TextView
+                    android:id="@+id/item_bill_fee"
+                    style="@style/Font14_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.00"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/sp_size_18" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/divider_height"
-            android:layout_marginStart="@dimen/dimen_size_15"
-            android:layout_marginTop="@dimen/dimen_size_10"
-            android:layout_marginEnd="@dimen/dimen_size_15"
-            android:background="@color/divider" />
-
         <LinearLayout
+            android:id="@+id/item_bill_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:padding="@dimen/dimen_size_10">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/item_bill_press"
-                style="@style/Font14_black"
-                android:layout_width="wrap_content"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginStart="@dimen/dimen_size_15"
+                android:layout_marginEnd="@dimen/dimen_size_15"
+                android:background="@color/divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rec_bg_trans_stroke_orange"
-                android:paddingStart="@dimen/dimen_size_15"
-                android:paddingTop="@dimen/dimen_size_5"
-                android:paddingEnd="@dimen/dimen_size_15"
-                android:paddingBottom="@dimen/dimen_size_5"
-                android:text="去付款"
-                android:textColor="@color/orange" />
+                android:gravity="end"
+                android:padding="@dimen/dimen_size_10">
+
+                <TextView
+                    android:id="@+id/item_bill_press"
+                    style="@style/Font14_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rec_bg_trans_stroke_orange"
+                    android:paddingStart="@dimen/dimen_size_15"
+                    android:paddingTop="@dimen/dimen_size_5"
+                    android:paddingEnd="@dimen/dimen_size_15"
+                    android:paddingBottom="@dimen/dimen_size_5"
+                    android:text="去付款"
+                    android:textColor="@color/orange" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

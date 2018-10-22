@@ -5,6 +5,9 @@ import java.util.regex.Pattern
 fun CharSequence.trimString(): String = trim().toString()
 fun CharSequence.trimToUpperCase(): String = trim().toString().toUpperCase()
 
+fun String.toNotFloat(): Float = if (isEmpty()) "0".toFloat() else toFloat()
+fun String.toNotDouble(): Double = if (isEmpty()) "0".toDouble() else toDouble()
+
 /**
  * 姓名替换，保留姓氏
  * 如果姓名为空 或者 null ,返回空 ；否则，返回替换后的字符串；

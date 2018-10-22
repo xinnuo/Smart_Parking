@@ -1,5 +1,5 @@
 /**
- * created by 小卷毛, 2018/10/19
+ * created by 小卷毛, 2018/10/22
  * Copyright (c) 2018, 416143467@qq.com All Rights Reserved.
  * #                   *********                            #
  * #                  ************                          #
@@ -25,46 +25,37 @@
  * #          *****       ***        ***      *             #
  * #            **       ****        ****                   #
  */
-package com.ruanmeng.model
+package com.ruanmeng.utils
 
-import java.io.Serializable
+import com.amap.api.maps.AMap
+import com.amap.api.maps.model.CameraPosition
 
-/**
- * 项目名称：Smart_Parking
- * 创建人：小卷毛
- * 创建时间：2018-10-19 15:23
- */
-data class CommonData(
-        //车牌列表
-        var carNo: String = "",
-        var carStatus: String = "",
-        var carType: String = "",
-        var mycarId: String = "",
+fun AMap.setOnCameraChangeListener(init: __OnCameraChangeListener.() -> Unit) {
+    val listener = __OnCameraChangeListener()
+    listener.init()
+    setOnCameraChangeListener(listener)
+}
 
-        //车牌列表
-        var parkName: String = "",
-        var paddress: String = "",
-        var pprovince: String = "",
-        var pcity: String = "",
-        var pdistrict: String = "",
-        var ptownship: String = "",
-        var plat: String = "",
-        var plng: String = "",
-        var ptype: String = "",
-        var publicPark: String = "",
-        var publicParkingId: String = "",
-        var pcost: String = "",
-        var totleSum: String = "",
-        var vacancySum: String = "",
-        var chargeExplain: String = "",
-        var parkTelephone: String = "",
+class __OnCameraChangeListener : AMap.OnCameraChangeListener {
 
-        //车牌列表
-        var goodsOrderId: String = "",
-        var status: String = "",
-        var startDate: String = "",
-        var endDate: String = "",
-        var paySum: String = "",
-        var LateFee: String = "",
-        var daddress: String = ""
-) : Serializable
+    private var _onCameraChangeFinish: ((CameraPosition?) -> Unit)? = null
+
+    override fun onCameraChangeFinish(position: CameraPosition?) {
+        _onCameraChangeFinish?.invoke(position)
+    }
+
+    fun onCameraChangeFinish(listener: (CameraPosition?) -> Unit) {
+        _onCameraChangeFinish = listener
+    }
+
+    private var _onCameraChange: ((CameraPosition?) -> Unit)? = null
+
+    override fun onCameraChange(position: CameraPosition?) {
+        _onCameraChange?.invoke(position)
+    }
+
+    fun onCameraChange(listener: (CameraPosition?) -> Unit) {
+        _onCameraChange = listener
+    }
+
+}
