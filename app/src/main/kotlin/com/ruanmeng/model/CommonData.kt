@@ -59,7 +59,7 @@ data class CommonData(
         var chargeExplain: String = "",
         var parkTelephone: String = "",
 
-        //车牌列表
+        //账单列表
         var goodsOrderId: String = "",
         var status: String = "",
         var startDate: String = "",

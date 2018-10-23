@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_title"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="?attr/colorPrimary">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_size_28"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/dimen_size_15"
+        android:layout_marginEnd="@dimen/dimen_size_15"
+        android:layout_weight="1"
+        android:background="@drawable/rec_bg_ova_f0f0f0"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="@dimen/dimen_size_15"
+            android:layout_height="@dimen/dimen_size_15"
+            android:layout_marginStart="@dimen/dimen_size_12"
+            android:src="@mipmap/index_icon07"
+            tools:ignore="ContentDescription" />
+
+        <EditText
+            android:id="@+id/search_edit"
+            style="@style/Font13_black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:hint="请输入关键字"
+            android:imeOptions="actionSearch"
+            android:paddingEnd="@dimen/dimen_size_10"
+            android:paddingStart="@dimen/dimen_size_10"
+            android:singleLine="true" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/search_cancel"
+        style="@style/Font15_black"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:onClick="doClick"
+        android:paddingRight="@dimen/dimen_size_15"
+        android:text="取消" />
+
+</LinearLayout>

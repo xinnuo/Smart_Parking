@@ -5,6 +5,9 @@ import java.util.regex.Pattern
 fun CharSequence.trimString(): String = trim().toString()
 fun CharSequence.trimToUpperCase(): String = trim().toString().toUpperCase()
 
+fun CharSequence.toTextFloat(): Float = toString().toNotFloat()
+fun CharSequence.toTextDouble(): Double = toString().toNotDouble()
+
 fun String.toNotFloat(): Float = if (isEmpty()) "0".toFloat() else toFloat()
 fun String.toNotDouble(): Double = if (isEmpty()) "0".toDouble() else toDouble()
 

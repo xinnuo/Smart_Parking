@@ -1,12 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:orientation="vertical">
 
-</LinearLayout>
+        <com.allen.library.SuperTextView
+            android:id="@+id/main_item1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_size_75"
+            android:layout_marginStart="@dimen/dimen_size_15"
+            android:layout_marginTop="@dimen/dimen_size_15"
+            android:layout_marginEnd="@dimen/dimen_size_15"
+            app:sBackgroundDrawableRes="@drawable/rec_bg_white_r5"
+            app:sLeftIconMarginLeft="@dimen/dimen_size_15"
+            app:sLeftIconRes="@mipmap/index_icon01"
+            app:sLeftIconSize="@dimen/dimen_size_45"
+            app:sLeftTextColor="@color/black"
+            app:sLeftTextMarginLeft="@dimen/dimen_size_15"
+            app:sLeftTextSize="@dimen/sp_size_15"
+            app:sLeftTextString="车牌扫描上传"
+            app:sLineShow="none"
+            app:sRightIconMarginRight="@dimen/dimen_size_10"
+            app:sRightIconRes="@mipmap/index_right"
+            app:sRightIconSize="@dimen/dimen_size_15"
+            app:sRightTextColor="@color/black" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/main_item2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_size_75"
+            android:layout_marginStart="@dimen/dimen_size_15"
+            android:layout_marginTop="@dimen/dimen_size_15"
+            android:layout_marginEnd="@dimen/dimen_size_15"
+            app:sBackgroundDrawableRes="@drawable/rec_bg_white_r5"
+            app:sLeftIconMarginLeft="@dimen/dimen_size_15"
+            app:sLeftIconRes="@mipmap/index_icon02"
+            app:sLeftIconSize="@dimen/dimen_size_45"
+            app:sLeftTextColor="@color/black"
+            app:sLeftTextMarginLeft="@dimen/dimen_size_15"
+            app:sLeftTextSize="@dimen/sp_size_15"
+            app:sLeftTextString="管辖停车位状态监控"
+            app:sLineShow="none"
+            app:sRightIconMarginRight="@dimen/dimen_size_10"
+            app:sRightIconRes="@mipmap/index_right"
+            app:sRightIconSize="@dimen/dimen_size_15"
+            app:sRightTextColor="@color/black" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/main_item3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_size_75"
+            android:layout_marginStart="@dimen/dimen_size_15"
+            android:layout_marginTop="@dimen/dimen_size_15"
+            android:layout_marginEnd="@dimen/dimen_size_15"
+            app:sBackgroundDrawableRes="@drawable/rec_bg_white_r5"
+            app:sLeftIconMarginLeft="@dimen/dimen_size_15"
+            app:sLeftIconRes="@mipmap/index_icon03"
+            app:sLeftIconSize="@dimen/dimen_size_45"
+            app:sLeftTextColor="@color/black"
+            app:sLeftTextMarginLeft="@dimen/dimen_size_15"
+            app:sLeftTextSize="@dimen/sp_size_15"
+            app:sLeftTextString="自定义车位分组"
+            app:sLineShow="none"
+            app:sRightIconMarginRight="@dimen/dimen_size_10"
+            app:sRightIconRes="@mipmap/index_right"
+            app:sRightIconSize="@dimen/dimen_size_15"
+            app:sRightTextColor="@color/black" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/main_item4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_size_75"
+            android:layout_marginStart="@dimen/dimen_size_15"
+            android:layout_marginTop="@dimen/dimen_size_15"
+            android:layout_marginEnd="@dimen/dimen_size_15"
+            app:sBackgroundDrawableRes="@drawable/rec_bg_white_r5"
+            app:sLeftIconMarginLeft="@dimen/dimen_size_15"
+            app:sLeftIconRes="@mipmap/index_icon04"
+            app:sLeftIconSize="@dimen/dimen_size_45"
+            app:sLeftTextColor="@color/black"
+            app:sLeftTextMarginLeft="@dimen/dimen_size_15"
+            app:sLeftTextSize="@dimen/sp_size_15"
+            app:sLeftTextString="车位状况预览"
+            app:sLineShow="none"
+            app:sRightIconMarginRight="@dimen/dimen_size_10"
+            app:sRightIconRes="@mipmap/index_right"
+            app:sRightIconSize="@dimen/dimen_size_15"
+            app:sRightTextColor="@color/black" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/main_item5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_size_75"
+            android:layout_marginStart="@dimen/dimen_size_15"
+            android:layout_marginTop="@dimen/dimen_size_15"
+            android:layout_marginEnd="@dimen/dimen_size_15"
+            app:sBackgroundDrawableRes="@drawable/rec_bg_white_r5"
+            app:sLeftIconMarginLeft="@dimen/dimen_size_15"
+            app:sLeftIconRes="@mipmap/index_icon05"
+            app:sLeftIconSize="@dimen/dimen_size_45"
+            app:sLeftTextColor="@color/black"
+            app:sLeftTextMarginLeft="@dimen/dimen_size_15"
+            app:sLeftTextSize="@dimen/sp_size_15"
+            app:sLeftTextString="异常状况照片上传"
+            app:sLineShow="none"
+            app:sRightIconMarginRight="@dimen/dimen_size_10"
+            app:sRightIconRes="@mipmap/index_right"
+            app:sRightIconSize="@dimen/dimen_size_15"
+            app:sRightTextColor="@color/black" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/main_item6"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_size_75"
+            android:layout_margin="@dimen/dimen_size_15"
+            app:sBackgroundDrawableRes="@drawable/rec_bg_white_r5"
+            app:sLeftIconMarginLeft="@dimen/dimen_size_15"
+            app:sLeftIconRes="@mipmap/index_icon06"
+            app:sLeftIconSize="@dimen/dimen_size_45"
+            app:sLeftTextColor="@color/black"
+            app:sLeftTextMarginLeft="@dimen/dimen_size_15"
+            app:sLeftTextSize="@dimen/sp_size_15"
+            app:sLeftTextString="上班打卡"
+            app:sLineShow="none"
+            app:sRightIconMarginRight="@dimen/dimen_size_10"
+            app:sRightIconRes="@mipmap/index_right"
+            app:sRightIconSize="@dimen/dimen_size_15"
+            app:sRightTextColor="@color/black" />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

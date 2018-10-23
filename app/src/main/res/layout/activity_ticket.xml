@@ -4,9 +4,192 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RadioGroup
+        android:id="@+id/ticket_group"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/ticket_check1"
+            style="@style/Font14_black"
+            android:layout_width="@dimen/dimen_size_120"
+            android:layout_height="match_parent"
+            android:button="@null"
+            android:drawableStart="@drawable/rb_pay_selector"
+            android:drawablePadding="@dimen/dimen_size_10"
+            android:paddingStart="@dimen/dimen_size_15"
+            android:paddingEnd="@dimen/dimen_size_0"
+            android:text="企业单位"
+            android:textColor="@color/rb_ticket_selector_color" />
+
+        <RadioButton
+            android:id="@+id/ticket_check2"
+            style="@style/Font14_black"
+            android:layout_width="@dimen/dimen_size_120"
+            android:layout_height="match_parent"
+            android:button="@null"
+            android:drawableStart="@drawable/rb_pay_selector"
+            android:drawablePadding="@dimen/dimen_size_10"
+            android:paddingStart="@dimen/dimen_size_15"
+            android:paddingEnd="@dimen/dimen_size_0"
+            android:text="个人"
+            android:textColor="@color/rb_ticket_selector_color" />
+
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginTop="@dimen/dimen_size_10"
+        android:background="@color/divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height">
+
+            <TextView
+                style="@style/Font14_gray"
+                android:layout_width="@dimen/dimen_size_75"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_size_10"
+                android:text="发票抬头" />
+
+            <EditText
+                android:id="@+id/et_title"
+                style="@style/Font14_black"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height"
+                android:background="@android:color/white"
+                android:hint="输入发票抬头"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/dimen_size_10"
+                android:paddingRight="@dimen/dimen_size_10" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginLeft="@dimen/dimen_size_10"
+            android:layout_marginRight="@dimen/dimen_size_10"
+            android:background="@color/divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height">
+
+            <TextView
+                style="@style/Font14_gray"
+                android:layout_width="@dimen/dimen_size_75"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_size_10"
+                android:text="税号" />
+
+            <EditText
+                android:id="@+id/et_num"
+                style="@style/Font14_black"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height"
+                android:background="@android:color/white"
+                android:hint="输入税号"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/dimen_size_10"
+                android:paddingRight="@dimen/dimen_size_10" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginLeft="@dimen/dimen_size_10"
+            android:layout_marginRight="@dimen/dimen_size_10"
+            android:background="@color/divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height">
+
+            <TextView
+                style="@style/Font14_gray"
+                android:layout_width="@dimen/dimen_size_75"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_size_10"
+                android:text="发票内容" />
+
+            <EditText
+                android:id="@+id/et_content"
+                style="@style/Font14_black"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height"
+                android:background="@android:color/white"
+                android:hint="输入发票内容"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/dimen_size_10"
+                android:paddingRight="@dimen/dimen_size_10" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginLeft="@dimen/dimen_size_10"
+            android:layout_marginRight="@dimen/dimen_size_10"
+            android:background="@color/divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height">
+
+            <TextView
+                style="@style/Font14_gray"
+                android:layout_width="@dimen/dimen_size_75"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_size_10"
+                android:text="发票金额" />
+
+            <EditText
+                android:id="@+id/et_money"
+                style="@style/Font14_black"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height"
+                android:background="@android:color/white"
+                android:hint="输入发票金额"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/dimen_size_10"
+                android:paddingRight="@dimen/dimen_size_10" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider" />
+
+    <Button
+        android:id="@+id/bt_submit"
+        style="@style/Font15_white_borderless"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_size_40"
+        android:layout_margin="@dimen/dimen_size_20"
+        android:background="@drawable/rec_bg_ova_blue"
+        android:onClick="doClick"
+        android:text="提交" />
 
 </LinearLayout>

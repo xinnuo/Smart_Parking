@@ -17,6 +17,7 @@
         android:background="@drawable/ic_park_header">
 
         <LinearLayout
+            android:id="@+id/park_search"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/dimen_size_15"
@@ -27,23 +28,21 @@
             android:gravity="center_vertical">
 
             <ImageView
-                android:layout_width="@dimen/dimen_size_20"
-                android:layout_height="@dimen/dimen_size_20"
+                android:layout_width="@dimen/dimen_size_15"
+                android:layout_height="@dimen/dimen_size_15"
                 android:layout_marginStart="@dimen/dimen_size_12"
                 android:src="@mipmap/index_icon07"
                 tools:ignore="ContentDescription" />
 
-            <EditText
-                android:id="@+id/park_search"
+            <TextView
                 style="@style/Font14_black"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/transparent"
+                android:gravity="center_vertical"
                 android:hint="搜索地址"
-                android:imeOptions="actionSearch"
                 android:paddingStart="@dimen/dimen_size_10"
-                android:paddingEnd="@dimen/dimen_size_10"
-                android:singleLine="true" />
+                android:paddingEnd="@dimen/dimen_size_10" />
 
         </LinearLayout>
 
@@ -60,6 +59,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/park_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

@@ -2,6 +2,7 @@ package com.ruanmeng.park_inspector
 
 import android.os.Bundle
 import android.view.View
+import cn.jpush.android.api.JPushInterface
 import com.ruanmeng.base.*
 import com.ruanmeng.utils.ActivityStack
 import kotlinx.android.synthetic.main.activity_login.*
@@ -52,6 +53,11 @@ class LoginActivity : BaseActivity() {
     private fun clearData() {
         putBoolean("isLogin", false)
         putString("token", "")
+
+        putBoolean("isTS", false)
+
+        JPushInterface.stopPush(applicationContext)
+        JPushInterface.clearAllNotifications(applicationContext)
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {

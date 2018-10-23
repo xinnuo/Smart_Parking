@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_search"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/item_search_name"
+        style="@style/Font14_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dimen_size_10"
+        android:layout_marginStart="@dimen/dimen_size_10"
+        android:layout_marginTop="@dimen/dimen_size_10"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="名称" />
+
+    <TextView
+        android:id="@+id/item_search_hint"
+        style="@style/Font13_light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_size_10"
+        android:layout_marginEnd="@dimen/dimen_size_10"
+        android:layout_marginStart="@dimen/dimen_size_10"
+        android:layout_marginTop="@dimen/dimen_size_5"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="内容" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginEnd="@dimen/dimen_size_10"
+        android:layout_marginStart="@dimen/dimen_size_10"
+        android:background="@color/divider" />
+
+</LinearLayout>

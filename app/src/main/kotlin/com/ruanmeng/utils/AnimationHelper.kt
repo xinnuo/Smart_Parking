@@ -138,3 +138,25 @@ inline fun <reified T : View> T.goneAnimation(milliseconds: Long = 300) {
         })
     }
 }
+
+/**
+ * 平移动画，设置指定的时间，单位毫秒（默认300ms）
+ */
+inline fun <reified T : View> T.translateAnimation(
+        milliseconds: Long = 300,
+        fromX: Float,
+        toX: Float,
+        fromY: Float,
+        toY: Float) {
+    startAnimation(TranslateAnimation(
+            Animation.RELATIVE_TO_SELF,
+            fromX,
+            Animation.RELATIVE_TO_SELF,
+            toX,
+            Animation.RELATIVE_TO_SELF,
+            fromY,
+            Animation.RELATIVE_TO_SELF,
+            toY).apply {
+        duration = milliseconds
+    })
+}

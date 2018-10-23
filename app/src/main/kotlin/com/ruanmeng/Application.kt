@@ -28,6 +28,7 @@
 package com.ruanmeng
 
 import android.support.multidex.MultiDexApplication
+import cn.jpush.android.api.JPushInterface
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.cache.CacheEntity
 import com.lzy.okgo.cache.CacheMode
@@ -52,6 +53,10 @@ class Application : MultiDexApplication() {
         super.onCreate()
 
         initOkGo()
+
+        //极光推送
+        JPushInterface.setDebugMode(BuildConfig.LOG_DEBUG) //设置开启日志,发布时请关闭日志
+        JPushInterface.init(this@Application)              //初始化 JPush
     }
 
     private fun initOkGo() {

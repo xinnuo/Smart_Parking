@@ -2,8 +2,14 @@ package com.ruanmeng.smart_parking
 
 import android.os.Bundle
 import android.view.View
+import com.lzg.extend.StringDialogCallback
+import com.lzy.okgo.OkGo
+import com.lzy.okgo.model.Response
 import com.ruanmeng.base.BaseActivity
+import com.ruanmeng.base.getString
 import com.ruanmeng.base.showToast
+import com.ruanmeng.share.BaseHttp
+import com.ruanmeng.utils.ActivityStack
 import kotlinx.android.synthetic.main.activity_password.*
 
 class PasswordActivity : BaseActivity() {
@@ -40,7 +46,7 @@ class PasswordActivity : BaseActivity() {
                     return
                 }
 
-                /*OkGo.post<String>(BaseHttp.password_change_sub)
+                OkGo.post<String>(BaseHttp.password_change_sub)
                         .tag(this@PasswordActivity)
                         .headers("token", getString("token"))
                         .params("oldPwd", et_old.text.toString())
@@ -54,7 +60,7 @@ class PasswordActivity : BaseActivity() {
                                 ActivityStack.screenManager.popActivities(this@PasswordActivity::class.java)
                             }
 
-                        })*/
+                        })
             }
         }
     }

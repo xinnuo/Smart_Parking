@@ -2,6 +2,7 @@ package com.ruanmeng.smart_parking
 
 import android.os.Bundle
 import android.view.View
+import cn.jpush.android.api.JPushInterface
 import com.lzg.extend.StringDialogCallback
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.model.Response
@@ -93,7 +94,11 @@ class LoginActivity : BaseActivity() {
         putBoolean("isLogin", false)
         putString("token", "")
 
+        putBoolean("isTS", false)
         putString("carNum", "")
+
+        JPushInterface.stopPush(applicationContext)
+        JPushInterface.clearAllNotifications(applicationContext)
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {

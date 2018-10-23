@@ -9,13 +9,17 @@ import com.lzy.okgo.OkGo
 import com.lzy.okgo.model.Response
 import com.ruanmeng.base.*
 import com.ruanmeng.model.CommonData
+import com.ruanmeng.model.RefreshMessageEvent
 import com.ruanmeng.share.BaseHttp
 import com.ruanmeng.utils.toNotDouble
 import kotlinx.android.synthetic.main.activity_bill.*
 import kotlinx.android.synthetic.main.layout_empty.*
 import kotlinx.android.synthetic.main.layout_list.*
 import net.idik.lib.slimadapter.SlimAdapter
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import org.jetbrains.anko.design.listeners.__TabLayout_OnTabSelectedListener
+import org.jetbrains.anko.startActivity
 import java.text.DecimalFormat
 
 class BillActivity : BaseActivity() {
@@ -27,6 +31,8 @@ class BillActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bill)
         init_title("我的账单")
+
+        EventBus.getDefault().register(this@BillActivity)
     }
 
     override fun init_title() {
@@ -84,7 +90,12 @@ class BillActivity : BaseActivity() {
                             .visibility(R.id.item_bill_late, if (data.LateFee.isEmpty()) View.GONE else View.VISIBLE)
                             .visibility(R.id.item_bill_divider, if (isLast) View.VISIBLE else View.GONE)
 
-                            .clicked(R.id.item_bill_press) { }
+                            .clicked(R.id.item_bill_press) {
+                                when (data.status) {
+                                    "0" -> { }
+                                    "5" -> startActivity<TicketActivity>("goodsOrderId" to data.goodsOrderId)
+                                }
+                            }
                 }
                 .attachTo(recycle_list)
     }
@@ -133,6 +144,18 @@ class BillActivity : BaseActivity() {
 
         pageNum = 1
         getData(pageNum)
+    }
+
+    override fun finish() {
+        EventBus.getDefault().unregister(this@BillActivity)
+        super.finish()
+    }
+
+    @Subscribe
+    fun onMessageEvent(event: RefreshMessageEvent) {
+        when (event.type) {
+            "开发票" -> updateList()
+        }
     }
 
     private fun TabLayout.onTabSelectedListener(init: __TabLayout_OnTabSelectedListener.() -> Unit) {

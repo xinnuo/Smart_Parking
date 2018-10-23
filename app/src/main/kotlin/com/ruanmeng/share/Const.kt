@@ -8,4 +8,5 @@ package com.ruanmeng.share
 object Const {
     const val SAVE_FILE = "/Smart_Parking" //文件夹存储路径
     const val MAKER = "1529463160"
+    const val JPUSH_SEQUENCE = 121         //极光推送自定义操作序列号
 }

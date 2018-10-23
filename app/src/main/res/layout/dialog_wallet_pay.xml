@@ -4,50 +4,102 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <RadioGroup
-        android:id="@+id/pay_group"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_size_15"
         android:layout_marginEnd="@dimen/dimen_size_15"
-        android:background="@drawable/rec_bg_white">
+        android:background="@drawable/rec_bg_white"
+        android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/pay_check1"
-            style="@style/Font15_black"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:button="@null"
-            android:drawableStart="@mipmap/pay_icon01"
-            android:drawableEnd="@drawable/rb_pay_selector"
-            android:drawablePadding="@dimen/dimen_size_10"
-            android:gravity="start|center_vertical"
-            android:padding="@dimen/dimen_size_10"
-            android:text="微信支付" />
+            android:layout_height="@dimen/line_height"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dimen_size_10"
+            android:paddingEnd="@dimen/dimen_size_10">
+
+            <TextView
+                style="@style/Font14_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="充值金额" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/pay_count"
+                    style="@style/Font14_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:hint="请输入充值金额"
+                    android:inputType="numberDecimal"
+                    android:maxLength="11"
+                    android:paddingStart="@dimen/dimen_size_15"
+                    android:paddingEnd="@dimen/dimen_size_15" />
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/Font14_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="元" />
+
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
-            android:layout_marginStart="@dimen/dimen_size_10"
-            android:layout_marginEnd="@dimen/dimen_size_10"
             android:background="@color/divider" />
 
-        <RadioButton
-            android:id="@+id/pay_check2"
-            style="@style/Font15_black"
+        <RadioGroup
+            android:id="@+id/pay_group"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:button="@null"
-            android:drawableStart="@mipmap/pay_icon02"
-            android:drawableEnd="@drawable/rb_pay_selector"
-            android:drawablePadding="@dimen/dimen_size_10"
-            android:gravity="start|center_vertical"
-            android:padding="@dimen/dimen_size_10"
-            android:text="支付宝支付" />
+            android:layout_height="wrap_content">
 
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/pay_check1"
+                style="@style/Font15_black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:button="@null"
+                android:drawableStart="@mipmap/pay_icon01"
+                android:drawableEnd="@drawable/rb_pay_selector"
+                android:drawablePadding="@dimen/dimen_size_10"
+                android:gravity="start|center_vertical"
+                android:padding="@dimen/dimen_size_10"
+                android:text="微信支付" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginStart="@dimen/dimen_size_10"
+                android:layout_marginEnd="@dimen/dimen_size_10"
+                android:background="@color/divider" />
+
+            <RadioButton
+                android:id="@+id/pay_check2"
+                style="@style/Font15_black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:button="@null"
+                android:drawableStart="@mipmap/pay_icon02"
+                android:drawableEnd="@drawable/rb_pay_selector"
+                android:drawablePadding="@dimen/dimen_size_10"
+                android:gravity="start|center_vertical"
+                android:padding="@dimen/dimen_size_10"
+                android:text="支付宝支付" />
+
+        </RadioGroup>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/bt_pay"

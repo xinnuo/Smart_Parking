@@ -18,8 +18,10 @@ object BaseHttp {
     val pwd_forget_sub = "$baseIp/pwd_forget_sub.rm"             //忘记密码
     val identify_get = "$baseIp/identify_get.rm"                 //注册验证码
     val identify_getbyforget = "$baseIp/identify_getbyforget.rm" //忘记验证码
+    val password_change_sub = "$baseIp/password_change_sub.rm"   //修改密码
 
-    val index_data = "$baseIp/index_data.rm" //首页
+    val index_data = "$baseIp/index_data.rm"             //首页
+    val index_price_info = "$baseIp/index_price_info.rm" //车位信息
 
     val userinfo_uploadhead_sub = "$baseIp/userinfo_uploadhead_sub.rm" //修改头像
     val nickName_change_sub = "$baseIp/nickName_change_sub.rm"         //修改昵称
@@ -29,6 +31,9 @@ object BaseHttp {
     val car_list_data = "$baseIp/car_list_data.rm"                     //车牌列表
     val user_balance = "$baseIp/user_balance.rm"                       //余额
     val goodsorder_list_data = "$baseIp/goodsorder_list_data.rm"       //订单列表
+    val add_invoice = "$baseIp/add_invoice.rm"                         //开发票
+
+    val recharge_request = "$baseIp/recharge_request.rm" //充值
 
     val help_center = "$baseIp/help_center.rm"             //帮助
     val leave_message_sub = "$baseIp/leave_message_sub.rm" //意见反馈

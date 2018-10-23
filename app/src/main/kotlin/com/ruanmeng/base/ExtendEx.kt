@@ -36,17 +36,13 @@ import com.jakewharton.rxbinding2.view.RxView
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
-inline fun <reified T : View> T.visible() {
-    visibility = View.VISIBLE
-}
+inline fun <reified T : View> T.visible() { visibility = View.VISIBLE }
 
-inline fun <reified T : View> T.invisible() {
-    visibility = View.INVISIBLE
-}
+inline fun <reified T : View> T.invisible() { visibility = View.INVISIBLE }
 
-inline fun <reified T : View> T.gone() {
-    visibility = View.GONE
-}
+inline fun <reified T : View> T.gone() { visibility = View.GONE }
+
+inline fun <reified T : View> T.isVisble() = visibility == View.VISIBLE
 
 fun Context.makeCall(number: String): Boolean {
     return try {

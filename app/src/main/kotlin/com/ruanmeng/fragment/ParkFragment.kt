@@ -1,34 +1,63 @@
 package com.ruanmeng.fragment
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
+import android.view.animation.TranslateAnimation
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.model.*
 import com.amap.api.maps.model.animation.ScaleAnimation
 import com.lzg.extend.BaseResponse
+import com.lzg.extend.StringDialogCallback
 import com.lzg.extend.jackson.JacksonDialogCallback
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.model.Response
-import com.ruanmeng.base.BaseFragment
-import com.ruanmeng.base.addItems
-import com.ruanmeng.base.gone
-import com.ruanmeng.base.visible
+import com.ruanmeng.base.*
 import com.ruanmeng.model.CommonData
+import com.ruanmeng.model.LocationMessageEvent
 import com.ruanmeng.share.BaseHttp
 import com.ruanmeng.smart_parking.R
+import com.ruanmeng.smart_parking.SearchActivity
+import com.ruanmeng.utils.setAnimationListener
 import com.ruanmeng.utils.setOnCameraChangeListener
 import kotlinx.android.synthetic.main.fragment_park.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import org.jetbrains.anko.sdk25.listeners.onClick
+import org.jetbrains.anko.support.v4.startActivity
+import org.json.JSONObject
 
 class ParkFragment : BaseFragment() {
 
     private lateinit var aMap: AMap
     private var locationLatLng: LatLng? = null
+    private var isAnimating = false
+
+    private var nowCity = "" //当前市
+
+    @SuppressLint("HandlerLeak")
+    private var handler = object : Handler() {
+
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            when (msg.what) {
+                0 -> {
+                }
+                1 -> {
+                    OkGo.getInstance().cancelTag(this@ParkFragment)
+                    getAroundData(msg.obj as LatLng)
+                }
+            }
+        }
+    }
 
     //调用这个方法切换时不会释放掉Fragment
     override fun setMenuVisibility(menuVisible: Boolean) {
@@ -45,6 +74,8 @@ class ParkFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         park_map.onCreate(savedInstanceState)
         init_title()
+
+        EventBus.getDefault().register(this@ParkFragment)
     }
 
     override fun init_title() {
@@ -80,38 +111,50 @@ class ParkFragment : BaseFragment() {
             }
 
             /**
-             * 地图状态发生变化的监听
-             */
-            setOnCameraChangeListener {
-                onCameraChange {
-                    park_card.gone()
-                }
-            }
-
-            /**
              * 用户定位信息监听接口
              */
-            setOnMyLocationChangeListener {
+            setOnMyLocationChangeListener { location ->
                 if (locationLatLng == null) {
-                    locationLatLng = LatLng(it.latitude, it.longitude)
+                    locationLatLng = LatLng(location.latitude, location.longitude)
                     aMap.animateCamera(CameraUpdateFactory.changeLatLng(locationLatLng))
-                } else locationLatLng = LatLng(it.latitude, it.longitude)
+
+                    /**
+                     * 地图状态发生变化的监听
+                     */
+                    this.setOnCameraChangeListener {
+                        onCameraChange {
+                            if (!isAnimating) moveToViewBottom()
+                        }
+
+                        onCameraChangeFinish {
+                            handler.removeMessages(1)
+                            val msg = Message()
+                            msg.what = 1
+                            msg.obj = it?.target
+                            handler.sendMessageDelayed(msg, 300)
+                        }
+                    }
+
+                    val bundle = location.extras
+                    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+                    nowCity = bundle.getString("City")
+                } else locationLatLng = LatLng(location.latitude, location.longitude)
             }
 
             /**
              * marker的信息窗口点击事件监听
              */
             setOnMarkerClickListener {
-                park_card.visible()
+                moveToViewLocation()
+                getParkData(it.title)
                 return@setOnMarkerClickListener true
             }
 
             park_location.onClick {
-                if (locationLatLng != null) {
-                    aMap.animateCamera(CameraUpdateFactory.changeLatLng(locationLatLng))
-                    getAroundData(locationLatLng!!)
-                }
+                if (locationLatLng != null) aMap.animateCamera(CameraUpdateFactory.changeLatLng(locationLatLng))
             }
+
+            park_search.onClick { startActivity<SearchActivity>("city" to nowCity) }
         }
     }
 
@@ -120,7 +163,7 @@ class ParkFragment : BaseFragment() {
                 .tag(this@ParkFragment)
                 .params("lat", latLng.latitude)
                 .params("lng", latLng.longitude)
-                .execute(object : JacksonDialogCallback<BaseResponse<ArrayList<CommonData>>>(activity) {
+                .execute(object : JacksonDialogCallback<BaseResponse<ArrayList<CommonData>>>(activity!!) {
 
                     override fun onSuccess(response: Response<BaseResponse<ArrayList<CommonData>>>) {
 
@@ -136,11 +179,31 @@ class ParkFragment : BaseFragment() {
                                         "1" -> R.mipmap.index_icon01
                                         else -> R.mipmap.index_icon02
                                     }))
+                                    .title(it.publicParkingId)
                                     .anchor(0.5f, 0.7f)  //设置Marker的锚点
                                     .draggable(false)    //设置Marker是否可拖动
                             markerOption.isFlat = true   //设置marker平贴地图效果
                             startGrowAnimation(aMap.addMarker(markerOption))
                         }
+                    }
+
+                })
+    }
+
+    private fun getParkData(id: String) {
+        OkGo.post<String>(BaseHttp.index_price_info)
+                .tag(this@ParkFragment)
+                .params("publicParkingId", id)
+                .execute(object : StringDialogCallback(activity!!, false) {
+
+                    override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
+
+                        val obj = JSONObject(response.body()).optJSONObject("object")
+                                ?: JSONObject()
+
+                        park_hint.text = obj.optString("chargeExplain")
+                        park_number.text = obj.optString("vacancySum")
+                        park_price.text = obj.optString("pcost")
                     }
 
                 })
@@ -155,6 +218,58 @@ class ParkFragment : BaseFragment() {
         marker.setAnimation(animation)
         //开始动画
         marker.startAnimation()
+    }
+
+    private fun moveToViewLocation() {
+        if (!park_card.isVisble()) {
+            park_card.visible()
+            park_bottom.startAnimation(TranslateAnimation(
+                    Animation.RELATIVE_TO_SELF,
+                    0.0f,
+                    Animation.RELATIVE_TO_SELF,
+                    0.0f,
+                    Animation.RELATIVE_TO_SELF,
+                    0.6f,
+                    Animation.RELATIVE_TO_SELF, 0.0f).apply {
+                duration = 300
+            })
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    private fun moveToViewBottom() {
+        if (park_card.isVisble()) {
+            isAnimating = true
+
+            park_bottom.startAnimation(TranslateAnimation(
+                    Animation.RELATIVE_TO_SELF,
+                    0.0f,
+                    Animation.RELATIVE_TO_SELF,
+                    0.0f,
+                    Animation.RELATIVE_TO_SELF,
+                    0.0f,
+                    Animation.RELATIVE_TO_SELF,
+                    0.6f).apply {
+                duration = 300
+                setAnimationListener {
+                    onAnimationEnd {
+                        park_card.gone()
+                        isAnimating = false
+                    }
+                }
+            })
+        }
+    }
+
+    @Subscribe
+    fun onMessageEvent(event: LocationMessageEvent) {
+        when (event.type) {
+            "周边搜索" -> {
+                aMap.animateCamera(CameraUpdateFactory.changeLatLng(LatLng(
+                        event.lat.toDouble(),
+                        event.lng.toDouble())))
+            }
+        }
     }
 
     override fun onResume() {
@@ -174,6 +289,7 @@ class ParkFragment : BaseFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        EventBus.getDefault().unregister(this@ParkFragment)
         park_map?.onDestroy()
     }
 }

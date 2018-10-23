@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.widget.CompoundButton
+import cn.jpush.android.api.JPushInterface
 import com.lzg.extend.StringDialogCallback
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.model.Response
@@ -17,6 +18,7 @@ import com.ruanmeng.fragment.ParkFragment
 import com.ruanmeng.fragment.CareFragment
 import com.ruanmeng.fragment.MallFragment
 import com.ruanmeng.share.BaseHttp
+import com.ruanmeng.share.Const
 import com.ruanmeng.utils.Tools
 import com.ruanmeng.utils.phoneReplaceWithStar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -33,6 +35,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         setContentView(R.layout.activity_main)
         setToolbarVisibility(false)
         init_title()
+
+        if (!getBoolean("isTS")) {
+            JPushInterface.resumePush(applicationContext)
+            //设置别名（先初始化）
+            JPushInterface.setAlias(
+                    applicationContext,
+                    Const.JPUSH_SEQUENCE,
+                    getString("token"))
+        }
 
         main_check3.performClick()
     }
@@ -99,7 +110,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 R.id.nav_bill -> startActivity<BillActivity>()
                 R.id.nav_car -> startActivity<CarActivity>()
                 R.id.nav_wallet -> startActivity<WalletActivity>()
-                R.id.nav_contact -> startActivity<WalletActivity>()
+                R.id.nav_contact -> startActivity<TicketActivity>()
                 R.id.nav_feedback -> startActivity<HelpActivity>()
                 R.id.nav_setting -> startActivity<SettingActivity>()
             }
