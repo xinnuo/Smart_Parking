@@ -24,6 +24,7 @@ import com.ruanmeng.utils.phoneReplaceWithStar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.sdk25.listeners.onTouch
 import org.jetbrains.anko.startActivity
 import org.json.JSONObject
@@ -110,7 +111,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 R.id.nav_bill -> startActivity<BillActivity>()
                 R.id.nav_car -> startActivity<CarActivity>()
                 R.id.nav_wallet -> startActivity<WalletActivity>()
-                R.id.nav_contact -> startActivity<TicketActivity>()
+                R.id.nav_contact -> getData()
                 R.id.nav_feedback -> startActivity<HelpActivity>()
                 R.id.nav_setting -> startActivity<SettingActivity>()
             }
@@ -118,6 +119,28 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun getData() {
+        OkGo.post<String>(BaseHttp.help_center)
+                .tag(this@MainActivity)
+                .params("htmlKey", "lxwm")
+                .execute(object : StringDialogCallback(baseContext) {
+
+                    override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
+
+                        val mTel = JSONObject(response.body()).optString("help")
+                        alert {
+                            title = "联系我们"
+                            message = "联系电话：$mTel"
+                            negativeButton("取消") {}
+                            positiveButton("拨打") {
+                                if (mTel.isNotEmpty()) makeCall(mTel)
+                            }
+                        }.show()
+                    }
+
+                })
     }
 
     private fun getInfoData() {

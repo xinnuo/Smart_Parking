@@ -4,9 +4,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/custom_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:overScrollMode="never" />
+
+    <Button
+        android:id="@+id/bt_new"
+        style="@style/Font15_white_borderless"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_size_40"
+        android:layout_margin="@dimen/dimen_size_20"
+        android:background="@drawable/rec_bg_trans_stroke_blue_r5"
+        android:onClick="doClick"
+        android:text="创建新组"
+        android:textColor="@color/colorAccent" />
 
 </LinearLayout>

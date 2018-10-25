@@ -84,7 +84,7 @@ class HelpActivity : BaseActivity() {
     override fun getData() {
         OkGo.post<String>(BaseHttp.help_center)
                 .tag(this@HelpActivity)
-                .params("htmlKey", "xml")
+                .params("htmlKey", "bzzx")
                 .execute(object : StringDialogCallback(baseContext) {
 
                     override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {

@@ -3,10 +3,17 @@ package com.ruanmeng.park_inspector
 import android.os.Bundle
 import android.view.View
 import cn.jpush.android.api.JPushInterface
+import com.lzg.extend.StringDialogCallback
+import com.lzy.okgo.OkGo
+import com.lzy.okgo.model.Response
 import com.ruanmeng.base.*
+import com.ruanmeng.share.BaseHttp
 import com.ruanmeng.utils.ActivityStack
+import com.ruanmeng.utils.isMobile
+import com.ruanmeng.utils.trimString
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
+import org.json.JSONObject
 
 class LoginActivity : BaseActivity() {
 
@@ -42,9 +49,41 @@ class LoginActivity : BaseActivity() {
             R.id.tv_forget -> startActivity<ForgetActivity>()
             R.id.tv_register -> startActivity<RegisterActivity>()
             R.id.bt_login -> {
-                putBoolean("isLogin", true)
-                startActivity<MainActivity>()
-                ActivityStack.screenManager.popActivities(this@LoginActivity::class.java)
+                if (!et_tel.text.isMobile()) {
+                    et_tel.requestFocus()
+                    et_tel.setText("")
+                    showToast("请输入正确的手机号")
+                    return
+                }
+
+                if (et_pwd.text.length < 6) {
+                    et_pwd.requestFocus()
+                    showToast("密码长度不少于6位")
+                    return
+                }
+
+                OkGo.post<String>(BaseHttp.login_sub)
+                        .tag(this@LoginActivity)
+                        .params("accountName", et_tel.text.toString())
+                        .params("password", et_pwd.text.trimString())
+                        .params("loginType", "mobile")
+                        .params("type", "1")
+                        .execute(object : StringDialogCallback(baseContext) {
+
+                            override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
+
+                                val obj = JSONObject(response.body()).optJSONObject("object")
+                                        ?: JSONObject()
+
+                                putBoolean("isLogin", true)
+                                putString("token", obj.optString("token"))
+                                putString("mobile", obj.optString("mobile"))
+
+                                startActivity<MainActivity>()
+                                ActivityStack.screenManager.popActivities(this@LoginActivity::class.java)
+                            }
+
+                        })
             }
             R.id.login_wx -> { }
         }

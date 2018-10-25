@@ -20,7 +20,7 @@ import org.jetbrains.anko.startActivity
 
 class CarActivity : BaseActivity() {
 
-    private val list = java.util.ArrayList<Any>()
+    private val list = ArrayList<Any>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

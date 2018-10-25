@@ -1,12 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/scan_img"
+        android:layout_width="@dimen/dimen_size_90"
+        android:layout_height="@dimen/dimen_size_90"
+        android:layout_marginTop="@dimen/dimen_size_60"
+        android:onClick="doClick"
+        android:src="@mipmap/index_icon07"
+        tools:ignore="ContentDescription" />
+
     <TextView
+        style="@style/Font15_black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:padding="@dimen/dimen_size_3"
+        android:text="扫描" />
+
+    <EditText
+        android:id="@+id/scan_num"
+        style="@style/Font14_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_size_20"
+        android:layout_marginTop="@dimen/dimen_size_30"
+        android:layout_marginEnd="@dimen/dimen_size_20"
+        android:background="@drawable/rec_bg_white_r5"
+        android:hint="请输入车牌号"
+        android:maxLength="10"
+        android:maxLines="1"
+        android:padding="@dimen/dimen_size_15" />
+
+    <Button
+        android:id="@+id/scan_submit"
+        style="@style/Font15_white_borderless"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_size_40"
+        android:layout_margin="@dimen/dimen_size_20"
+        android:background="@drawable/rec_bg_blue_r5"
+        android:onClick="doClick"
+        android:text="提交" />
 
 </LinearLayout>

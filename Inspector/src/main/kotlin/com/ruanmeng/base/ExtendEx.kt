@@ -33,6 +33,7 @@ import android.content.Intent
 import android.net.Uri
 import android.view.View
 import com.jakewharton.rxbinding2.view.RxView
+import net.idik.lib.slimadapter.viewinjector.DefaultViewInjector
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
@@ -71,10 +72,10 @@ inline fun <reified T : JSONObject> T.optStringNotEmpty(name: String, fallback: 
  * 防抖动点击事件，时间单位秒（默认1s）
  */
 @SuppressLint("CheckResult")
-inline fun <reified T : View> T.setOneClickListener(onClickListener: View.OnClickListener) {
+inline fun <reified T : View> T.setOneClickListener(listener: View.OnClickListener) {
     RxView.clicks(this).throttleFirst(1, TimeUnit.SECONDS)
             .subscribe {
-                onClickListener.onClick(this)
+                listener.onClick(this)
             }
 }
 
@@ -89,4 +90,12 @@ inline fun <reified T : View> T.setOneClickListener(duration: Long = 1,
             .subscribe {
                 onClickListener.onClick(this)
             }
+}
+
+/**
+ * SlimAdapter 扩展
+ */
+inline fun <reified T : DefaultViewInjector> T.oneClicked(id: Int, listener: View.OnClickListener): T {
+    findViewById<View>(id).setOneClickListener(listener)
+    return this
 }

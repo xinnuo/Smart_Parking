@@ -2,6 +2,15 @@ package com.ruanmeng.utils
 
 import java.util.regex.Pattern
 
+fun CharSequence.trimString(): String = trim().toString()
+fun CharSequence.trimToUpperCase(): String = trim().toString().toUpperCase()
+
+fun CharSequence.toTextFloat(): Float = toString().toNotFloat()
+fun CharSequence.toTextDouble(): Double = toString().toNotDouble()
+
+fun String.toNotFloat(): Float = if (isEmpty()) "0".toFloat() else toFloat()
+fun String.toNotDouble(): Double = if (isEmpty()) "0".toDouble() else toDouble()
+
 /**
  * 姓名替换，保留姓氏
  * 如果姓名为空 或者 null ,返回空 ；否则，返回替换后的字符串；
@@ -59,15 +68,26 @@ fun String.replaceAction(regular: String): String = replace(regular.toRegex(), "
 /**
  * 判断字符串是否为整数和小数
  */
-fun String.isNumeric(): Boolean {
+fun CharSequence.isNumeric(): Boolean {
     val pattern = Pattern.compile("-?[0-9]+.?[0-9]+")
     return pattern.matcher(this).matches()
 }
 
 /**
+ * 车牌号校验（含新能源车牌）
+ */
+fun CharSequence.isCarNumber(): Boolean {
+    if (length < 6) return false
+    // val regex = "^(([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z](([0-9]{5}[DF])|([DF]([A-HJ-NP-Z0-9])[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z][A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳使领]))\$"
+    val regex = "^(([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼](([A-HJ-Z][A-HJ-NP-Z0-9]{5})|([A-HJ-Z](([DF][A-HJ-NP-Z0-9][0-9]{4})|([0-9]{5}[DF])))|([A-HJ-Z][A-D0-9][0-9]{3}警)))|([0-9]{6}使)|((([沪粤川云桂鄂陕蒙藏黑辽渝]A)|鲁B|闽D|蒙E|蒙H)[0-9]{4}领)|(WJ[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼·•][0-9]{4}[TDSHBXJ0-9])|([VKHBSLJNGCE][A-DJ-PR-TVY][0-9]{5}))\$"
+    val p = Pattern.compile(regex)
+    return p.matcher(this).matches()
+}
+
+/**
  * 手机号校验
  */
-fun String.isMobile(): Boolean {
+fun CharSequence.isMobile(): Boolean {
     if (length != 11) return false
     val regex = "^((1[3|5|8][0-9])|(14[5|7])|(16[6])|(17[0|1|3|5|6|7|8])|(19[8|9]))\\d{8}$"
     val p = Pattern.compile(regex)
@@ -77,7 +97,7 @@ fun String.isMobile(): Boolean {
 /**
  * 传真校验
  */
-fun String.isFax(): Boolean {
+fun CharSequence.isFax(): Boolean {
     val regex = "^((\\d{7,8})|(0\\d{2,3}-\\d{7,8}))$"
     val p = Pattern.compile(regex)
     return p.matcher(this).matches()
@@ -86,7 +106,7 @@ fun String.isFax(): Boolean {
 /**
  * 固话校验
  */
-fun String.isTel(): Boolean {
+fun CharSequence.isTel(): Boolean {
     val regex = "^((\\d{7,8})|(0\\d{2,3}-\\d{7,8})|(400-\\d{3}-\\d{4})|(1[3456789]\\\\d{9}))$" //固话、400固话、匹配手机
 
     /*val reg = "(?:(\\(\\+?86\\))(0[0-9]{2,3}\\-?)?([2-9][0-9]{6,7})+(\\-[0-9]{1,4})?)|" +
@@ -98,7 +118,7 @@ fun String.isTel(): Boolean {
 /**
  * 邮箱校验
  */
-fun String.isEmail(): Boolean {
+fun CharSequence.isEmail(): Boolean {
     // val regex = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$"
     val regex = "^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$"
 
@@ -109,7 +129,7 @@ fun String.isEmail(): Boolean {
 /**
  * 网址校验
  */
-fun String.isWeb(): Boolean {
+fun CharSequence.isWeb(): Boolean {
     val regex = "(http://|ftp://|https://|www){0,1}[^\u4e00-\u9fa5\\s]*?\\.(com|net|cn|me|tw|fr)[^\u4e00-\u9fa5\\s]*"
     // val regex = "^([hH][tT]{2}[pP]:/*|[hH][tT]{2}[pP][sS]:/*|[fF][tT][pP]:/*)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~\\/])+(\\?{0,1}(([A-Za-z0-9-~]+\\={0,1})([A-Za-z0-9-~]*)\\&{0,1})*)$"
 

@@ -6,5 +6,6 @@ package com.ruanmeng.share
  * 创建时间：2018-10-23 18:20
  */
 object Const {
+    const val MAKER = "1529463160"
     const val JPUSH_SEQUENCE = 122         //极光推送自定义操作序列号
 }

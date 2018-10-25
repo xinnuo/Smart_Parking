@@ -94,7 +94,7 @@ class WalletActivity : BaseActivity() {
                     override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
 
                         val obj = JSONObject(response.body()).optString("object")
-                        val data = JSONObject(response.body()).optJSONObject("object") ?: JSONObject()
+                        val data = JSONObject(response.body()).optString("object")
                         when (way) {
                             "AliPay" -> RxPay(baseContext)
                                     .requestAlipay(obj)
@@ -106,7 +106,7 @@ class WalletActivity : BaseActivity() {
                                         } else showToast("支付失败")
                                     }) { OkLogger.printStackTrace(it) }
                             "WxPay" -> RxPay(baseContext)
-                                    .requestWXpay(data.toString())
+                                    .requestWXpay(data)
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe({
                                         if (it) {

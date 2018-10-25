@@ -30,12 +30,12 @@ class MainActivity : BaseActivity() {
         ivBack.gone()
 
         tvRight.onClick { startActivity<SettingActivity>() }
-        main_item1.onClick {  }
-        main_item2.onClick {  }
-        main_item3.onClick {  }
-        main_item4.onClick {  }
-        main_item5.onClick {  }
-        main_item6.onClick {  }
+        main_item1.onClick { startActivity<ScanActivity>() }
+        main_item2.onClick { startActivity<StatusActivity>() }
+        main_item3.onClick { startActivity<CustomActivity>() }
+        main_item4.onClick { startActivity<PreviewActivity>() }
+        main_item5.onClick { startActivity<WrongActivity>() }
+        main_item6.onClick { startActivity<ClockActivity>() }
     }
 
     private var exitTime: Long = 0
