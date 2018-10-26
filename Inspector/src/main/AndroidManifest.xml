@@ -53,7 +53,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".WrongActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".ClockActivity"
             android:screenOrientation="portrait" />

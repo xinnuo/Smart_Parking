@@ -39,7 +39,7 @@ class FeedbackActivity : BaseActivity() {
             }
         }
 
-        feedback_submit.setOneClickListener(View.OnClickListener {
+        feedback_submit.setOneClickListener {
             OkGo.post<String>(BaseHttp.leave_message_sub)
                     .tag(this@FeedbackActivity)
                     .headers("token", getString("token"))
@@ -53,6 +53,6 @@ class FeedbackActivity : BaseActivity() {
                         }
 
                     })
-        })
+        }
     }
 }

@@ -23,5 +23,8 @@ object BaseHttp {
     val find_usergroup_data = "$baseIp/find_usergroup_data.rm" //分组数据
     val update_usergroup = "$baseIp/update_usergroup.rm"       //修改分组
     val delete_usergroup = "$baseIp/delete_usergroup.rm"       //删除分组
+    val find_parking_info = "$baseIp/find_parking_info.rm"     //车位监控
+    val find_ctn_parking = "$baseIp/find_ctn_parking.rm"       //车位预览
+    val add_abnormal = "$baseIp/add_abnormal.rm"               //异常上传
 
 }

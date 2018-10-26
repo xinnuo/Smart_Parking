@@ -15,8 +15,6 @@
             android:id="@+id/status_tab"
             android:layout_width="match_parent"
             android:layout_height="@dimen/line_height"
-            android:layout_marginStart="@dimen/dimen_size_30"
-            android:layout_marginEnd="@dimen/dimen_size_30"
             app:tabIndicatorColor="@color/colorAccent"
             app:tabIndicatorFullWidth="false"
             app:tabMode="scrollable"

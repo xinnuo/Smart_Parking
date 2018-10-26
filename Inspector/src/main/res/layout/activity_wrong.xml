@@ -4,9 +4,42 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <EditText
+        android:id="@+id/wrong_content"
+        style="@style/Font14_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_size_15"
+        android:background="@drawable/rec_bg_white_r5"
+        android:gravity="top"
+        android:hint="请输入异常状况..."
+        android:lineSpacingExtra="@dimen/dimen_size_3"
+        android:minLines="6"
+        android:padding="@dimen/dimen_size_15" />
+
     <TextView
+        style="@style/Font14_gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_marginStart="@dimen/dimen_size_15"
+        android:text="上传异常状况照片" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/wrong_grid"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_size_15"
+        android:layout_marginEnd="@dimen/dimen_size_15"
+        android:overScrollMode="never" />
+
+    <Button
+        android:id="@+id/wrong_submit"
+        style="@style/Font15_white_borderless"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_size_40"
+        android:layout_margin="@dimen/dimen_size_20"
+        android:background="@drawable/rec_bg_blue_r5"
+        android:onClick="doClick"
+        android:text="提交" />
 
 </LinearLayout>

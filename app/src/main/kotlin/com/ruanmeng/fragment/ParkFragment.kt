@@ -145,8 +145,10 @@ class ParkFragment : BaseFragment() {
              * marker的信息窗口点击事件监听
              */
             setOnMarkerClickListener {
-                moveToViewLocation()
-                getParkData(it.title)
+                if (it.title.isNotEmpty()) {
+                    moveToViewLocation()
+                    getParkData(it.title)
+                }
                 return@setOnMarkerClickListener true
             }
 

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.view.View
 import com.lzg.extend.BaseResponse
 import com.lzg.extend.StringDialogCallback
 import com.lzg.extend.jackson.JacksonDialogCallback
@@ -49,7 +48,7 @@ class CustomActivity : BaseActivity() {
                 .register<CommonData>(R.layout.item_custom_list) { data, injector ->
                     injector.text(R.id.item_custom_title, data.groupName)
 
-                    (injector as DefaultViewInjector).oneClicked(R.id.item_custom_edit, View.OnClickListener {
+                    (injector as DefaultViewInjector).oneClicked(R.id.item_custom_edit) {
                         DialogHelper.showAddDialog(
                                 baseContext,
                                 "修改组名称",
@@ -59,15 +58,15 @@ class CustomActivity : BaseActivity() {
 
                             getEditData(data.userGroupId, name)
                         }
-                    }).oneClicked(R.id.item_custom_del, View.OnClickListener {
+                    }.oneClicked(R.id.item_custom_del) {
                         DialogHelper.showDelDialog(baseContext) { _ ->
                             getDelData(data.userGroupId, list.indexOf(data))
                         }
-                    })
+                    }
                 }
                 .attachTo(custom_list)
 
-        bt_new.setOneClickListener(View.OnClickListener { _ ->
+        bt_new.setOneClickListener { _ ->
             DialogHelper.showAddDialog(
                     baseContext,
                     "新建组名称",
@@ -75,7 +74,7 @@ class CustomActivity : BaseActivity() {
                     "请输入新建组名称") {
                 getAddData(it)
             }
-        })
+        }
     }
 
     override fun getData() {

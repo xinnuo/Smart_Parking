@@ -220,10 +220,10 @@ class BillActivity : BaseActivity() {
                 })
     }
 
-    fun updateList() {
+    private fun updateList() {
         swipe_refresh.isRefreshing = true
 
-        empty_view.visibility = View.GONE
+        empty_view.gone()
         if (list.isNotEmpty()) {
             list.clear()
             mAdapter.notifyDataSetChanged()
