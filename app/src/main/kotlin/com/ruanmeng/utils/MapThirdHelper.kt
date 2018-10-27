@@ -38,6 +38,9 @@ import android.net.Uri
  * 腾讯：com.tencent.map
  * 谷歌：com.google.android.apps.maps
  *
+ * 高德地图网页版 https://lbs.amap.com/api/uri-api/guide/travel/route
+ * 百度地图网页版 http://lbsyun.baidu.com/index.php?title=uri/api/web
+ *
  * @param packageName 包名
  */
 fun Context.isAvilible(packageName: String) = kotlin.run {
@@ -128,7 +131,7 @@ fun Context.toAMapRoute(
 }
 
 /**
- * 百度路线规划 URL接口：baidumap://map/direction
+ * 百度地图路线规划 URL接口：baidumap://map/direction
  * http://lbsyun.baidu.com/index.php?title=uri/api/android
  *
  * @param origin             起点名称或经纬度，或者可同时提供名称和经纬度，此时经纬度优先级高，将作为导航依据，名称只负责展示。
@@ -187,6 +190,39 @@ fun Context.toBaiduDirection(
             if (region.isEmpty()) "" else "&region=$region" +
             if (origin_region.isEmpty()) "" else "&origin_region=$origin_region" +
             if (destination_region.isEmpty()) "" else "&destination_region=$destination_region"
+
+    startActivity(Intent().apply {
+        action = Intent.ACTION_VIEW
+        addCategory(Intent.CATEGORY_DEFAULT)
+        data = Uri.parse(uriString)
+    })
+}
+
+/**
+ * 腾讯地图路线规划 URL接口：qqmap://map/routeplan
+ * https://lbs.qq.com/uri_v1/guide-mobile-navAndRoute.html
+ *
+ * @param type      必填 路线规划方式参数：公交：bus、驾车：drive、步行：walk、骑行：bike
+ * @param from      非必填 起点名称
+ * @param fromcoord 必填 起点坐标，格式：lat,lng （纬度在前，经度在后，逗号分隔）
+ *                       功能参数值：CurrentLocation ：使用定位点作为起点坐标
+ * @param to        非必填 终点名称
+ * @param tocoord   必填 终点坐标
+ * @param referer   必填 开发者key
+ */
+fun Context.toTenCentRoute(
+        type: String = "drive",
+        tocoord: String,
+        to: String = "",
+        fromcoord: String = "CurrentLocation",
+        from: String = "",
+        referer: String = "") {
+    val uriString = "qqmap://map/routeplan?type=$type" +
+            "&tocoord=$tocoord" +
+            "&fromcoord=$fromcoord" +
+            if (to.isEmpty()) "" else "&to=$to" +
+            if (from.isEmpty()) "" else "&from=$from" +
+            if (referer.isEmpty()) "" else "&referer=$referer"
 
     startActivity(Intent().apply {
         action = Intent.ACTION_VIEW

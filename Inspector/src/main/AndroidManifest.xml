@@ -46,6 +46,9 @@
             android:name=".StatusActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".StatusDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".CustomActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -83,7 +86,6 @@
             tools:ignore="ExportedReceiver">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
-
                 <category android:name="${applicationId}" />
             </intent-filter>
         </receiver>

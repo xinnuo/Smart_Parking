@@ -41,6 +41,12 @@
         <item name="android:textColorHint">@color/colorControlNormal</item>
     </style>
 
+    <style name="Font18_black">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/colorControlNormal</item>
+    </style>
+
     <style name="Font15_black">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/black</item>

@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.layout_empty.*
 import net.idik.lib.slimadapter.SlimAdapter
 import org.jetbrains.anko.collections.forEachWithIndex
 import org.jetbrains.anko.design.listeners.__TabLayout_OnTabSelectedListener
+import org.jetbrains.anko.startActivity
 
 class StatusActivity : BaseActivity() {
 
@@ -47,6 +48,9 @@ class StatusActivity : BaseActivity() {
                                     "1" -> it.setImageResource(R.mipmap.index_icon09)
                                     "2" -> it.setImageResource(R.mipmap.index_icon10)
                                 }
+                            }
+                            .clicked(R.id.item_status) {
+                                startActivity<StatusDetailActivity>()
                             }
                 }
                 .attachTo(recycle_list)

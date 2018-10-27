@@ -31,8 +31,8 @@ import kotlinx.android.synthetic.main.fragment_park.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.jetbrains.anko.sdk25.listeners.onClick
+import org.jetbrains.anko.support.v4.browse
 import org.jetbrains.anko.support.v4.startActivity
-import org.jetbrains.anko.support.v4.toast
 import org.json.JSONObject
 
 class ParkFragment : BaseFragment() {
@@ -235,10 +235,26 @@ class ParkFragment : BaseFragment() {
             activity!!.isAvilible("com.baidu.BaiduMap") ->
                 activity!!.toBaiduDirection(
                         "name:$mPoiName|latlng:$mLat,$mLng",
-                        "com.ruanmeng.smart_parking",
+                        "andr.ruanmeng.smart_parking",
                         "driving",
                         "gcj02")
-            else -> toast("请安装高德或百度地图")
+            activity!!.isAvilible("com.tencent.map") ->
+                activity!!.toTenCentRoute(
+                        "drive",
+                        "$mLat,$mLng",
+                        mPoiName)
+            else -> {
+                //高德地图网页版 https://lbs.amap.com/api/uri-api/guide/travel/route
+                browse("https://uri.amap.com/navigation?to=$mLng,$mLat,$mPoiName&mode=car&src=mypage&callnative=0")
+
+                //百度地图网页版 http://lbsyun.baidu.com/index.php?title=uri/api/web
+                /*browse("http://api.map.baidu.com/direction?origin=name:我的位置|latlng:${locationLatLng!!.latitude},${locationLatLng!!.longitude}" +
+                        "&destination=name:$mPoiName|latlng:$mLat,$mLng" +
+                        "&region=$nowCity" +
+                        "&mode=driving" +
+                        "&output=html" +
+                        "&src=webapp.ruanmeng.smart_parking")*/
+            }
         }
     }
 

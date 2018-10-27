@@ -20,8 +20,9 @@ object BaseHttp {
     val identify_getbyforget = "$baseIp/identify_getbyforget.rm" //忘记验证码
     val password_change_sub = "$baseIp/password_change_sub.rm"   //修改密码
 
-    val index_data = "$baseIp/index_data.rm"             //首页
-    val index_price_info = "$baseIp/index_price_info.rm" //车位信息
+    val index_data = "$baseIp/index_data.rm"                 //首页
+    val index_price_info = "$baseIp/index_price_info.rm"     //车位信息
+    val find_carshopp_data = "$baseIp/find_carshopp_data.rm" //车品商城
 
     val userinfo_uploadhead_sub = "$baseIp/userinfo_uploadhead_sub.rm" //修改头像
     val nickName_change_sub = "$baseIp/nickName_change_sub.rm"         //修改昵称

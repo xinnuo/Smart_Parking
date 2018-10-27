@@ -41,6 +41,12 @@ data class CommonData(
         var carType: String = "",
         var mycarId: String = "",
 
+        //车品商城
+        var carshoppIcon: String = "",
+        var carshoppName: String = "",
+        var carshoppUrl: String = "",
+        var carshoppId: String = "",
+
         //车位列表
         var parkName: String = "",
         var paddress: String = "",
