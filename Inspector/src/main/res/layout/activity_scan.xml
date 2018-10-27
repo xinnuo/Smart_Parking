@@ -36,6 +36,20 @@
         android:maxLines="1"
         android:padding="@dimen/dimen_size_15" />
 
+    <EditText
+        android:id="@+id/scan_place"
+        style="@style/Font14_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_size_20"
+        android:layout_marginTop="@dimen/dimen_size_15"
+        android:layout_marginEnd="@dimen/dimen_size_20"
+        android:background="@drawable/rec_bg_white_r5"
+        android:hint="请输入车位"
+        android:maxLength="10"
+        android:maxLines="1"
+        android:padding="@dimen/dimen_size_15" />
+
     <Button
         android:id="@+id/scan_submit"
         style="@style/Font15_white_borderless"

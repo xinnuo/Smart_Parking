@@ -28,5 +28,6 @@ object BaseHttp {
     val add_abnormal = "$baseIp/add_abnormal.rm"               //异常上传
     val add_punchClock = "$baseIp/add_punchClock.rm"           //打卡
     val punchClock_data = "$baseIp/punchClock_data.rm"         //打卡记录
+    val add_scaninfo = "$baseIp/add_scaninfo.rm"               //车位上传
 
 }
