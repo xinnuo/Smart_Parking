@@ -37,6 +37,19 @@ public class DialogHelper {
             mMProgressDialog.dismiss();
     }
 
+    public static void showHintDialog(final Context context) {
+        BaseDialog dialog = new BaseDialog(context) {
+            @Override
+            public View onCreateView() {
+                widthScale(0.6f);
+                return View.inflate(context, R.layout.dialog_clock_add, null);
+            }
+        };
+
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+    }
+
     public static void showDelDialog(
             final Context context,
             final ClickCallBack callBack) {

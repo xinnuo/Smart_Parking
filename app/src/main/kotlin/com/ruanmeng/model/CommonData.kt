@@ -41,7 +41,7 @@ data class CommonData(
         var carType: String = "",
         var mycarId: String = "",
 
-        //车牌列表
+        //车位列表
         var parkName: String = "",
         var paddress: String = "",
         var pprovince: String = "",
@@ -61,6 +61,7 @@ data class CommonData(
 
         //账单列表
         var goodsOrderId: String = "",
+        var invoice: String = "",
         var status: String = "",
         var startDate: String = "",
         var endDate: String = "",

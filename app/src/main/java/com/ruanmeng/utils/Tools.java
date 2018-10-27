@@ -195,23 +195,6 @@ public class Tools {
     }
 
     /**
-     * 根据包名判断是否有安装该App
-     *
-     * @param context     上下文
-     * @param packageName 包名
-     */
-    public static boolean isAvilible(Context context, String packageName) {
-        PackageManager packageManager = context.getPackageManager();
-
-        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
-        for (int i = 0; i < pinfo.size(); i++) {
-            if (pinfo.get(i).packageName.equalsIgnoreCase(packageName))
-                return true;
-        }
-        return false;
-    }
-
-    /**
      * 判断某个服务是否正在运行的方法
      *
      * @param mContext    上下文
@@ -253,45 +236,6 @@ public class Tools {
                 }
             }
         }
-    }
-
-    /**
-     * 启动高德App进行导航
-     * <h3>Version</h3> 1.0
-     * <h3>CreateTime</h3> 2016/6/27,13:58
-     * <h3>UpdateTime</h3> 2016/6/27,13:58
-     * <h3>CreateAuthor</h3>
-     * <h3>UpdateAuthor</h3>
-     * <h3>UpdateInfo</h3> (此处输入修改内容,若无修改可不写.)
-     *
-     * @param sourceApplication 必填 第三方调用应用名称。如 amap
-     * @param poiname           非必填 POI 名称
-     * @param lat               必填 纬度
-     * @param lon               必填 经度
-     * @param dev               必填 是否偏移(0:lat 和 lon 是已经加密后的,不需要国测加密; 1:需要国测加密)
-     * @param style             必填 导航方式(0 速度快; 1 费用少; 2 路程短; 3 不走高速；4 躲避拥堵；5 不走高速且避免收费；6 不走高速且躲避拥堵；7 躲避收费和拥堵；8 不走高速躲避收费和拥堵))
-     */
-    public static void goToNaviActivity(
-            Context context,
-            String sourceApplication,
-            String poiname,
-            String lat,
-            String lon,
-            String dev,
-            String style) {
-        StringBuilder stringBuffer = new StringBuilder("androidamap://navi?sourceApplication=")
-                .append(sourceApplication);
-        if (!TextUtils.isEmpty(poiname)) {
-            stringBuffer.append("&poiname=").append(poiname);
-        }
-        stringBuffer.append("&lat=").append(lat)
-                .append("&lon=").append(lon)
-                .append("&dev=").append(dev)
-                .append("&style=").append(style);
-
-        Intent intent = new Intent("android.intent.action.VIEW", Uri.parse(stringBuffer.toString()));
-        intent.setPackage("com.autonavi.minimap");
-        context.startActivity(intent);
     }
 
     /**
@@ -506,6 +450,7 @@ public class Tools {
 
     /**
      * 将中文转为Unicode
+     *
      * @param gbString 中文字符串
      */
     public static String gbEncoding(final String gbString) {
@@ -524,6 +469,7 @@ public class Tools {
 
     /**
      * 将Unicode转为中文
+     *
      * @param dataStr Unicode字符串
      */
     public static String decodeUnicode(final String dataStr) {

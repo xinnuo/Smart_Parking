@@ -2,8 +2,13 @@ package com.ruanmeng.park_inspector
 
 import android.os.Bundle
 import cn.jpush.android.api.JPushInterface
+import com.lzg.extend.StringDialogCallback
+import com.lzy.okgo.OkGo
+import com.lzy.okgo.model.Response
 import com.ruanmeng.base.*
+import com.ruanmeng.share.BaseHttp
 import com.ruanmeng.share.Const
+import com.ruanmeng.utils.DialogHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.sdk25.listeners.onClick
 import org.jetbrains.anko.startActivity
@@ -35,7 +40,23 @@ class MainActivity : BaseActivity() {
         main_item3.onClick { startActivity<CustomActivity>() }
         main_item4.onClick { startActivity<PreviewActivity>() }
         main_item5.onClick { startActivity<WrongActivity>() }
-        main_item6.onClick { startActivity<ClockActivity>() }
+        main_item6.onClick { getData() }
+    }
+
+    override fun getData() {
+        OkGo.post<String>(BaseHttp.add_punchClock)
+                .tag(this@MainActivity)
+                .headers("token", getString("token"))
+                .execute(object : StringDialogCallback(baseContext) {
+
+                    override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
+                        DialogHelper.showHintDialog(baseContext)
+                    }
+
+                    override fun onSuccessResponseErrorCode(response: Response<String>, msg: String, msgCode: String) {
+                        startActivity<ClockActivity>()
+                    }
+                })
     }
 
     private var exitTime: Long = 0

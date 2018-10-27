@@ -76,12 +76,12 @@ class PreviewActivity : BaseActivity() {
 
                         if (allCount > 0) {
                             val empStr = DecimalFormat("0.00").format((empCount * 1.0 / allCount) * 100.00)
-                            val expStr = DecimalFormat("0.00").format((pingCount * 1.0 / allCount) * 100.00)
-                            val pingStr = DecimalFormat("0.00").format((expCount * 1.0 / allCount) * 100.00)
+                            val expStr = DecimalFormat("0.00").format((expCount * 1.0 / allCount) * 100.00)
+                            val pingStr = DecimalFormat("0.00").format((pingCount * 1.0 / allCount) * 100.00)
 
                             preview_percent1.text = "$empStr%"
-                            preview_percent2.text = "$expStr%"
-                            preview_percent3.text = "$pingStr%"
+                            preview_percent2.text = "$pingStr%"
+                            preview_percent3.text = "$expStr%"
 
                             setChartData(ArrayList<PieEntry>().apply {
                                 add(PieEntry(empStr.toFloat(), "空车位"))

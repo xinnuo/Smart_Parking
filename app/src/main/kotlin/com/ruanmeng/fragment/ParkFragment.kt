@@ -26,13 +26,13 @@ import com.ruanmeng.model.LocationMessageEvent
 import com.ruanmeng.share.BaseHttp
 import com.ruanmeng.smart_parking.R
 import com.ruanmeng.smart_parking.SearchActivity
-import com.ruanmeng.utils.setAnimationListener
-import com.ruanmeng.utils.setOnCameraChangeListener
+import com.ruanmeng.utils.*
 import kotlinx.android.synthetic.main.fragment_park.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.jetbrains.anko.sdk25.listeners.onClick
 import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.toast
 import org.json.JSONObject
 
 class ParkFragment : BaseFragment() {
@@ -41,7 +41,11 @@ class ParkFragment : BaseFragment() {
     private var locationLatLng: LatLng? = null
     private var isAnimating = false
 
+    private val list = ArrayList<CommonData>()
     private var nowCity = "" //当前市
+    private var mPoiName = ""
+    private var mLat = ""
+    private var mLng = ""
 
     @SuppressLint("HandlerLeak")
     private var handler = object : Handler() {
@@ -114,6 +118,10 @@ class ParkFragment : BaseFragment() {
              * 用户定位信息监听接口
              */
             setOnMyLocationChangeListener { location ->
+                val bundle = location.extras
+                @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+                nowCity = bundle.getString("City")
+
                 if (locationLatLng == null) {
                     locationLatLng = LatLng(location.latitude, location.longitude)
                     aMap.animateCamera(CameraUpdateFactory.changeLatLng(locationLatLng))
@@ -134,10 +142,6 @@ class ParkFragment : BaseFragment() {
                             handler.sendMessageDelayed(msg, 300)
                         }
                     }
-
-                    val bundle = location.extras
-                    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-                    nowCity = bundle.getString("City")
                 } else locationLatLng = LatLng(location.latitude, location.longitude)
             }
 
@@ -157,6 +161,10 @@ class ParkFragment : BaseFragment() {
             }
 
             park_search.onClick { startActivity<SearchActivity>("city" to nowCity) }
+
+            park_nav.onClick {
+                if (mLat.isNotEmpty() && mLng.isNotEmpty()) startToNavi()
+            }
         }
     }
 
@@ -169,7 +177,7 @@ class ParkFragment : BaseFragment() {
 
                     override fun onSuccess(response: Response<BaseResponse<ArrayList<CommonData>>>) {
 
-                        val list = ArrayList<CommonData>()
+                        list.clear()
                         list.addItems(response.body().`object`)
 
                         aMap.clear(true)
@@ -200,15 +208,38 @@ class ParkFragment : BaseFragment() {
 
                     override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
 
-                        val obj = JSONObject(response.body()).optJSONObject("object")
-                                ?: JSONObject()
+                        val obj = JSONObject(response.body())
+                                .optJSONObject("object") ?: JSONObject()
 
                         park_hint.text = obj.optString("chargeExplain")
                         park_number.text = obj.optString("vacancySum")
                         park_price.text = obj.optString("pcost")
+
+                        val item = list.firstOrNull { it.publicParkingId == id }
+                        mPoiName = item?.parkName ?: ""
+                        mLat = item?.plat ?: ""
+                        mLng = item?.plng ?: ""
                     }
 
                 })
+    }
+
+    private fun startToNavi() {
+        when {
+            activity!!.isAvilible("com.autonavi.minimap") ->
+                activity!!.toAMapRoute(
+                        resources.getString(R.string.app_name),
+                        mLat,
+                        mLng,
+                        mPoiName)
+            activity!!.isAvilible("com.baidu.BaiduMap") ->
+                activity!!.toBaiduDirection(
+                        "name:$mPoiName|latlng:$mLat,$mLng",
+                        "com.ruanmeng.smart_parking",
+                        "driving",
+                        "gcj02")
+            else -> toast("请安装高德或百度地图")
+        }
     }
 
     private fun startGrowAnimation(marker: Marker) {
@@ -256,6 +287,9 @@ class ParkFragment : BaseFragment() {
                 setAnimationListener {
                     onAnimationEnd {
                         park_card.gone()
+                        mPoiName = ""
+                        mLat = ""
+                        mLng = ""
                         isAnimating = false
                     }
                 }

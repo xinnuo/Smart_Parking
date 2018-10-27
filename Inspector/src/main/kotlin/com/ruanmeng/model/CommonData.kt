@@ -37,5 +37,19 @@ import java.io.Serializable
 data class CommonData(
         //分组列表
         var userGroupId: String = "",
-        var groupName: String = ""
+        var groupName: String = "",
+        //打卡记录
+        var signinDay: String = "",
+        //车位列表
+        var paddress: String = "",
+        var pprovince: String = "",
+        var pcity: String = "",
+        var pdistrict: String = "",
+        var ptownship: String = "",
+        var plat: String = "",
+        var plng: String = "",
+        var deviceId: String = "",
+        var parkingStatus: String = "",
+        var parkingId: String = "",
+        var publicParkingId: String = ""
 ) : Serializable
