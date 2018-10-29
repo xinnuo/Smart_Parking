@@ -3,74 +3,94 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/setting_msg"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/line_height"
-        android:gravity="center_vertical"
-        android:onClick="doClick"
-        android:paddingStart="@dimen/dimen_size_10"
-        android:paddingEnd="@dimen/dimen_size_5">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_size_10"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-        <TextView
-            style="@style/Font14_black"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="消息推送提醒" />
+        <com.allen.library.SuperTextView
+            android:id="@+id/setting_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_size_46"
+            app:sBottomLineMargin="@dimen/dimen_size_10"
+            app:sLeftTextColor="@color/black"
+            app:sLeftTextMarginLeft="@dimen/dimen_size_10"
+            app:sLeftTextString="修改密码"
+            app:sLineShow="both"
+            app:sRightIconMarginRight="@dimen/dimen_size_10"
+            app:sRightIconRes="@mipmap/index_right"
+            app:sRightIconSize="@dimen/dimen_size_15"
+            app:sTopLineMargin="@dimen/dimen_size_0" />
 
-        <com.suke.widget.SwitchButton
-            android:id="@+id/setting_switch"
-            android:layout_width="@dimen/dimen_size_50"
-            android:layout_height="@dimen/dimen_size_30"
-            app:sb_checked="true"
-            app:sb_checked_color="@color/colorAccent"
-            app:sb_shadow_effect="false"
-            app:sb_show_indicator="false" />
+        <LinearLayout
+            android:id="@+id/setting_msg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:gravity="center_vertical"
+            android:onClick="doClick"
+            android:paddingStart="@dimen/dimen_size_10"
+            android:paddingEnd="@dimen/dimen_size_5">
+
+            <TextView
+                style="@style/Font14_black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="消息推送提醒" />
+
+            <com.suke.widget.SwitchButton
+                android:id="@+id/setting_switch"
+                android:layout_width="@dimen/dimen_size_50"
+                android:layout_height="@dimen/dimen_size_30"
+                app:sb_checked="true"
+                app:sb_checked_color="@color/colorAccent"
+                app:sb_shadow_effect="false"
+                app:sb_show_indicator="false" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/dimen_size_10"
+            android:layout_marginEnd="@dimen/dimen_size_10"
+            android:background="@color/divider" />
+
+        <LinearLayout
+            android:id="@+id/setting_cache_ll"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:gravity="center_vertical"
+            android:onClick="doClick"
+            android:paddingStart="@dimen/dimen_size_10"
+            android:paddingEnd="@dimen/dimen_size_10">
+
+            <TextView
+                style="@style/Font14_black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="清除缓存" />
+
+            <TextView
+                android:id="@+id/setting_cache"
+                style="@style/Font14_gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0B" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/divider" />
 
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_height"
-        android:layout_marginStart="@dimen/dimen_size_10"
-        android:layout_marginEnd="@dimen/dimen_size_10"
-        android:background="@color/divider" />
-
-    <LinearLayout
-        android:id="@+id/setting_cache_ll"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/line_height"
-        android:gravity="center_vertical"
-        android:onClick="doClick"
-        android:paddingStart="@dimen/dimen_size_10"
-        android:paddingEnd="@dimen/dimen_size_10">
-
-        <TextView
-            style="@style/Font14_black"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="清除缓存" />
-
-        <TextView
-            android:id="@+id/setting_cache"
-            style="@style/Font14_gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0B" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_height"
-        android:layout_marginStart="@dimen/dimen_size_10"
-        android:layout_marginEnd="@dimen/dimen_size_10"
-        android:background="@color/divider" />
 
     <Button
         android:id="@+id/bt_quit"

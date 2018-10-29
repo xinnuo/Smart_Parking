@@ -79,7 +79,8 @@
         android:layout_marginStart="@dimen/dimen_size_15"
         android:layout_marginTop="@dimen/dimen_size_10"
         android:layout_marginEnd="@dimen/dimen_size_15"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:visibility="invisible">
 
         <TextView
             android:id="@+id/tv_forget"

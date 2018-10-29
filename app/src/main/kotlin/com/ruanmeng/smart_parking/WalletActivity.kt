@@ -43,7 +43,7 @@ class WalletActivity : BaseActivity() {
             gravity = Gravity.CENTER_HORIZONTAL
 
             balanceTV = themedTextView("0.00", R.style.Font15_black) {
-                textSize = sp(18).toFloat()
+                textSize = sp(16).toFloat()
                 gravity = Gravity.CENTER
             }.lparams(width = matchParent) {
                 topMargin = dip(80)
