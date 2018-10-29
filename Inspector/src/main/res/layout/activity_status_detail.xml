@@ -1,12 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <com.allen.library.SuperTextView
+        android:id="@+id/status_car"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_size_46"
+        android:layout_marginTop="@dimen/dimen_size_10"
+        app:sBottomLineMargin="@dimen/dimen_size_10"
+        app:sLeftTextColor="@color/gray"
+        app:sLeftTextMarginLeft="@dimen/dimen_size_10"
+        app:sLeftTextString="车牌号"
+        app:sLineShow="both"
+        app:sRightTextColor="@color/black"
+        app:sRightTextMarginRight="@dimen/dimen_size_10"
+        app:sTopLineMargin="@dimen/dimen_size_0" />
+
+    <com.allen.library.SuperTextView
+        android:id="@+id/status_start"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_size_45.5"
+        app:sBottomLineMargin="@dimen/dimen_size_10"
+        app:sLeftTextColor="@color/gray"
+        app:sLeftTextMarginLeft="@dimen/dimen_size_10"
+        app:sLeftTextString="开始时间"
+        app:sLineShow="bottom"
+        app:sRightTextColor="@color/black"
+        app:sRightTextMarginRight="@dimen/dimen_size_10" />
+
+    <com.allen.library.SuperTextView
+        android:id="@+id/status_long"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_size_45.5"
+        app:sBottomLineMargin="@dimen/dimen_size_10"
+        app:sLeftTextColor="@color/gray"
+        app:sLeftTextMarginLeft="@dimen/dimen_size_10"
+        app:sLeftTextString="停车时长"
+        app:sLineShow="bottom"
+        app:sRightTextColor="@color/black"
+        app:sRightTextMarginRight="@dimen/dimen_size_10" />
+
+    <com.allen.library.SuperTextView
+        android:id="@+id/status_num"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_size_45.5"
+        app:sBottomLineMargin="@dimen/dimen_size_10"
+        app:sLeftTextColor="@color/gray"
+        app:sLeftTextMarginLeft="@dimen/dimen_size_10"
+        app:sLeftTextString="车位号"
+        app:sLineShow="bottom"
+        app:sRightTextColor="@color/black"
+        app:sRightTextMarginRight="@dimen/dimen_size_10" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/Font14_gray"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/line_height"
+                android:layout_marginLeft="@dimen/dimen_size_10"
+                android:layout_marginRight="@dimen/dimen_size_10"
+                android:gravity="center_vertical"
+                android:text="停车场位置" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/status_addr"
+                    style="@style/Font14_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical|end"
+                    android:lineSpacingExtra="@dimen/dimen_size_3"
+                    android:minHeight="@dimen/line_height"
+                    android:paddingLeft="@dimen/dimen_size_10"
+                    android:paddingTop="@dimen/dimen_size_13"
+                    android:paddingRight="@dimen/dimen_size_10"
+                    android:paddingBottom="@dimen/dimen_size_13" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/divider" />
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -245,7 +245,7 @@ class ParkFragment : BaseFragment() {
                         mPoiName)
             else -> {
                 //高德地图网页版 https://lbs.amap.com/api/uri-api/guide/travel/route
-                browse("https://uri.amap.com/navigation?to=$mLng,$mLat,$mPoiName&mode=car&src=mypage&callnative=0")
+                browse("https://uri.amap.com/navigation?to=$mLng,$mLat,$mPoiName&mode=car&src=com.ruanmeng.smart_parking&callnative=0")
 
                 //百度地图网页版 http://lbsyun.baidu.com/index.php?title=uri/api/web
                 /*browse("http://api.map.baidu.com/direction?origin=name:我的位置|latlng:${locationLatLng!!.latitude},${locationLatLng!!.longitude}" +

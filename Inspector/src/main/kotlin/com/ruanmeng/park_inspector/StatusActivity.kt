@@ -41,7 +41,7 @@ class StatusActivity : BaseActivity() {
 
         mAdapter = SlimAdapter.create()
                 .register<CommonData>(R.layout.item_status_grid) { data, injector ->
-                    injector.text(R.id.item_status_title, "")
+                    injector.text(R.id.item_status_title, data.deviceId)
                             .with<ImageView>(R.id.item_status_img) {
                                 when (data.parkingStatus) {
                                     "0" -> it.setImageResource(R.mipmap.index_icon08)
@@ -50,7 +50,10 @@ class StatusActivity : BaseActivity() {
                                 }
                             }
                             .clicked(R.id.item_status) {
-                                startActivity<StatusDetailActivity>()
+                                startActivity<StatusDetailActivity>(
+                                        "parkId" to data.parkingId,
+                                        "space" to data.deviceId,
+                                        "address" to data.paddress)
                             }
                 }
                 .attachTo(recycle_list)
