@@ -17,68 +17,37 @@ import com.lzy.okgo.model.Response
 import com.lzy.okgo.utils.OkLogger
 import com.ruanmeng.base.*
 import com.ruanmeng.model.CommonData
-import com.ruanmeng.model.RefreshMessageEvent
 import com.ruanmeng.share.BaseHttp
 import com.ruanmeng.utils.toNotDouble
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.activity_bill.*
 import kotlinx.android.synthetic.main.layout_empty.*
 import kotlinx.android.synthetic.main.layout_list.*
 import net.idik.lib.slimadapter.SlimAdapter
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
+import org.jetbrains.anko.include
 import org.jetbrains.anko.sdk25.listeners.onClick
-import org.jetbrains.anko.startActivity
 import org.json.JSONObject
 import java.text.DecimalFormat
 
-class BillActivity : BaseActivity() {
+class CarBillActivity : BaseActivity() {
 
     private val list = ArrayList<Any>()
-    private var mStatus = ""
     private var mBanlance = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_bill)
-        init_title("我的账单")
+        include<View>(R.layout.layout_list)
+        init_title("车辆账单")
 
-        EventBus.getDefault().register(this@BillActivity)
-
+        swipe_refresh.isRefreshing = true
+        getBanlanceData()
         getData()
     }
 
     override fun init_title() {
         super.init_title()
-        // 28.0.0版本以后TabLayout已更新
-        bill_tab.apply {
-            onTabSelectedListener {
-                onTabSelected {
-                    mStatus = when (it!!.position) {
-                        0 -> "0"
-                        1 -> "2"
-                        2 -> "5"
-                        else -> ""
-                    }
-
-                    OkGo.getInstance().cancelTag(this@BillActivity)
-                    window.decorView.postDelayed({ runOnUiThread { updateList() } }, 300)
-                }
-            }
-
-            addTab(this.newTab().setText("未付款"), true)
-            addTab(this.newTab().setText("已付款"), false)
-            addTab(this.newTab().setText("开发票"), false)
-        }
-
         empty_hint.text = "暂无相关账单信息"
-        swipe_refresh.refresh { getData(1) }
-        recycle_list.load_Linear(baseContext, swipe_refresh) {
-            if (!isLoadingMore) {
-                isLoadingMore = true
-                getData(pageNum)
-            }
-        }
+        swipe_refresh.refresh { getData() }
+        recycle_list.load_Linear(baseContext, swipe_refresh)
 
         mAdapter = SlimAdapter.create()
                 .register<CommonData>(R.layout.item_bill_list) { data, injector ->
@@ -90,32 +59,49 @@ class BillActivity : BaseActivity() {
                             .text(R.id.item_bill_address, data.daddress)
                             .text(R.id.item_bill_money, DecimalFormat("0.00").format(data.paySum.toNotDouble()))
                             .text(R.id.item_bill_fee, DecimalFormat("0.00").format(data.LateFee.toNotDouble()))
-                            .text(R.id.item_bill_press, when (data.status) {
-                                "-1", "0", "1" -> "去付款"
-                                "5" -> "开发票"
-                                else -> ""
-                            })
+                            .text(R.id.item_bill_press, "去付款")
 
-                            .visibility(R.id.item_bill_bar, when (data.status) {
-                                "-1", "0", "1", "5" -> View.VISIBLE
-                                else -> View.GONE
-                            })
                             .visibility(R.id.item_bill_late, if (data.LateFee.isEmpty()) View.GONE else View.VISIBLE)
                             .visibility(R.id.item_bill_divider, if (isLast) View.VISIBLE else View.GONE)
 
                             .clicked(R.id.item_bill_press) {
-                                when (data.status) {
-                                    "-1", "0", "1" -> showChargeDialog(data.goodsOrderId, data.parkingInfoId)
-                                    "5" -> startActivity<TicketActivity>("goodsOrderId" to data.goodsOrderId)
-                                }
+                                showChargeDialog(data.goodsOrderId, data.parkingInfoId)
                             }
                 }
                 .attachTo(recycle_list)
     }
 
     override fun getData() {
+        OkGo.post<BaseResponse<ArrayList<CommonData>>>(BaseHttp.goodsorder_carNo_list_data)
+                .tag(this@CarBillActivity)
+                .isMultipart(true)
+                .headers("token", getString("token"))
+                .params("carNo", intent.getStringExtra("carNo"))
+                .execute(object : JacksonDialogCallback<BaseResponse<ArrayList<CommonData>>>(baseContext) {
+
+                    override fun onSuccess(response: Response<BaseResponse<ArrayList<CommonData>>>) {
+
+                        list.apply {
+                            clear()
+                            addItems(response.body().`object`)
+                        }
+
+                        mAdapter.updateData(list)
+                    }
+
+                    override fun onFinish() {
+                        super.onFinish()
+                        swipe_refresh.isRefreshing = false
+
+                        empty_view.apply { if (list.isEmpty()) visible() else gone() }
+                    }
+
+                })
+    }
+
+    private fun getBanlanceData() {
         OkGo.post<String>(BaseHttp.user_balance)
-                .tag(this@BillActivity)
+                .tag(this@CarBillActivity)
                 .headers("token", getString("token"))
                 .execute(object : StringDialogCallback(baseContext, false) {
 
@@ -128,42 +114,9 @@ class BillActivity : BaseActivity() {
                 })
     }
 
-    override fun getData(pindex: Int) {
-        OkGo.post<BaseResponse<ArrayList<CommonData>>>(BaseHttp.goodsorder_list_data)
-                .tag(this@BillActivity)
-                .headers("token", getString("token"))
-                .params("status", mStatus)
-                .params("page", pindex)
-                .execute(object : JacksonDialogCallback<BaseResponse<ArrayList<CommonData>>>(baseContext) {
-
-                    override fun onSuccess(response: Response<BaseResponse<ArrayList<CommonData>>>) {
-
-                        list.apply {
-                            if (pindex == 1) {
-                                clear()
-                                pageNum = pindex
-                            }
-                            addItems(response.body().`object`)
-                            if (count(response.body().`object`) > 0) pageNum++
-                        }
-
-                        mAdapter.updateData(list)
-                    }
-
-                    override fun onFinish() {
-                        super.onFinish()
-                        swipe_refresh.isRefreshing = false
-                        isLoadingMore = false
-
-                        empty_view.apply { if (list.isEmpty()) visible() else gone() }
-                    }
-
-                })
-    }
-
     private fun getPayData(id: String, parkId: String, way: String) {
         OkGo.post<String>(BaseHttp.goodsorder_pay)
-                .tag(this@BillActivity)
+                .tag(this@CarBillActivity)
                 .headers("token", getString("token"))
                 .params("goodsOrderId", id)
                 .params("payType", way)
@@ -181,7 +134,7 @@ class BillActivity : BaseActivity() {
                                     .subscribe({
                                         if (it) {
                                             showToast("支付成功")
-                                            EventBus.getDefault().post(RefreshMessageEvent("支付成功"))
+                                            updateList(parkId)
                                         } else showToast("支付失败")
                                     }) {
                                         OkLogger.printStackTrace(it)
@@ -192,7 +145,7 @@ class BillActivity : BaseActivity() {
                                     .subscribe({
                                         if (it) {
                                             showToast("支付成功")
-                                            EventBus.getDefault().post(RefreshMessageEvent("支付成功"))
+                                            updateList(parkId)
                                         } else showToast("支付失败")
                                     }) {
                                         OkLogger.printStackTrace(it)
@@ -203,9 +156,9 @@ class BillActivity : BaseActivity() {
                 })
     }
 
-    private fun getBanlanceData(id: String, parkId: String) {
+    private fun getBanlancePayData(id: String, parkId: String) {
         OkGo.post<String>(BaseHttp.goodsorder_paybalance)
-                .tag(this@BillActivity)
+                .tag(this@CarBillActivity)
                 .headers("token", getString("token"))
                 .params("goodsOrderId", id)
                 .params("parkingInfoId", parkId)
@@ -214,23 +167,10 @@ class BillActivity : BaseActivity() {
                     override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
 
                         showToast(msg)
-                        EventBus.getDefault().post(RefreshMessageEvent("支付成功"))
+                        updateList(parkId)
                     }
 
                 })
-    }
-
-    private fun updateList() {
-        swipe_refresh.isRefreshing = true
-
-        empty_view.gone()
-        if (list.isNotEmpty()) {
-            list.clear()
-            mAdapter.notifyDataSetChanged()
-        }
-
-        pageNum = 1
-        getData(pageNum)
     }
 
     @SuppressLint("InflateParams", "SetTextI18n")
@@ -250,7 +190,7 @@ class BillActivity : BaseActivity() {
             when (payGroup.checkedRadioButtonId) {
                 R.id.pay_check1 -> getPayData(id, parkId, "WxPay")
                 R.id.pay_check2 -> getPayData(id, parkId, "AliPay")
-                R.id.pay_check3 -> getBanlanceData(id, parkId)
+                R.id.pay_check3 -> getBanlancePayData(id, parkId)
             }
         }
 
@@ -258,16 +198,12 @@ class BillActivity : BaseActivity() {
         dialog.show()
     }
 
-    override fun finish() {
-        EventBus.getDefault().unregister(this@BillActivity)
-        super.finish()
-    }
+    private fun updateList(parkId: String) {
+        val index = list.indexOfFirst { (it as CommonData).parkingInfoId == parkId }
+        list.removeAt(index)
+        mAdapter.notifyItemRemoved(index)
 
-    @Subscribe
-    fun onMessageEvent(event: RefreshMessageEvent) {
-        when (event.type) {
-            "支付成功", "开发票" -> updateList()
-        }
+        empty_view.apply { if (list.isEmpty()) visible() else gone() }
     }
 
 }

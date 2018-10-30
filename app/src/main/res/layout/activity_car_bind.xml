@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginTop="@dimen/dimen_size_10"
+        android:background="@color/divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dimen_size_10"
+            android:paddingEnd="@dimen/dimen_size_10">
+
+            <TextView
+                style="@style/Font14_gray"
+                android:layout_width="@dimen/dimen_size_70"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_size_15"
+                android:text="车  牌  号" />
+
+            <EditText
+                android:id="@+id/et_car"
+                style="@style/Font14_black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:hint="请输入车牌号"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:paddingStart="@dimen/dimen_size_15"
+                android:paddingEnd="@dimen/dimen_size_0" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/dimen_size_10"
+            android:layout_marginEnd="@dimen/dimen_size_10"
+            android:background="@color/divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dimen_size_10"
+            android:paddingEnd="@dimen/dimen_size_10">
+
+            <TextView
+                style="@style/Font14_gray"
+                android:layout_width="@dimen/dimen_size_70"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_size_15"
+                android:text="车主姓名" />
+
+            <EditText
+                android:id="@+id/et_name"
+                style="@style/Font14_black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:hint="请输入车主姓名"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:paddingStart="@dimen/dimen_size_15"
+                android:paddingEnd="@dimen/dimen_size_0" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/dimen_size_10"
+            android:layout_marginEnd="@dimen/dimen_size_10"
+            android:background="@color/divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dimen_size_10"
+            android:paddingEnd="@dimen/dimen_size_10">
+
+            <TextView
+                style="@style/Font14_gray"
+                android:layout_width="@dimen/dimen_size_70"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_size_15"
+                android:text="身份证号" />
+
+            <EditText
+                android:id="@+id/et_card"
+                style="@style/Font14_black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:digits="0123456789xX"
+                android:hint="请输入身份证号"
+                android:inputType="number"
+                android:maxLength="18"
+                android:maxLines="1"
+                android:paddingStart="@dimen/dimen_size_15"
+                android:paddingEnd="@dimen/dimen_size_0" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/dimen_size_10"
+            android:layout_marginEnd="@dimen/dimen_size_10"
+            android:background="@color/divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dimen_size_10"
+            android:paddingEnd="@dimen/dimen_size_10">
+
+            <TextView
+                style="@style/Font14_gray"
+                android:layout_width="@dimen/dimen_size_70"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_size_15"
+                android:text="发动机号" />
+
+            <EditText
+                android:id="@+id/et_motor"
+                style="@style/Font14_black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:digits="0123456789qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM"
+                android:hint="请输入发动机号"
+                android:inputType="textEmailAddress"
+                android:maxLength="8"
+                android:maxLines="1"
+                android:paddingStart="@dimen/dimen_size_15"
+                android:paddingEnd="@dimen/dimen_size_0" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider" />
+
+    <Button
+        android:id="@+id/bt_submit"
+        style="@style/Font15_white_borderless"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_size_40"
+        android:layout_margin="@dimen/dimen_size_20"
+        android:background="@drawable/rec_bg_ova_blue"
+        android:onClick="doClick"
+        android:text="提交" />
+
+</LinearLayout>

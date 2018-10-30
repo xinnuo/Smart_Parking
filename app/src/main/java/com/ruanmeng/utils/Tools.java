@@ -13,9 +13,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images.ImageColumns;
 import android.support.design.widget.TabLayout;
@@ -24,7 +22,6 @@ import android.util.Base64;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import org.json.JSONArray;
@@ -41,30 +38,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tools {
-
-    /**
-     * 检查是否存在SDCard
-     */
-    public static boolean hasSdcard() {
-        String state = Environment.getExternalStorageState();
-        return state.equals(Environment.MEDIA_MOUNTED);
-    }
-
-    /**
-     * 以数据流的方式将Resources下的图片显示，
-     * 防止内存溢出
-     */
-    @SuppressWarnings("deprecation")
-    public static void getImgFromSD(Context context, ImageView iv, int resID) {
-        BitmapFactory.Options opt = new BitmapFactory.Options();
-        opt.inPreferredConfig = Bitmap.Config.RGB_565;
-        opt.inPurgeable = true;
-        opt.inInputShareable = true;
-        InputStream is = context.getResources().openRawResource(resID);
-        Bitmap bm = BitmapFactory.decodeStream(is, null, opt);
-        BitmapDrawable bd = new BitmapDrawable(context.getResources(), bm);
-        iv.setBackgroundDrawable(bd);
-    }
 
     public static String getRealFilePath(final Context context, final Uri uri) {
         if (null == uri) return null;

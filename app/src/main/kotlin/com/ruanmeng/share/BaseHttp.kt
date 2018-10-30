@@ -33,6 +33,7 @@ object BaseHttp {
     val user_balance = "$baseIp/user_balance.rm"                       //余额
     val goodsorder_list_data = "$baseIp/goodsorder_list_data.rm"       //订单列表
     val add_invoice = "$baseIp/add_invoice.rm"                         //开发票
+    val goodsorder_carNo_list_data = "$baseIp/goodsorder_carNo_list_data.rm" //车辆订单
 
     val recharge_request = "$baseIp/recharge_request.rm"           //充值
     val goodsorder_pay = "$baseIp/goodsorder_pay.rm"               //订单支付

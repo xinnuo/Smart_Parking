@@ -47,6 +47,7 @@ class CarAddActivity : BaseActivity() {
                         .isMultipart(true)
                         .headers("token", getString("token"))
                         .params("carNo", et_name.text.trimToUpperCase())
+                        .params("owmycar", "0")
                         .execute(object : StringDialogCallback(baseContext) {
 
                             override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {

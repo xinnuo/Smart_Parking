@@ -71,8 +71,8 @@ class LoginActivity : BaseActivity() {
 
                             override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
 
-                                val obj = JSONObject(response.body()).optJSONObject("object")
-                                        ?: JSONObject()
+                                val obj = JSONObject(response.body())
+                                        .optJSONObject("object") ?: JSONObject()
 
                                 putBoolean("isLogin", true)
                                 putString("token", obj.optString("token"))

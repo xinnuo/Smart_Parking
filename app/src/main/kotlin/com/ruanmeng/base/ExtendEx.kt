@@ -31,8 +31,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.support.design.widget.TabLayout
 import android.view.View
 import com.jakewharton.rxbinding2.view.RxView
+import org.jetbrains.anko.design.listeners.__TabLayout_OnTabSelectedListener
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
@@ -85,4 +87,10 @@ inline fun <reified T : View> T.setOneClickListener(duration: Long = 1,
             .subscribe {
                 listener.invoke(this)
             }
+}
+
+fun TabLayout.onTabSelectedListener(init: __TabLayout_OnTabSelectedListener.() -> Unit) {
+    val listener = __TabLayout_OnTabSelectedListener()
+    listener.init()
+    addOnTabSelectedListener(listener)
 }

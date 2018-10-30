@@ -18,6 +18,7 @@ object BaseHttp {
     val pwd_forget_sub = "$baseIp/pwd_forget_sub.rm"             //忘记密码
     val identify_get = "$baseIp/identify_get.rm"                 //注册验证码
     val identify_getbyforget = "$baseIp/identify_getbyforget.rm" //忘记验证码
+    val password_change_sub = "$baseIp/password_change_sub.rm"   //修改密码
 
     val add_usergroup = "$baseIp/add_usergroup.rm"             //新增分组
     val find_usergroup_data = "$baseIp/find_usergroup_data.rm" //分组数据

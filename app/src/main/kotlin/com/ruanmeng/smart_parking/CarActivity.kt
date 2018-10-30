@@ -10,31 +10,52 @@ import com.ruanmeng.base.*
 import com.ruanmeng.model.CommonData
 import com.ruanmeng.model.RefreshMessageEvent
 import com.ruanmeng.share.BaseHttp
+import kotlinx.android.synthetic.main.activity_car.*
 import kotlinx.android.synthetic.main.layout_empty.*
 import kotlinx.android.synthetic.main.layout_list.*
 import net.idik.lib.slimadapter.SlimAdapter
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import org.jetbrains.anko.include
 import org.jetbrains.anko.startActivity
 
 class CarActivity : BaseActivity() {
 
     private val list = ArrayList<Any>()
+    private var owmycar = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        include<View>(R.layout.layout_list)
-        init_title("我的车辆管理", "添加车辆")
+        setContentView(R.layout.activity_car)
+        init_title("我的车辆管理", "绑定车辆")
 
         EventBus.getDefault().register(this@CarActivity)
-
-        swipe_refresh.isRefreshing = true
-        getData()
     }
 
     override fun init_title() {
         super.init_title()
+        car_tab.apply {
+            onTabSelectedListener {
+                onTabSelected {
+                    when (it!!.position) {
+                        0 -> {
+                            owmycar = "1"
+                            tvRight.text = "绑定车辆"
+                        }
+                        1 -> {
+                            owmycar = "0"
+                            tvRight.text = "添加车辆"
+                        }
+                    }
+
+                    OkGo.getInstance().cancelTag(this@CarActivity)
+                    window.decorView.postDelayed({ runOnUiThread { updateList() } }, 300)
+                }
+            }
+
+            addTab(this.newTab().setText("绑定车辆"), true)
+            addTab(this.newTab().setText("添加车辆"), false)
+        }
+
         empty_hint.text = "暂无相关车辆信息！"
         swipe_refresh.refresh { getData() }
         recycle_list.load_Linear(baseContext, swipe_refresh)
@@ -49,7 +70,9 @@ class CarActivity : BaseActivity() {
                             .visibility(R.id.item_car_divider1, if (isLast) View.GONE else View.VISIBLE)
                             .visibility(R.id.item_car_divider2, if (!isLast) View.GONE else View.VISIBLE)
 
-                            .clicked(R.id.item_car) { }
+                            .clicked(R.id.item_car) {
+                                startActivity<CarBillActivity>("carNo" to data.carNo)
+                            }
                 }
                 .attachTo(recycle_list)
     }
@@ -57,7 +80,10 @@ class CarActivity : BaseActivity() {
     override fun doClick(v: View) {
         super.doClick(v)
         when (v.id) {
-            R.id.tv_nav_right -> startActivity<CarAddActivity>()
+            R.id.tv_nav_right -> {
+                if (owmycar == "0") startActivity<CarAddActivity>()
+                else startActivity<CarBindActivity>()
+            }
         }
     }
 
@@ -65,6 +91,7 @@ class CarActivity : BaseActivity() {
         OkGo.post<BaseResponse<ArrayList<CommonData>>>(BaseHttp.car_list_data)
                 .tag(this@CarActivity)
                 .headers("token", getString("token"))
+                .params("owmycar", owmycar)
                 .execute(object : JacksonDialogCallback<BaseResponse<ArrayList<CommonData>>>(baseContext) {
 
                     override fun onSuccess(response: Response<BaseResponse<ArrayList<CommonData>>>) {

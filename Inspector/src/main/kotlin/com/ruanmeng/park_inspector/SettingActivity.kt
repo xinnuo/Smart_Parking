@@ -12,6 +12,7 @@ import com.ruanmeng.share.Const
 import com.ruanmeng.utils.GlideCacheUtil
 import kotlinx.android.synthetic.main.activity_setting.*
 import org.jetbrains.anko.alert
+import org.jetbrains.anko.sdk25.listeners.onClick
 import org.jetbrains.anko.startActivity
 
 class SettingActivity : BaseActivity() {
@@ -40,6 +41,8 @@ class SettingActivity : BaseActivity() {
                 putBoolean("isTS", true)
             }
         }
+
+        setting_password.onClick { startActivity<PasswordActivity>() }
     }
 
     @SuppressLint("SetTextI18n")
