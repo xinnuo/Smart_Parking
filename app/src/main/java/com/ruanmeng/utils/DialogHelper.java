@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.flyco.dialog.widget.base.BottomBaseDialog;
 import com.maning.mndialoglibrary.MProgressDialog;
+import com.ruanmeng.base.BaseDialog;
 import com.ruanmeng.smart_parking.R;
 import com.weigan.loopview.LoopView;
 
@@ -36,6 +37,45 @@ public class DialogHelper {
     public static void dismissDialog() {
         if (mMProgressDialog != null && mMProgressDialog.isShowing())
             mMProgressDialog.dismiss();
+    }
+
+    public static void showDelDialog(
+            final Context context,
+            final String title,
+            final ClickCallBack callBack) {
+        BaseDialog dialog = new BaseDialog(context) {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public View onCreateView() {
+                widthScale(0.85f);
+                View view = View.inflate(context, R.layout.dialog_custom_del, null);
+
+                TextView tvHint = view.findViewById(R.id.dialog_hint);
+                TextView tvCancel = view.findViewById(R.id.dialog_cancel);
+                TextView tvSure = view.findViewById(R.id.dialog_sure);
+
+                tvHint.setText("确定要删除车牌号为" + title + "的车辆吗？");
+                tvCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dismiss();
+                    }
+                });
+                tvSure.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dismiss();
+
+                        callBack.onClick("");
+                    }
+                });
+
+                return view;
+            }
+        };
+
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
     }
 
     public static void showItemDialog(
@@ -98,6 +138,10 @@ public class DialogHelper {
         };
 
         dialog.show();
+    }
+
+    public interface ClickCallBack {
+        void onClick(String hint);
     }
 
     public interface ItemCallBack {

@@ -29,6 +29,7 @@ object BaseHttp {
     val sex_change_sub = "$baseIp/sex_change_sub.rm"                   //修改性别
     val user_msg_data = "$baseIp/user_msg_data.rm"                     //个人资料
     val add_car = "$baseIp/add_car.rm"                                 //添加车牌
+    val delete_car = "$baseIp/delete_car.rm"                           //删除车牌
     val car_list_data = "$baseIp/car_list_data.rm"                     //车牌列表
     val user_balance = "$baseIp/user_balance.rm"                       //余额
     val goodsorder_list_data = "$baseIp/goodsorder_list_data.rm"       //订单列表

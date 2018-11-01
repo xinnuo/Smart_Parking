@@ -3,6 +3,7 @@ package com.ruanmeng.smart_parking
 import android.os.Bundle
 import android.view.View
 import com.lzg.extend.BaseResponse
+import com.lzg.extend.StringDialogCallback
 import com.lzg.extend.jackson.JacksonDialogCallback
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.model.Response
@@ -10,6 +11,7 @@ import com.ruanmeng.base.*
 import com.ruanmeng.model.CommonData
 import com.ruanmeng.model.RefreshMessageEvent
 import com.ruanmeng.share.BaseHttp
+import com.ruanmeng.utils.DialogHelper
 import kotlinx.android.synthetic.main.activity_car.*
 import kotlinx.android.synthetic.main.layout_empty.*
 import kotlinx.android.synthetic.main.layout_list.*
@@ -72,6 +74,35 @@ class CarActivity : BaseActivity() {
 
                             .clicked(R.id.item_car) {
                                 startActivity<CarBillActivity>("carNo" to data.carNo)
+                            }
+
+                            .longClicked(R.id.item_car) {
+
+                                DialogHelper.showDelDialog(
+                                        baseContext,
+                                        data.carNo) {
+
+                                    OkGo.post<String>(BaseHttp.delete_car)
+                                            .tag(this@CarActivity)
+                                            .headers("token", getString("token"))
+                                            .params("mycarId", data.mycarId)
+                                            .execute(object : StringDialogCallback(baseContext) {
+
+                                                override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
+
+                                                    showToast(msg)
+                                                    EventBus.getDefault().post(RefreshMessageEvent("删除车辆"))
+                                                    val index = list.indexOf(data)
+                                                    list.removeAt(index)
+                                                    mAdapter.notifyItemRemoved(index)
+
+                                                    empty_view.apply { if (list.isEmpty()) visible() else gone() }
+                                                }
+
+                                            })
+                                }
+
+                                return@longClicked true
                             }
                 }
                 .attachTo(recycle_list)

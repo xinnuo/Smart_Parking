@@ -6,17 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lzg.extend.BaseResponse
+import com.lzg.extend.StringDialogCallback
 import com.lzg.extend.jackson.JacksonDialogCallback
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.model.Response
 import com.ruanmeng.base.*
 import com.ruanmeng.model.CommonData
+import com.ruanmeng.model.RefreshMessageEvent
 import com.ruanmeng.share.BaseHttp
 import com.ruanmeng.smart_parking.CarBillActivity
 import com.ruanmeng.smart_parking.R
+import com.ruanmeng.utils.DialogHelper
 import kotlinx.android.synthetic.main.layout_empty.*
 import kotlinx.android.synthetic.main.layout_list.*
 import net.idik.lib.slimadapter.SlimAdapter
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import org.jetbrains.anko.*
 import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.support.v4.startActivity
@@ -53,6 +58,8 @@ class CareFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         init_title()
 
+        EventBus.getDefault().register(this@CareFragment)
+
         swipe_refresh.isRefreshing = true
         getData()
     }
@@ -74,6 +81,34 @@ class CareFragment : BaseFragment() {
 
                             .clicked(R.id.item_car) {
                                 startActivity<CarBillActivity>("carNo" to data.carNo)
+                            }
+
+                            .longClicked(R.id.item_car) {
+
+                                DialogHelper.showDelDialog(
+                                        activity,
+                                        data.carNo) {
+
+                                    OkGo.post<String>(BaseHttp.delete_car)
+                                            .tag(this@CareFragment)
+                                            .headers("token", getString("token"))
+                                            .params("mycarId", data.mycarId)
+                                            .execute(object : StringDialogCallback(activity) {
+
+                                                override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
+
+                                                    showToast(msg)
+                                                    val index = list.indexOf(data)
+                                                    list.removeAt(index)
+                                                    mAdapter.notifyItemRemoved(index)
+
+                                                    empty_view.apply { if (list.isEmpty()) visible() else gone() }
+                                                }
+
+                                            })
+                                }
+
+                                return@longClicked true
                             }
                 }
                 .attachTo(recycle_list)
@@ -103,5 +138,29 @@ class CareFragment : BaseFragment() {
                     }
 
                 })
+    }
+
+    private fun updateList() {
+        swipe_refresh.isRefreshing = true
+
+        empty_view.gone()
+        if (list.isNotEmpty()) {
+            list.clear()
+            mAdapter.notifyDataSetChanged()
+        }
+
+        getData()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this@CareFragment)
+    }
+
+    @Subscribe
+    fun onMessageEvent(event: RefreshMessageEvent) {
+        when (event.type) {
+            "添加车辆", "删除车辆" -> updateList()
+        }
     }
 }
