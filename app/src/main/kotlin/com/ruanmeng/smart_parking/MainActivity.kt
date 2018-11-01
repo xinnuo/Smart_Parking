@@ -46,7 +46,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     getString("token"))
         }
 
-        main_check3.performClick()
+        main_check2.performClick()
     }
 
     override fun onStart() {
@@ -96,8 +96,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         override fun getItem(position: Int): Fragment = when (position) {
             R.id.main_check1 -> MallFragment()
-            R.id.main_check2 -> CareFragment()
-            R.id.main_check3 -> ParkFragment()
+            R.id.main_check2 -> ParkFragment()
+            R.id.main_check3 -> CareFragment()
             else -> ParkFragment()
         }
 

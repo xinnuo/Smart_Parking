@@ -3,8 +3,6 @@ package com.ruanmeng.fragment
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +25,8 @@ import com.ruanmeng.share.BaseHttp
 import com.ruanmeng.smart_parking.R
 import com.ruanmeng.smart_parking.SearchActivity
 import com.ruanmeng.utils.*
+import io.reactivex.Flowable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_park.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -34,34 +34,20 @@ import org.jetbrains.anko.sdk25.listeners.onClick
 import org.jetbrains.anko.support.v4.browse
 import org.jetbrains.anko.support.v4.startActivity
 import org.json.JSONObject
+import java.util.concurrent.TimeUnit
 
 class ParkFragment : BaseFragment() {
 
     private lateinit var aMap: AMap
     private var locationLatLng: LatLng? = null
     private var isAnimating = false
+    private var mLastZoom = 16f
 
     private val list = ArrayList<CommonData>()
     private var nowCity = "" //当前市
     private var mPoiName = ""
     private var mLat = ""
     private var mLng = ""
-
-    @SuppressLint("HandlerLeak")
-    private var handler = object : Handler() {
-
-        override fun handleMessage(msg: Message) {
-            super.handleMessage(msg)
-            when (msg.what) {
-                0 -> {
-                }
-                1 -> {
-                    OkGo.getInstance().cancelTag(this@ParkFragment)
-                    getAroundData(msg.obj as LatLng)
-                }
-            }
-        }
-    }
 
     //调用这个方法切换时不会释放掉Fragment
     override fun setMenuVisibility(menuVisible: Boolean) {
@@ -134,12 +120,18 @@ class ParkFragment : BaseFragment() {
                             if (!isAnimating) moveToViewBottom()
                         }
 
-                        onCameraChangeFinish {
-                            handler.removeMessages(1)
-                            val msg = Message()
-                            msg.what = 1
-                            msg.obj = it?.target
-                            handler.sendMessageDelayed(msg, 300)
+                        onCameraChangeFinish { item ->
+                            if (item == null) return@onCameraChangeFinish
+
+                            if (mLastZoom == item.zoom) {
+                                Flowable.just(item)
+                                        .throttleWithTimeout(500, TimeUnit.MILLISECONDS)
+                                        .observeOn(Schedulers.newThread())
+                                        .subscribe {
+                                            OkGo.getInstance().cancelTag(this@ParkFragment)
+                                            getAroundData(it.target)
+                                        }
+                            } else mLastZoom = item.zoom
                         }
                     }
                 } else locationLatLng = LatLng(location.latitude, location.longitude)
