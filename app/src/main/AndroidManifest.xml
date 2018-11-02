@@ -99,7 +99,7 @@
         <!-- 微信支付 start -->
         <meta-data
             android:name="WX_APPID"
-            android:value="wx3e462b5f4f9a5c01" />
+            android:value="wxefefe03c928c5c53" />
 
         <activity
             android:name=".wxapi.WXPayEntryActivity"

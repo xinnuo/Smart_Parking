@@ -15,4 +15,5 @@
     <color name="white">@android:color/white</color>
     <color name="transparent">@android:color/transparent</color>
     <color name="orange">#FF6600</color>
+    <color name="red">#FF5B5B</color>
 </resources>

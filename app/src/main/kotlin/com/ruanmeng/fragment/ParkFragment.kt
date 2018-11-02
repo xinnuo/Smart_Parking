@@ -177,10 +177,7 @@ class ParkFragment : BaseFragment() {
                             //绘制marker
                             val markerOption = MarkerOptions()
                                     .position(LatLng(it.plat.toDouble(), it.plng.toDouble()))
-                                    .icon(BitmapDescriptorFactory.fromResource(when (it.ptype) {
-                                        "1" -> R.mipmap.index_icon01
-                                        else -> R.mipmap.index_icon02
-                                    }))
+                                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.index_icon01))
                                     .title(it.publicParkingId)
                                     .anchor(0.5f, 0.7f)  //设置Marker的锚点
                                     .draggable(false)    //设置Marker是否可拖动

@@ -41,7 +41,7 @@
                 android:gravity="center"
                 android:paddingTop="@dimen/dimen_size_5"
                 android:paddingBottom="@dimen/dimen_size_5"
-                android:text="车品商城"
+                android:text="车主服务"
                 android:textColor="@color/rb_main_selector_color"
                 android:textSize="12sp" />
 
@@ -57,7 +57,7 @@
                 android:gravity="center"
                 android:paddingTop="@dimen/dimen_size_5"
                 android:paddingBottom="@dimen/dimen_size_5"
-                android:text="导航"
+                android:text="车位导航"
                 android:textColor="@color/rb_main_selector_color"
                 android:textSize="12sp" />
 

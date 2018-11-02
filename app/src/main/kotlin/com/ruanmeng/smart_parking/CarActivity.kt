@@ -28,7 +28,7 @@ class CarActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_car)
-        init_title("我的车辆管理", "绑定车辆")
+        init_title("我的车辆管理")
 
         EventBus.getDefault().register(this@CarActivity)
     }
@@ -38,17 +38,7 @@ class CarActivity : BaseActivity() {
         car_tab.apply {
             onTabSelectedListener {
                 onTabSelected {
-                    when (it!!.position) {
-                        0 -> {
-                            owmycar = "1"
-                            tvRight.text = "绑定车辆"
-                        }
-                        1 -> {
-                            owmycar = "0"
-                            tvRight.text = "添加车辆"
-                        }
-                    }
-
+                    owmycar = (1 - it!!.position).toString()
                     OkGo.getInstance().cancelTag(this@CarActivity)
                     window.decorView.postDelayed({ runOnUiThread { updateList() } }, 300)
                 }
@@ -76,7 +66,7 @@ class CarActivity : BaseActivity() {
                                 startActivity<CarBillActivity>("carNo" to data.carNo)
                             }
 
-                            .longClicked(R.id.item_car) {
+                            .clicked(R.id.item_car_del) {
 
                                 DialogHelper.showDelDialog(
                                         baseContext,
@@ -101,8 +91,6 @@ class CarActivity : BaseActivity() {
 
                                             })
                                 }
-
-                                return@longClicked true
                             }
                 }
                 .attachTo(recycle_list)
@@ -111,7 +99,7 @@ class CarActivity : BaseActivity() {
     override fun doClick(v: View) {
         super.doClick(v)
         when (v.id) {
-            R.id.tv_nav_right -> {
+            R.id.car_add -> {
                 if (owmycar == "0") startActivity<CarAddActivity>()
                 else startActivity<CarBindActivity>()
             }

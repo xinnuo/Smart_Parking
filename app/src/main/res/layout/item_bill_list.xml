@@ -13,6 +13,16 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/item_bill_num"
+            style="@style/Font14_black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_size_10"
+            android:layout_marginTop="@dimen/dimen_size_10"
+            android:layout_marginEnd="@dimen/dimen_size_10"
+            android:text="车牌号：" />
+
+        <TextView
             android:id="@+id/item_bill_start"
             style="@style/Font14_gray"
             android:layout_width="match_parent"

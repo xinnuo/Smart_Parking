@@ -54,7 +54,8 @@ class CarBillActivity : BaseActivity() {
 
                     val isLast = list.indexOf(data) == list.size - 1
 
-                    injector.text(R.id.item_bill_start, "开始时间：${data.startDate}")
+                    injector.text(R.id.item_bill_num, "车牌号：${data.carNo}")
+                            .text(R.id.item_bill_start, "开始时间：${data.startDate}")
                             .text(R.id.item_bill_end, "结束时间：${data.endDate}")
                             .text(R.id.item_bill_address, data.daddress)
                             .text(R.id.item_bill_money, DecimalFormat("0.00").format(data.paySum.toNotDouble()))

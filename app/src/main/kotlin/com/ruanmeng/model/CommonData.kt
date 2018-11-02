@@ -73,6 +73,7 @@ data class CommonData(
         var startDate: String = "",
         var endDate: String = "",
         var paySum: String = "",
+        var realPaySum: String = "",
         var LateFee: String = "",
         var daddress: String = ""
 ) : Serializable

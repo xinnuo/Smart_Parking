@@ -83,7 +83,7 @@ class CareFragment : BaseFragment() {
                                 startActivity<CarBillActivity>("carNo" to data.carNo)
                             }
 
-                            .longClicked(R.id.item_car) {
+                            .clicked(R.id.item_car_del) {
 
                                 DialogHelper.showDelDialog(
                                         activity,
@@ -107,8 +107,6 @@ class CareFragment : BaseFragment() {
 
                                             })
                                 }
-
-                                return@longClicked true
                             }
                 }
                 .attachTo(recycle_list)

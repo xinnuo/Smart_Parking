@@ -29,10 +29,22 @@
             <TextView
                 android:id="@+id/item_car_title"
                 style="@style/Font14_gray"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_size_10"
+                android:layout_weight="1"
                 android:text="标题" />
+
+            <TextView
+                android:id="@+id/item_car_del"
+                style="@style/Font13_white"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_size_25"
+                android:background="@drawable/rec_bg_red_r5"
+                android:gravity="center"
+                android:paddingStart="@dimen/dimen_size_15"
+                android:paddingEnd="@dimen/dimen_size_15"
+                android:text="删除" />
 
         </LinearLayout>
 

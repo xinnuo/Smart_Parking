@@ -1,35 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/car_tab"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/line_height"
-            android:layout_marginStart="@dimen/dimen_size_30"
-            android:layout_marginEnd="@dimen/dimen_size_30"
-            app:tabIndicatorColor="@color/colorAccent"
-            app:tabIndicatorFullWidth="false"
-            app:tabRippleColor="@color/transparent"
-            app:tabSelectedTextColor="@color/colorAccent"
-            app:tabTextColor="@color/gray" />
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/divider_height"
-            android:background="@color/divider" />
+            <android.support.design.widget.TabLayout
+                android:id="@+id/car_tab"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height"
+                android:layout_marginStart="@dimen/dimen_size_30"
+                android:layout_marginEnd="@dimen/dimen_size_30"
+                app:tabIndicatorColor="@color/colorAccent"
+                app:tabIndicatorFullWidth="false"
+                app:tabRippleColor="@color/transparent"
+                app:tabSelectedTextColor="@color/colorAccent"
+                app:tabTextColor="@color/gray" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_height"
+                android:background="@color/divider" />
+
+        </LinearLayout>
+
+        <include layout="@layout/layout_list" />
 
     </LinearLayout>
 
-    <include layout="@layout/layout_list" />
+    <ImageView
+        android:id="@+id/car_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/dimen_size_30"
+        android:layout_marginBottom="@dimen/dimen_size_50"
+        android:onClick="doClick"
+        android:src="@mipmap/index_icon08"
+        tools:ignore="ContentDescription" />
 
-</LinearLayout>
+</FrameLayout>

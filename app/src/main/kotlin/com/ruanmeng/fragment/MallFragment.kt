@@ -1,6 +1,7 @@
 package com.ruanmeng.fragment
 
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.ruanmeng.base.*
 import com.ruanmeng.model.CommonData
 import com.ruanmeng.share.BaseHttp
 import com.ruanmeng.smart_parking.R
+import com.ruanmeng.utils.TopDecoration
 import kotlinx.android.synthetic.main.layout_empty.*
 import kotlinx.android.synthetic.main.layout_list.*
 import net.idik.lib.slimadapter.SlimAdapter
@@ -35,7 +37,7 @@ class MallFragment : BaseFragment() {
                               savedInstanceState: Bundle?): View? {
         return UI {
             verticalLayout {
-                textView("车品商城") {
+                textView("车主服务") {
                     backgroundColorResource = R.color.white
                     textSize = 18f
                     textColorResource = R.color.black
@@ -54,56 +56,45 @@ class MallFragment : BaseFragment() {
         init_title()
 
         swipe_refresh.isRefreshing = true
-        getData(pageNum)
+        getData()
     }
 
     override fun init_title() {
-        empty_hint.text = "暂无相关商城信息！"
+        empty_hint.text = "暂无相关服务信息！"
         empty_img.setImageResource(R.mipmap.icon_wait)
 
-        swipe_refresh.refresh { getData(1) }
-        recycle_list.load_Linear(activity!!, swipe_refresh) {
-            if (!isLoadingMore) {
-                isLoadingMore = true
-                getData(pageNum)
-            }
+        swipe_refresh.refresh { getData() }
+        recycle_list.load_Grid(swipe_refresh, null) {
+            layoutManager = GridLayoutManager(activity, 3)
+            addItemDecoration(TopDecoration(20))
         }
 
         mAdapter = SlimAdapter.create()
-                .register<CommonData>(R.layout.item_car_list) { data, injector ->
+                .register<CommonData>(R.layout.item_mall_grid) { data, injector ->
 
-                    val isLast = list.indexOf(data) == list.size - 1
-
-                    injector.text(R.id.item_car_title, data.carshoppName)
-                            .with<ImageView>(R.id.item_car_img) {
-                                it.setImageURL(BaseHttp.baseImg + data.carshoppIcon, R.mipmap.personal_icon10)
+                    injector.text(R.id.item_mall_name, data.carshoppName)
+                            .with<ImageView>(R.id.item_mall_img) {
+                                it.setImageURL(BaseHttp.baseImg + data.carshoppIcon, R.mipmap.icon_wait)
                             }
 
-                            .visibility(R.id.item_car_divider1, if (isLast) View.GONE else View.VISIBLE)
-                            .visibility(R.id.item_car_divider2, if (!isLast) View.GONE else View.VISIBLE)
-
-                            .clicked(R.id.item_car) {
+                            .clicked(R.id.item_mall) {
                                 if (data.carshoppUrl.isNotEmpty()) browse(data.carshoppUrl)
                             }
                 }
                 .attachTo(recycle_list)
     }
 
-    override fun getData(pindex: Int) {
+    override fun getData() {
         OkGo.post<BaseResponse<ArrayList<CommonData>>>(BaseHttp.find_carshopp_data)
                 .tag(this@MallFragment)
-                .params("page", pindex)
+                .params("page", "1")
                 .execute(object : JacksonDialogCallback<BaseResponse<ArrayList<CommonData>>>(activity) {
 
                     override fun onSuccess(response: Response<BaseResponse<ArrayList<CommonData>>>) {
 
                         list.apply {
-                            if (pindex == 1) {
-                                clear()
-                                pageNum = pindex
-                            }
+                            clear()
                             addItems(response.body().`object`)
-                            if (count(response.body().`object`) > 0) pageNum++
                         }
 
                         mAdapter.updateData(list)
@@ -112,7 +103,6 @@ class MallFragment : BaseFragment() {
                     override fun onFinish() {
                         super.onFinish()
                         swipe_refresh.isRefreshing = false
-                        isLoadingMore = false
 
                         empty_view.apply { if (list.isEmpty()) visible() else gone() }
                     }
