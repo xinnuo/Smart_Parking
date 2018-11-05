@@ -38,6 +38,9 @@ import com.lzy.okgo.https.HttpsUtils
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor
 import com.lzy.okgo.utils.OkLogger
 import com.ruanmeng.smart_parking.BuildConfig
+import com.umeng.commonsdk.UMConfigure
+import com.umeng.socialize.Config
+import com.umeng.socialize.PlatformConfig
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 import java.util.logging.Level
@@ -57,6 +60,12 @@ class Application : MultiDexApplication() {
         //极光推送
         JPushInterface.setDebugMode(BuildConfig.LOG_DEBUG) //设置开启日志,发布时请关闭日志
         JPushInterface.init(this@Application)              //初始化 JPush
+
+        //友盟分享
+        UMConfigure.init(this@Application, "5bdff15cb465f56820000220", "umeng", UMConfigure.DEVICE_TYPE_PHONE, "")
+        PlatformConfig.setWeixin("wxefefe03c928c5c53", "078f6f0dbbfec40f02f0d084705c79fe")
+        Config.isJumptoAppStore = true
+        UMConfigure.setLogEnabled(BuildConfig.LOG_DEBUG)
     }
 
     private fun initOkGo() {

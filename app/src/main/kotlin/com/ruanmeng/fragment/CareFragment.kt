@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lzg.extend.BaseResponse
-import com.lzg.extend.StringDialogCallback
 import com.lzg.extend.jackson.JacksonDialogCallback
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.model.Response
@@ -16,7 +15,6 @@ import com.ruanmeng.model.RefreshMessageEvent
 import com.ruanmeng.share.BaseHttp
 import com.ruanmeng.smart_parking.CarBillActivity
 import com.ruanmeng.smart_parking.R
-import com.ruanmeng.utils.DialogHelper
 import kotlinx.android.synthetic.main.layout_empty.*
 import kotlinx.android.synthetic.main.layout_list.*
 import net.idik.lib.slimadapter.SlimAdapter
@@ -76,37 +74,12 @@ class CareFragment : BaseFragment() {
 
                     injector.text(R.id.item_car_title, data.carNo)
 
+                            .gone(R.id.item_car_del)
                             .visibility(R.id.item_car_divider1, if (isLast) View.GONE else View.VISIBLE)
                             .visibility(R.id.item_car_divider2, if (!isLast) View.GONE else View.VISIBLE)
 
                             .clicked(R.id.item_car) {
                                 startActivity<CarBillActivity>("carNo" to data.carNo)
-                            }
-
-                            .clicked(R.id.item_car_del) {
-
-                                DialogHelper.showDelDialog(
-                                        activity,
-                                        data.carNo) {
-
-                                    OkGo.post<String>(BaseHttp.delete_car)
-                                            .tag(this@CareFragment)
-                                            .headers("token", getString("token"))
-                                            .params("mycarId", data.mycarId)
-                                            .execute(object : StringDialogCallback(activity) {
-
-                                                override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
-
-                                                    showToast(msg)
-                                                    val index = list.indexOf(data)
-                                                    list.removeAt(index)
-                                                    mAdapter.notifyItemRemoved(index)
-
-                                                    empty_view.apply { if (list.isEmpty()) visible() else gone() }
-                                                }
-
-                                            })
-                                }
                             }
                 }
                 .attachTo(recycle_list)

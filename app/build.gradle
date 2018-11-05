@@ -42,6 +42,7 @@ android {
         //高德地图的apikey，友盟分享QQ的appid，极光推送的pkgname、key、channel
         manifestPlaceholders = [
                 amap_apikey  : "53ff7c175d6dd7d07d96438f0a0ca9fa",
+                wxappid      : applicationId,
                 qqappid      : "1106808037",
                 JPUSH_PKGNAME: applicationId,
                 JPUSH_APPKEY : "f2bb4342342f9b23d081fc3f",
@@ -111,7 +112,11 @@ dependencies {
 
     implementation project(':AMap')
     implementation project(':okgo')
-    def aar = ['FlycoDialog-1.3.2', 'GlideImageView-1.3.0', 'MNProgressHUD-1.0.1', 'SuperText-1.1.1']
+    def aar = ['FlycoDialog-1.3.2',
+               'GlideImageView-1.3.0',
+               'MNProgressHUD-1.0.1',
+               'SuperText-1.1.1',
+               'UmengSocial-6.9.1']
     aar.each { implementation(name: it, ext: 'aar') }
 
     //图片加载
@@ -131,6 +136,10 @@ dependencies {
     //在线支付
     implementation 'com.cuieney:rxpay-api:2.2.3'
     kapt 'com.cuieney:rxpay-compiler:2.1.1'
+
+    //友盟分享
+    implementation 'com.umeng.sdk:share-core:' + versions.umengSocialVersion
+    implementation 'com.umeng.sdk:shareboard-widget:' + versions.umengSocialVersion
 
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
     implementation 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.1.1'

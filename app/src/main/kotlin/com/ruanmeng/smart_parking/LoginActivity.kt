@@ -1,5 +1,6 @@
 package com.ruanmeng.smart_parking
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import cn.jpush.android.api.JPushInterface
@@ -11,6 +12,10 @@ import com.ruanmeng.share.BaseHttp
 import com.ruanmeng.utils.ActivityStack
 import com.ruanmeng.utils.isMobile
 import com.ruanmeng.utils.trimString
+import com.umeng.socialize.UMAuthListener
+import com.umeng.socialize.UMShareAPI
+import com.umeng.socialize.UMShareConfig
+import com.umeng.socialize.bean.SHARE_MEDIA
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 import org.json.JSONObject
@@ -78,6 +83,7 @@ class LoginActivity : BaseActivity() {
                                 putString("token", obj.optString("token"))
                                 putString("mobile", obj.optString("mobile"))
                                 putString("carNum", obj.optString("carNum"))
+                                putString("loginType", "mobile")
 
                                 startActivity<MainActivity>()
                                 ActivityStack.screenManager.popActivities(this@LoginActivity::class.java)
@@ -86,19 +92,103 @@ class LoginActivity : BaseActivity() {
                         })
             }
             R.id.login_wx -> {
+                UMShareAPI.get(this@LoginActivity).setShareConfig(UMShareConfig().apply { isNeedAuthOnGetUserInfo = true })
+
+                UMShareAPI.get(baseContext).getPlatformInfo(
+                        this@LoginActivity,
+                        SHARE_MEDIA.WEIXIN,
+                        object : UMAuthListener {
+
+                            /**
+                             * @desc 授权成功的回调
+                             * @param platform 平台名称
+                             * @param action 行为序号，开发者用不上
+                             * @param data 用户资料返回
+                             */
+                            override fun onComplete(platform: SHARE_MEDIA, action: Int, data: MutableMap<String, String>) {
+                                getThirdLogin("WX",
+                                        data["uid"] ?: "",
+                                        data["name"] ?: "",
+                                        data["iconurl"] ?: "")
+                            }
+
+                            /**
+                             * @desc 授权取消的回调
+                             * @param platform 平台名称
+                             * @param action 行为序号，开发者用不上
+                             */
+                            override fun onCancel(platform: SHARE_MEDIA, action: Int) {}
+
+                            /**
+                             * @desc 授权失败的回调
+                             * @param platform 平台名称
+                             * @param action 行为序号，开发者用不上
+                             * @param t 错误原因
+                             */
+                            override fun onError(platform: SHARE_MEDIA, action: Int, t: Throwable) = showToast("授权失败")
+
+                            /**
+                             * @desc 授权开始的回调
+                             * @param platform 平台名称
+                             */
+                            override fun onStart(platform: SHARE_MEDIA) {}
+
+                        })
             }
         }
+    }
+
+    private fun getThirdLogin(loginType: String,
+                              openId: String,
+                              nickName: String,
+                              headImgUrl: String) {
+        OkGo.post<String>(BaseHttp.login_sub)
+                .tag(this@LoginActivity)
+                .params("loginType", loginType)
+                .params("openId", openId)
+                .execute(object : StringDialogCallback(this@LoginActivity) {
+
+                    override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
+                        val obj = JSONObject(response.body()).getJSONObject("object")
+
+                        putBoolean("isLogin", true)
+                        putString("token", obj.optString("token"))
+                        putString("mobile", obj.optString("mobile"))
+                        putString("carNum", obj.optString("carNum"))
+                        putString("loginType", "WX")
+
+                        startActivity<MainActivity>()
+                        ActivityStack.screenManager.popActivities(this@LoginActivity::class.java)
+                    }
+
+                    override fun onSuccessResponseErrorCode(response: Response<String>, msg: String, msgCode: String) {
+                        if (msgCode == "105") {
+                            startActivity<BindActivity>(
+                                    "openId" to openId,
+                                    "nickName" to nickName,
+                                    "headImgUrl" to headImgUrl)
+                        } else showToast(msg)
+                    }
+
+                })
     }
 
     private fun clearData() {
         putBoolean("isLogin", false)
         putString("token", "")
 
+        putString("loginType", "")
         putBoolean("isTS", false)
         putString("carNum", "")
 
+        UMShareAPI.get(baseContext).deleteOauth(this@LoginActivity, SHARE_MEDIA.WEIXIN, null)
         JPushInterface.stopPush(applicationContext)
         JPushInterface.clearAllNotifications(applicationContext)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        UMShareAPI.get(this@LoginActivity).onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {

@@ -41,8 +41,8 @@
 
     <ImageView
         android:id="@+id/car_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dimen_size_50"
+        android:layout_height="@dimen/dimen_size_50"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/dimen_size_30"
         android:layout_marginBottom="@dimen/dimen_size_50"

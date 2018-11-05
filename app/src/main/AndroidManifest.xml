@@ -32,6 +32,9 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
+            android:name=".BindActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -94,7 +97,6 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <!-- 支付宝 end -->
-
 
         <!-- 微信支付 start -->
         <meta-data
