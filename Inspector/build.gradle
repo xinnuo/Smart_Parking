@@ -42,7 +42,7 @@ android {
         //高德地图的apikey，友盟分享QQ的appid，极光推送的pkgname、key、channel
         manifestPlaceholders = [
                 JPUSH_PKGNAME: applicationId,
-                JPUSH_APPKEY : "f2bb4342342f9b23d081fc3f",
+                JPUSH_APPKEY : "14175d3d4be63bec158d90a9",
                 JPUSH_CHANNEL: "developer-default"
         ]
     }

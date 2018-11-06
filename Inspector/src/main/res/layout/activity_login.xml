@@ -122,7 +122,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_size_50"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"

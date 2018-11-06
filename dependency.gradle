@@ -14,8 +14,8 @@ ext.versions = [
         ankoVersion: '0.10.7',
 
         umengSocialVersion: '6.9.1',
-        jpushSdkVersion: '3.1.2',
-        jpushCoreVersion: '1.2.0',
+        jpushSdkVersion: '3.1.7',
+        jpushCoreVersion: '1.2.6',
         amapLocationVersion: '4.2.0',
         amapSearch: '6.1.0',
         amap3DVersion: '6.4.1',
