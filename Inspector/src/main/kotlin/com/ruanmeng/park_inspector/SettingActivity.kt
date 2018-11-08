@@ -43,6 +43,7 @@ class SettingActivity : BaseActivity() {
         }
 
         setting_password.onClick { startActivity<PasswordActivity>() }
+        setting_message.onClick { startActivity<MessageActivity>() }
     }
 
     @SuppressLint("SetTextI18n")

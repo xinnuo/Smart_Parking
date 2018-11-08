@@ -65,6 +65,9 @@
         <activity
             android:name=".PasswordActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".MessageActivity"
+            android:screenOrientation="portrait" />
 
         <!-- JPush start -->
         <!-- JPush 用户自定义的广播接收器 -->

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.ruanmeng.park_inspector.MessageActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,15 +52,10 @@ public class JPushReceiver extends BroadcastReceiver {
                 JSONObject json = new JSONObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
                 if (!json.isNull("type")) {
                     String push_type = json.optString("type");
-                    String businessId = json.optString("businessId");
-                    switch (push_type) {
-                        case "SYS":
-                        case "MSG":
-                        case "ORDER":
-                            /*intent = new Intent(context, MessageActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            context.startActivity(intent);*/
-                            break;
+                    if ("REGION".equals(push_type)) {
+                        intent = new Intent(context, MessageActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
                     }
                 }
             } catch (JSONException e) {

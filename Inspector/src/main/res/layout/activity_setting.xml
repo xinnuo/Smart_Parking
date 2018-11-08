@@ -26,6 +26,19 @@
             app:sRightIconSize="@dimen/dimen_size_15"
             app:sTopLineMargin="@dimen/dimen_size_0" />
 
+        <com.allen.library.SuperTextView
+            android:id="@+id/setting_message"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_size_45.5"
+            app:sBottomLineMargin="@dimen/dimen_size_10"
+            app:sLeftTextColor="@color/black"
+            app:sLeftTextMarginLeft="@dimen/dimen_size_10"
+            app:sLeftTextString="消息"
+            app:sLineShow="bottom"
+            app:sRightIconMarginRight="@dimen/dimen_size_10"
+            app:sRightIconRes="@mipmap/index_right"
+            app:sRightIconSize="@dimen/dimen_size_15" />
+
         <LinearLayout
             android:id="@+id/setting_msg"
             android:layout_width="match_parent"

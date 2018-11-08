@@ -34,13 +34,13 @@ class MainActivity : BaseActivity() {
         super.init_title()
         ivBack.gone()
 
-        tvRight.onClick { startActivity<SettingActivity>() }
-        main_item1.onClick { startActivity<ScanActivity>() }
-        main_item2.onClick { startActivity<StatusActivity>() }
-        main_item3.onClick { startActivity<CustomActivity>() }
-        main_item4.onClick { startActivity<PreviewActivity>() }
-        main_item5.onClick { startActivity<WrongActivity>() }
-        main_item6.onClick { getData() }
+        tvRight.setOneClickListener { startActivity<SettingActivity>() }
+        main_item1.setOneClickListener { startActivity<ScanActivity>() }
+        main_item2.setOneClickListener { startActivity<StatusActivity>() }
+        main_item3.setOneClickListener { startActivity<CustomActivity>() }
+        main_item4.setOneClickListener { startActivity<PreviewActivity>() }
+        main_item5.setOneClickListener { startActivity<WrongActivity>() }
+        main_item6.setOneClickListener { getData() }
     }
 
     override fun getData() {

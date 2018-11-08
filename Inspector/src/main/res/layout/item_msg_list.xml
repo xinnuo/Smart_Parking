@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/item_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_size_10">
+
+                <TextView
+                    android:id="@+id/item_msg_time"
+                    style="@style/Font13_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="时间" />
+
+                <TextView
+                    android:id="@+id/item_msg_content"
+                    style="@style/Font14_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_size_10"
+                    android:lineSpacingExtra="@dimen/dimen_size_3"
+                    android:text="内容" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/item_msg_divider1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginEnd="@dimen/dimen_size_10"
+            android:layout_marginStart="@dimen/dimen_size_10"
+            android:background="@color/divider" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/item_msg_divider2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider"
+        android:visibility="gone" />
+
+</LinearLayout>

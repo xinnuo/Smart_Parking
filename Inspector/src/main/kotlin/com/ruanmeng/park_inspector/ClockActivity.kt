@@ -37,7 +37,7 @@ class ClockActivity : BaseActivity() {
 
                     val isLast = list.indexOf(data) == list.size - 1
 
-                    injector.text(R.id.item_clock_title, "${data.signinDay}   已打卡")
+                    injector.text(R.id.item_clock_title, "${data.createDate}   已打卡")
 
                             .visibility(R.id.item_clock_divider1, if (isLast) View.GONE else View.VISIBLE)
                             .visibility(R.id.item_clock_divider2, if (!isLast) View.GONE else View.VISIBLE)

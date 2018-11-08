@@ -42,6 +42,7 @@ class FeedbackActivity : BaseActivity() {
         feedback_submit.setOneClickListener {
             OkGo.post<String>(BaseHttp.leave_message_sub)
                     .tag(this@FeedbackActivity)
+                    .isMultipart(true)
                     .headers("token", getString("token"))
                     .params("content", feedback_content.text.trim().toString())
                     .execute(object : StringDialogCallback(baseContext) {

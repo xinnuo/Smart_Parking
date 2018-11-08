@@ -35,11 +35,15 @@ import java.io.Serializable
  * 创建时间：2018-10-24 17:01
  */
 data class CommonData(
+        //消息列表
+        var sendDate: String = "",
+        var content: String = "",
         //分组列表
         var userGroupId: String = "",
         var groupName: String = "",
         //打卡记录
         var signinDay: String = "",
+        var createDate: String = "",
         //车位列表
         var paddress: String = "",
         var pprovince: String = "",

@@ -20,6 +20,7 @@ object BaseHttp {
     val identify_getbyforget = "$baseIp/identify_getbyforget.rm" //忘记验证码
     val password_change_sub = "$baseIp/password_change_sub.rm"   //修改密码
 
+    val msg_list_data = "$baseIp/msg_list_data.rm"             //消息
     val add_usergroup = "$baseIp/add_usergroup.rm"             //新增分组
     val find_usergroup_data = "$baseIp/find_usergroup_data.rm" //分组数据
     val update_usergroup = "$baseIp/update_usergroup.rm"       //修改分组
