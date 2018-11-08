@@ -16,10 +16,7 @@ import com.lzy.okgo.model.Response
 import com.ruanmeng.base.*
 import com.ruanmeng.share.BaseHttp
 import com.ruanmeng.share.Const
-import com.ruanmeng.utils.DialogHelper
-import com.ruanmeng.utils.KeyboardHelper
-import com.ruanmeng.utils.NameLengthFilter
-import com.ruanmeng.utils.trimString
+import com.ruanmeng.utils.*
 import kotlinx.android.synthetic.main.activity_info.*
 import org.jetbrains.anko.sdk25.listeners.onClick
 import org.jetbrains.anko.sdk25.listeners.textChangedListener
@@ -47,7 +44,7 @@ class InfoActivity : BaseActivity() {
             "0" -> "女"
             else -> "男"
         })
-        info_phone.setRightString(getString("mobile"))
+        info_phone.setRightString(getString("mobile").phoneReplaceWithStar())
 
         info_nick.filters = arrayOf<InputFilter>(NameLengthFilter(16))
         info_nick.textChangedListener {
