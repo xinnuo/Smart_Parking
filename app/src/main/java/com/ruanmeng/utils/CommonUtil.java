@@ -37,30 +37,6 @@ public class CommonUtil {
         return netstate;
     }
 
-    public static int getScreenWidth(Context context) {
-        WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        if (manager != null) {
-            Display display = manager.getDefaultDisplay();
-            DisplayMetrics outMetrics = new DisplayMetrics();
-            display.getMetrics(outMetrics);
-            return outMetrics.widthPixels;
-            //return display.getWidth();
-        }
-        return 0;
-    }
-
-    public static int getScreenHeight(Context context) {
-        WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        if (manager != null) {
-            Display display = manager.getDefaultDisplay();
-            DisplayMetrics outMetrics = new DisplayMetrics();
-            display.getMetrics(outMetrics);
-            return outMetrics.heightPixels;
-            //return display.getHeight();
-        }
-        return 0;
-    }
-
     /**
      * 功能：身份证的有效验证
      *

@@ -27,11 +27,16 @@
  */
 package com.ruanmeng.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Environment
+import android.util.DisplayMetrics
+import android.view.WindowManager
 import android.widget.ImageView
 
 /**
@@ -55,4 +60,26 @@ fun Context.getImgFromSD(iv: ImageView, resID: Int) = kotlin.run {
                         inPurgeable = true
                         inInputShareable = true
                     }))
+}
+
+/**
+ * 屏幕宽度，单位：px
+ */
+fun Context.getScreenWidth() = kotlin.run {
+    val manager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    val display = manager.defaultDisplay
+    val outMetrics = DisplayMetrics()
+    display.getMetrics(outMetrics)
+    outMetrics.widthPixels
+}
+
+/**
+ * 屏幕高度，单位：px
+ */
+fun Context.getScreenHeight() = kotlin.run {
+    val manager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    val display = manager.defaultDisplay
+    val outMetrics = DisplayMetrics()
+    display.getMetrics(outMetrics)
+    outMetrics.heightPixels
 }
