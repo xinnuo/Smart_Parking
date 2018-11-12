@@ -24,6 +24,7 @@ object BaseHttp {
     val index_data = "$baseIp/index_data.rm"                 //首页
     val index_price_info = "$baseIp/index_price_info.rm"     //车位信息
     val find_carshopp_data = "$baseIp/find_carshopp_data.rm" //车品商城
+    val guide_info = "$baseIp/guide_info.rm"                 //引导页
 
     val userinfo_uploadhead_sub = "$baseIp/userinfo_uploadhead_sub.rm" //修改头像
     val nickName_change_sub = "$baseIp/nickName_change_sub.rm"         //修改昵称

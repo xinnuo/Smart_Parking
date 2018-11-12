@@ -115,6 +115,7 @@ dependencies {
     def aar = ['FlycoDialog-1.3.2',
                'GlideImageView-1.3.0',
                'MNProgressHUD-1.0.1',
+               'RollViewPager',
                'SuperText-1.1.1',
                'UmengSocial-6.9.1']
     aar.each { implementation(name: it, ext: 'aar') }
