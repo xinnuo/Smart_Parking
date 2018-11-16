@@ -22,12 +22,18 @@
     <!--用于申请获取蓝牙信息进行室内定位-->
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <!--前台服务权限-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
 
+        <!-- 定位服务 -->
         <service android:name="com.amap.api.location.APSService" />
+
+        <!-- 前台服务 -->
+        <!-- <service android:name=".LocationForegoundService"/> -->
 
         <meta-data
             android:name="com.amap.api.v2.apikey"

@@ -56,9 +56,9 @@ public class AMapLocationHelper {
     }
 
     public AMapLocationHelper setDuration(int millisecond) {
-        locationOption.setOnceLocation(false);
-        locationOption.setOnceLocationLatest(false);
-        locationOption.setInterval(millisecond);
+        locationOption.setOnceLocation(false);       //可选，设置是否单次定位。默认是false
+        locationOption.setOnceLocationLatest(false); //可选，设置是否等待wifi刷新，默认为false.如果设置为true,会自动变为单次定位，持续定位时不要使用
+        locationOption.setInterval(millisecond);     //可选，设置定位间隔。默认为2秒
         //设置定位参数
         locationClient.setLocationOption(locationOption);
         return this;
@@ -120,7 +120,7 @@ public class AMapLocationHelper {
         mOption.setNeedAddress(true);                                            //可选，设置是否返回逆地理地址信息。默认是true
         mOption.setOnceLocation(true);                                           //可选，设置是否单次定位。默认是false
         mOption.setOnceLocationLatest(true);                                     //可选，设置是否等待wifi刷新，默认为false.如果设置为true,会自动变为单次定位，持续定位时不要使用
-        AMapLocationClientOption.setLocationProtocol(AMapLocationProtocol.HTTP); //可选， 设置网络请求的协议。可选HTTP或者HTTPS。默认为HTTP
+        AMapLocationClientOption.setLocationProtocol(AMapLocationProtocol.HTTP); //可选，设置网络请求的协议。可选HTTP或者HTTPS。默认为HTTP
         mOption.setSensorEnable(false);                                          //可选，设置是否使用传感器。默认是false
         mOption.setWifiScan(true);                                               //可选，设置是否开启wifi扫描。默认为true，如果设置为false会同时停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差
         mOption.setLocationCacheEnable(true);                                    //可选，设置是否使用缓存定位，默认为true
@@ -237,7 +237,8 @@ public class AMapLocationHelper {
      * @param isRemoved true 会移除通知栏，为false时不会移除通知栏，但是可以手动移除
      */
     public void disableBackgroundLocation(boolean isRemoved) {
-        if (null != locationClient) locationClient.disableBackgroundLocation(isRemoved);
+        if (null != locationClient)
+            locationClient.disableBackgroundLocation(isRemoved);
     }
 
     public interface LocationCallback {

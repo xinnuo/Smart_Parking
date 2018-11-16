@@ -43,6 +43,7 @@ data class CommonData(
         var groupName: String = "",
         //打卡记录
         var signinDay: String = "",
+        var stype: String = "",
         var createDate: String = "",
         //车位列表
         var paddress: String = "",

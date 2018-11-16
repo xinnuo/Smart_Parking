@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import com.cuieney.rxpay_annotation.WX
 import com.cuieney.sdk.rxpay.RxPay
 import com.lzg.extend.BaseResponse
 import com.lzg.extend.StringDialogCallback
@@ -28,6 +29,7 @@ import org.jetbrains.anko.sdk25.listeners.onClick
 import org.json.JSONObject
 import java.text.DecimalFormat
 
+@WX(packageName = "com.ruanmeng.smart_parking")
 class CarBillActivity : BaseActivity() {
 
     private val list = ArrayList<Any>()

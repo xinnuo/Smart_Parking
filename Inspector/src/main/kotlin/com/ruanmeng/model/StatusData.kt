@@ -36,5 +36,6 @@ import java.io.Serializable
  */
 data class StatusData(
         var groupName: String = "",
-        var ls: List<CommonData>? = ArrayList()
+        var groupId: String = "",
+        var ls: ArrayList<CommonData>? = ArrayList()
 ) : Serializable

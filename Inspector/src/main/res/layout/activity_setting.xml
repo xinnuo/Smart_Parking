@@ -111,7 +111,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_size_40"
         android:layout_margin="@dimen/dimen_size_20"
-        android:background="@drawable/rec_bg_ova_lighter"
+        android:background="@drawable/rec_bg_red_r5"
         android:onClick="doClick"
         android:text="退出登录" />
 

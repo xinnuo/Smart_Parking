@@ -50,7 +50,6 @@ public class JPushReceiver extends BroadcastReceiver {
                 JSONObject json = new JSONObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
                 if (!json.isNull("type")) {
                     String push_type = json.optString("type");
-                    String businessId = json.optString("businessId");
                     switch (push_type) {
                         case "SYS":
                         case "MSG":

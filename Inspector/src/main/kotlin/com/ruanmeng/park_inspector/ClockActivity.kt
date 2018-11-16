@@ -20,7 +20,7 @@ class ClockActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_clock)
-        init_title("上班打卡")
+        init_title("打卡记录")
 
         swipe_refresh.isRefreshing = true
         getData()
@@ -37,7 +37,9 @@ class ClockActivity : BaseActivity() {
 
                     val isLast = list.indexOf(data) == list.size - 1
 
-                    injector.text(R.id.item_clock_title, "${data.createDate}   已打卡")
+                    injector.text(
+                            R.id.item_clock_title,
+                            "${data.createDate}   ${if (data.stype == "0") "上班" else "下班"}已打卡")
 
                             .visibility(R.id.item_clock_divider1, if (isLast) View.GONE else View.VISIBLE)
                             .visibility(R.id.item_clock_divider2, if (!isLast) View.GONE else View.VISIBLE)

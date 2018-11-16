@@ -37,6 +37,7 @@ import com.lzy.okgo.cookie.store.DBCookieStore
 import com.lzy.okgo.https.HttpsUtils
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor
 import com.lzy.okgo.utils.OkLogger
+import com.ruanmeng.base.registerActivityLifecycleListener
 import com.ruanmeng.park_inspector.BuildConfig
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
@@ -49,6 +50,8 @@ import java.util.logging.Level
  */
 class Application : MultiDexApplication() {
 
+    private var backCount = 0
+
     override fun onCreate() {
         super.onCreate()
 
@@ -56,7 +59,12 @@ class Application : MultiDexApplication() {
 
         //极光推送
         JPushInterface.setDebugMode(BuildConfig.LOG_DEBUG) //设置开启日志,发布时请关闭日志
-        JPushInterface.init(this@Application)              //初始化 JPush
+        JPushInterface.init(this@Application)              //初始化JPush
+
+        registerActivityLifecycleListener {
+            onActivityStarted { backCount++ }
+            onActivityStopped { if (backCount > 0) backCount-- }
+        }
     }
 
     private fun initOkGo() {
@@ -87,9 +95,15 @@ class Application : MultiDexApplication() {
 
         // 其他统一的配置
         OkGo.getInstance().init(this@Application)              //必须调用初始化
-            .setOkHttpClient(builder.build())              //建议设置OkHttpClient，不设置会使用默认的
-            .setCacheMode(CacheMode.NO_CACHE)              //全局统一缓存模式，默认不使用缓存，可以不传
-            .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)  //全局统一缓存时间，默认永不过期，可以不传
-            .retryCount = 3                                //全局统一超时重连次数，默认为三次，那么最差的情况会请求4次(一次原始请求，三次重连请求)，不需要可以设置为0
+                .setOkHttpClient(builder.build())              //建议设置OkHttpClient，不设置会使用默认的
+                .setCacheMode(CacheMode.NO_CACHE)              //全局统一缓存模式，默认不使用缓存，可以不传
+                .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)  //全局统一缓存时间，默认永不过期，可以不传
+                .retryCount = 3                                //全局统一超时重连次数，默认为三次，那么最差的情况会请求4次(一次原始请求，三次重连请求)，不需要可以设置为0
     }
+
+    /**
+     * 判断app是否在后台
+     */
+    fun isBackground() = backCount <= 0
+
 }

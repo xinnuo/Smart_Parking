@@ -1,6 +1,5 @@
-package com.amap.api;
+package com.ruanmeng.receiver;
 
-import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -12,6 +11,9 @@ import android.graphics.Color;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
+import android.support.annotation.RequiresApi;
+
+import com.ruanmeng.park_inspector.R;
 
 import static android.app.NotificationManager.IMPORTANCE_HIGH;
 
@@ -23,7 +25,7 @@ import static android.app.NotificationManager.IMPORTANCE_HIGH;
 public class LocationForegoundService extends Service {
 
     private final IBinder mBinder = new LocalBinder();
-    private static final int NOTIFICATION_ID = 520;
+    private static final int NOTIFICATION_ID = 250;
     private static final int NOTIFICATION_REQUEST = 110;
     private static final String CHANNEL_ONE_ID = "com.ruanmeng.service";
     private static final String CHANNEL_ONE_NAME = "LocationForengound";
@@ -47,14 +49,14 @@ public class LocationForegoundService extends Service {
     }
 
     //显示通知栏
-    @TargetApi(Build.VERSION_CODES.O)
+    @RequiresApi(Build.VERSION_CODES.O)
     public void showNotify() {
 
         // The PendingIntent to launch our activity if the user selects this notification
         PendingIntent contentIntent = PendingIntent.getActivity(
                 this,
                 NOTIFICATION_REQUEST,
-                new Intent(/*点击时跳转的Activity*/),
+                new Intent(),
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Set channelId of notification for Android O.
@@ -72,9 +74,9 @@ public class LocationForegoundService extends Service {
 
         // Set the info for the views that show in the notification panel.
         Notification.Builder builder = new Notification.Builder(getApplicationContext());
-        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), 0/*resourcesId资源图片*/))
+        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round))
                 .setChannelId(CHANNEL_ONE_ID)
-                .setSmallIcon(0/*resourcesId资源图片*/)  // the status icon
+                .setSmallIcon(R.mipmap.ic_launcher_round)  // the status icon
                 .setWhen(System.currentTimeMillis())  // the time stamp
                 .setContentIntent(contentIntent)  // The intent to send when the entry is clicked
                 .setContentTitle("正在后台定位")

@@ -25,6 +25,7 @@ object BaseHttp {
     val find_usergroup_data = "$baseIp/find_usergroup_data.rm" //分组数据
     val update_usergroup = "$baseIp/update_usergroup.rm"       //修改分组
     val delete_usergroup = "$baseIp/delete_usergroup.rm"       //删除分组
+    val add_parking_group = "$baseIp/add_parking_group.rm"     //移动分组
     val find_parking_info = "$baseIp/find_parking_info.rm"     //车位监控
     val get_parking_details = "$baseIp/get_parking_details.rm" //车位详情
     val find_ctn_parking = "$baseIp/find_ctn_parking.rm"       //车位预览
@@ -32,5 +33,7 @@ object BaseHttp {
     val add_punchClock = "$baseIp/add_punchClock.rm"           //打卡
     val punchClock_data = "$baseIp/punchClock_data.rm"         //打卡记录
     val add_scaninfo = "$baseIp/add_scaninfo.rm"               //车位上传
+    val add_uposition = "$baseIp/add_uposition.rm"             //位置上传
+    val goodsorder_ppay = "$baseIp/goodsorder_ppay.rm"         //支付
 
 }

@@ -12,13 +12,14 @@ import com.ruanmeng.share.BaseHttp
 import com.ruanmeng.utils.*
 import kotlinx.android.synthetic.main.activity_scan.*
 import org.jetbrains.anko.sdk25.listeners.onClick
+import org.jetbrains.anko.startActivity
 
 class ScanActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scan)
-        init_title("车牌扫描上传")
+        init_title("车牌扫描上传", "异常信息上传")
     }
 
     override fun init_title() {
@@ -30,6 +31,7 @@ class ScanActivity : BaseActivity() {
         scan_num.addTextChangedListener(this@ScanActivity)
         scan_place.addTextChangedListener(this@ScanActivity)
 
+        tvRight.onClick { startActivity<WrongActivity>() }
         scan_submit.onClick {
             if (!scan_num.text.trimToUpperCase().isCarNumber()) {
                 scan_num.setText("")
@@ -37,20 +39,28 @@ class ScanActivity : BaseActivity() {
                 return@onClick
             }
 
-            OkGo.post<String>(BaseHttp.add_scaninfo)
-                    .tag(this@ScanActivity)
-                    .isMultipart(true)
-                    .headers("token", getString("token"))
-                    .params("carno", scan_num.text.trimString())
-                    .params("dno", scan_place.text.trimString())
-                    .execute(object : StringDialogCallback(baseContext) {
+            DialogHelper.showItemDialog(
+                    baseContext,
+                    "选择异常类型",
+                    listOf("停车不规范", "越野车", "其他")) { _, name ->
 
-                        override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
-                            showToast(msg)
-                            ActivityStack.screenManager.popActivities(this@ScanActivity::class.java)
-                        }
+                OkGo.post<String>(BaseHttp.add_scaninfo)
+                        .tag(this@ScanActivity)
+                        .isMultipart(true)
+                        .headers("token", getString("token"))
+                        .params("carno", scan_num.text.trimToUpperCase())
+                        .params("dno", scan_place.text.trimString())
+                        .params("exReason", name)
+                        .execute(object : StringDialogCallback(baseContext) {
 
-                    })
+                            override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
+                                showToast(msg)
+                                ActivityStack.screenManager.popActivities(this@ScanActivity::class.java)
+                            }
+
+                        })
+            }
+
         }
     }
 
