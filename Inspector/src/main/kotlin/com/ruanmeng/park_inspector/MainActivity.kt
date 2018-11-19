@@ -20,7 +20,6 @@ import com.amap.api.services.geocoder.GeocodeSearch
 import com.amap.api.services.geocoder.RegeocodeQuery
 import com.amap.api.services.geocoder.RegeocodeResult
 import com.lzy.okgo.utils.OkLogger
-import com.ruanmeng.Application
 import com.ruanmeng.receiver.LocationForegoundService
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
@@ -46,7 +45,7 @@ class MainActivity : BaseActivity() {
                     getString("token"))
         }
 
-        // startService<LocationForegoundService>()
+        startService<LocationForegoundService>()
         AMapLocationHelper.getInstance(baseContext)
                 .setDuration(900000)
                 .startLocation(111) { location, isSuccessed, _ ->
@@ -148,21 +147,11 @@ class MainActivity : BaseActivity() {
                 })
     }
 
-    override fun onResume() {
-        super.onResume()
-        stopService<LocationForegoundService>()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        val isBackground = (application as Application).isBackground()
-        if (isBackground) startService<LocationForegoundService>()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
 
         AMapLocationHelper.getInstance(baseContext).stopLocation()
+        AMapLocationHelper.getInstance(baseContext).destroyLocation()
         stopService<LocationForegoundService>()
     }
 

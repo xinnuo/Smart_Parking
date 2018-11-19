@@ -84,7 +84,7 @@ public class AMapLocationHelper {
     /**
      * 销毁定位
      */
-    private void destroyLocation() {
+    public void destroyLocation() {
         if (null != locationClient) {
             /*
              * 如果AMapLocationClient是在当前Activity实例化的，
@@ -188,11 +188,11 @@ public class AMapLocationHelper {
     /**
      * 时间格式化
      */
-    public static String formatUTC(long l, String strPattern) {
+    public static String formatUTC(long time, String strPattern) {
         if (TextUtils.isEmpty(strPattern)) strPattern = "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat sdf = new SimpleDateFormat(strPattern, Locale.CHINA);
         sdf.applyPattern(strPattern);
-        return sdf.format(l);
+        return sdf.format(time);
     }
 
     /**
