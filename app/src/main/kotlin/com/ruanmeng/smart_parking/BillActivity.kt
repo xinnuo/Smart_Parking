@@ -184,10 +184,8 @@ class BillActivity : BaseActivity() {
                                     .requestAlipay(obj)
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe({
-                                        if (it) {
-                                            showToast("支付成功")
-                                            EventBus.getDefault().post(RefreshMessageEvent("支付成功"))
-                                        } else showToast("支付失败")
+                                        if (it) paySuccessAfter(parkId)
+                                        else showToast("支付失败")
                                     }) {
                                         OkLogger.printStackTrace(it)
                                     }
@@ -195,10 +193,8 @@ class BillActivity : BaseActivity() {
                                     .requestWXpay(data)
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe({
-                                        if (it) {
-                                            showToast("支付成功")
-                                            EventBus.getDefault().post(RefreshMessageEvent("支付成功"))
-                                        } else showToast("支付失败")
+                                        if (it) paySuccessAfter(parkId)
+                                        else showToast("支付失败")
                                     }) {
                                         OkLogger.printStackTrace(it)
                                     }
@@ -218,11 +214,17 @@ class BillActivity : BaseActivity() {
 
                     override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
 
-                        showToast(msg)
-                        EventBus.getDefault().post(RefreshMessageEvent("支付成功"))
+                        paySuccessAfter(parkId)
                     }
 
                 })
+    }
+
+    private fun paySuccessAfter(parkId: String) {
+        EventBus.getDefault().post(RefreshMessageEvent("支付成功"))
+        startActivity<HelpActivity>(
+                "title" to "支付成功",
+                "parkId" to parkId)
     }
 
     private fun updateList() {

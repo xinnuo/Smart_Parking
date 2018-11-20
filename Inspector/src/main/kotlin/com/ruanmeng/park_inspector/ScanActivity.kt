@@ -19,7 +19,7 @@ class ScanActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scan)
-        init_title("车牌扫描上传", "异常信息上传")
+        init_title("异常上传", "异常信息上传")
     }
 
     override fun init_title() {

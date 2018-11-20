@@ -24,7 +24,7 @@
             app:sLeftTextColor="@color/black"
             app:sLeftTextMarginLeft="@dimen/dimen_size_15"
             app:sLeftTextSize="@dimen/sp_size_15"
-            app:sLeftTextString="车牌扫描上传"
+            app:sLeftTextString="异常上传"
             app:sLineShow="none"
             app:sRightIconMarginRight="@dimen/dimen_size_10"
             app:sRightIconRes="@mipmap/index_right"

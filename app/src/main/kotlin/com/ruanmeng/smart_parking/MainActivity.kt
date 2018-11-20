@@ -112,7 +112,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 R.id.nav_car -> startActivity<CarActivity>()
                 R.id.nav_wallet -> startActivity<WalletActivity>()
                 R.id.nav_contact -> getData()
-                R.id.nav_feedback -> startActivity<HelpActivity>()
+                R.id.nav_feedback -> startActivity<HelpActivity>("title" to "帮助与反馈")
                 R.id.nav_setting -> startActivity<SettingActivity>()
             }
         }, 300)

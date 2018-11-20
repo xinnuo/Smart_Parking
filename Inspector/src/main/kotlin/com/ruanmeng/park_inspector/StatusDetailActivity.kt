@@ -19,6 +19,7 @@ import com.ruanmeng.utils.toNotDouble
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_status_detail.*
 import org.jetbrains.anko.sdk25.listeners.onClick
+import org.jetbrains.anko.startActivity
 import org.json.JSONObject
 import java.text.DecimalFormat
 
@@ -88,28 +89,30 @@ class StatusDetailActivity : BaseActivity() {
                                     .requestAlipay(obj)
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe({
-                                        if (it) {
-                                            showToast("支付成功")
-                                            getData()
-                                        } else {
-                                            showToast("支付失败")
-                                        }
+                                        if (it) payAfter(parkingInfoId)
+                                        else showToast("支付失败")
                                     }) { OkLogger.printStackTrace(it) }
                             "WxPay" -> RxPay(baseContext)
                                     .requestWXpay(data)
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe({
-                                        if (it) {
-                                            showToast("支付成功")
-                                            getData()
-                                        } else {
-                                            showToast("支付失败")
-                                        }
+                                        if (it) payAfter(parkingInfoId)
+                                        else showToast("支付失败")
                                     }) { OkLogger.printStackTrace(it) }
                         }
                     }
 
+                    override fun onSuccessResponseErrorCode(response: Response<String>?, msg: String?, msgCode: String?) {
+                        if (msgCode == "102") payAfter(parkingInfoId)
+                        else super.onSuccessResponseErrorCode(response, msg, msgCode)
+                    }
+
                 })
+    }
+
+    private fun payAfter(parkId: String) {
+        getData()
+        startActivity<WebActivity>("parkId" to parkId)
     }
 
     @SuppressLint("InflateParams")

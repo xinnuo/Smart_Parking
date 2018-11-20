@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.layout_list.*
 import net.idik.lib.slimadapter.SlimAdapter
 import org.jetbrains.anko.include
 import org.jetbrains.anko.sdk25.listeners.onClick
+import org.jetbrains.anko.startActivity
 import org.json.JSONObject
 import java.text.DecimalFormat
 
@@ -135,10 +136,8 @@ class CarBillActivity : BaseActivity() {
                                     .requestAlipay(obj)
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe({
-                                        if (it) {
-                                            showToast("支付成功")
-                                            updateList(parkId)
-                                        } else showToast("支付失败")
+                                        if (it) paySuccessAfter(parkId)
+                                        else showToast("支付失败")
                                     }) {
                                         OkLogger.printStackTrace(it)
                                     }
@@ -146,14 +145,17 @@ class CarBillActivity : BaseActivity() {
                                     .requestWXpay(data)
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe({
-                                        if (it) {
-                                            showToast("支付成功")
-                                            updateList(parkId)
-                                        } else showToast("支付失败")
+                                        if (it) paySuccessAfter(parkId)
+                                        else showToast("支付失败")
                                     }) {
                                         OkLogger.printStackTrace(it)
                                     }
                         }
+                    }
+
+                    override fun onSuccessResponseErrorCode(response: Response<String>?, msg: String?, msgCode: String?) {
+                        if (msgCode == "102") paySuccessAfter(parkId)
+                        else super.onSuccessResponseErrorCode(response, msg, msgCode)
                     }
 
                 })
@@ -168,12 +170,17 @@ class CarBillActivity : BaseActivity() {
                 .execute(object : StringDialogCallback(baseContext, false) {
 
                     override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
-
-                        showToast(msg)
-                        updateList(parkId)
+                        paySuccessAfter(parkId)
                     }
 
                 })
+    }
+
+    private fun paySuccessAfter(parkId: String) {
+        updateList()
+        startActivity<HelpActivity>(
+                "title" to "支付成功",
+                "parkId" to parkId)
     }
 
     @SuppressLint("InflateParams", "SetTextI18n")
@@ -201,12 +208,16 @@ class CarBillActivity : BaseActivity() {
         dialog.show()
     }
 
-    private fun updateList(parkId: String) {
-        val index = list.indexOfFirst { (it as CommonData).parkingInfoId == parkId }
-        list.removeAt(index)
-        mAdapter.notifyItemRemoved(index)
+    private fun updateList() {
+        swipe_refresh.isRefreshing = true
 
-        empty_view.apply { if (list.isEmpty()) visible() else gone() }
+        empty_view.gone()
+        if (list.isNotEmpty()) {
+            list.clear()
+            mAdapter.notifyDataSetChanged()
+        }
+
+        getData()
     }
 
 }
