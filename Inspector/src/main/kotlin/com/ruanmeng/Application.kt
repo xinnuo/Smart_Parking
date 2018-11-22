@@ -29,6 +29,8 @@ package com.ruanmeng
  */
 import android.support.multidex.MultiDexApplication
 import cn.jpush.android.api.JPushInterface
+import com.iflytek.cloud.Setting
+import com.iflytek.cloud.SpeechUtility
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.cache.CacheEntity
 import com.lzy.okgo.cache.CacheMode
@@ -60,6 +62,11 @@ class Application : MultiDexApplication() {
         //极光推送
         JPushInterface.setDebugMode(BuildConfig.LOG_DEBUG) //设置开启日志,发布时请关闭日志
         JPushInterface.init(this@Application)              //初始化JPush
+
+        //讯飞语音
+        SpeechUtility.createUtility(this, "appid=5bf533b6")
+        //设置日志开关（默认开启）
+        Setting.setShowLog(BuildConfig.LOG_DEBUG)
 
         registerActivityLifecycleListener {
             onActivityStarted { backCount++ }

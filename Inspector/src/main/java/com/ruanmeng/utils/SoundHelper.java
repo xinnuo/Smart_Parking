@@ -22,9 +22,9 @@ public class SoundHelper {
         } else {
             soundPool = new SoundPool(2, AudioManager.STREAM_SYSTEM, 5);
         }
-        idRing01 = soundPool.load(context, R.raw.park_ring01, 1);
-        idRing02 = soundPool.load(context, R.raw.park_ring02, 1);
-        idRing03 = soundPool.load(context, R.raw.park_ring03, 1);
+        idRing01 = soundPool.load(context, /*R.raw.park_ring01*/-1, 1);
+        idRing02 = soundPool.load(context, /*R.raw.park_ring02*/-2, 1);
+        idRing03 = soundPool.load(context, /*R.raw.park_ring03*/-3, 1);
     }
 
     public static SoundHelper getInstande(Context context) {

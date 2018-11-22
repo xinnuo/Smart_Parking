@@ -151,7 +151,6 @@ class MainActivity : BaseActivity() {
         super.onDestroy()
 
         AMapLocationHelper.getInstance(baseContext).stopLocation()
-        AMapLocationHelper.getInstance(baseContext).destroyLocation()
         stopService<LocationForegoundService>()
     }
 

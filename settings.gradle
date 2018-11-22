@@ -1,1 +1,1 @@
-include ':app', ':okgo', ':AMap', ':Inspector'
+include ':app', ':okgo', ':AMap', ':Inspector', ':iflytek'

@@ -1,0 +1,32 @@
+apply plugin: 'com.android.library'
+
+apply from: '../dependency.gradle'
+
+android {
+    compileSdkVersion versions.compileSdkVersion
+    defaultConfig {
+        minSdkVersion versions.minSdkVersion
+        targetSdkVersion versions.targetSdkVersion
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //设置支持的SO库架构 CPU
+        //处理.so文件时的重要法则:要么全部支持，要么都不支持
+        ndk { abiFilters "armeabi-v7a", "x86" }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main { jniLibs.srcDirs = ['libs'] }
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+}

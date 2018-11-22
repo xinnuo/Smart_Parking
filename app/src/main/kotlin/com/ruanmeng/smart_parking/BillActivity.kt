@@ -86,7 +86,9 @@ class BillActivity : BaseActivity() {
                 .register<CommonData>(R.layout.item_bill_list) { data, injector ->
 
                     val isLast = list.indexOf(data) == list.size - 1
+                    val paySum = data.paySum.toNotDouble()
 
+                    @Suppress("DEPRECATION")
                     injector.text(R.id.item_bill_num, "车牌号：${data.carNo}")
                             .text(R.id.item_bill_start, "开始时间：${data.startDate}")
                             .text(R.id.item_bill_end, "结束时间：${data.endDate}")
@@ -94,9 +96,23 @@ class BillActivity : BaseActivity() {
                             .text(R.id.item_bill_money, DecimalFormat("0.00").format(data.paySum.toNotDouble()))
                             .text(R.id.item_bill_fee, DecimalFormat("0.00").format(data.LateFee.toNotDouble()))
                             .text(R.id.item_bill_press, when (data.status) {
-                                "-1", "0", "1" -> "去付款"
+                                "-1", "0", "1" -> if (paySum > 0.0) "去付款" else "无需支付"
                                 "5" -> "开发票"
                                 else -> ""
+                            })
+                            .background(R.id.item_bill_press, when (data.status) {
+                                "-1", "0", "1" -> {
+                                    if (paySum > 0.0) R.drawable.rec_bg_trans_stroke_orange
+                                    else R.drawable.rec_bg_trans_stroke_d0d0d0
+                                }
+                                else -> R.drawable.rec_bg_trans_stroke_orange
+                            })
+                            .textColor(R.id.item_bill_press, resources.getColor(if (paySum == 0.0) R.color.orange else R.color.light))
+                            .textColor(R.id.item_bill_press, when (data.status) {
+                                "-1", "0", "1" -> {
+                                    resources.getColor(if (paySum > 0.0) R.color.orange else R.color.light)
+                                }
+                                else -> resources.getColor(R.color.orange)
                             })
 
                             .visibility(R.id.item_bill_bar, when (data.status) {
@@ -108,7 +124,7 @@ class BillActivity : BaseActivity() {
 
                             .clicked(R.id.item_bill_press) {
                                 when (data.status) {
-                                    "-1", "0", "1" -> showChargeDialog(data.goodsOrderId, data.parkingInfoId)
+                                    "-1", "0", "1" -> if (paySum > 0.0) showChargeDialog(data.goodsOrderId, data.parkingInfoId)
                                     "5" -> startActivity<TicketActivity>(
                                             "goodsOrderId" to data.goodsOrderId,
                                             "money" to if (data.realPaySum.isEmpty()) "0.00" else data.realPaySum)

@@ -109,6 +109,7 @@ dependencies {
     anko.each { implementation 'org.jetbrains.anko:anko-' + it + versions.ankoVersion }
 
     implementation project(':AMap')
+    implementation project(':iflytek')
     implementation project(':okgo')
     def aar = ['FlycoDialog-1.3.2', 'GlideImageView-1.3.0', 'MNProgressHUD-1.0.1', 'SuperText-1.1.1']
     aar.each { implementation(name: it, ext: 'aar') }

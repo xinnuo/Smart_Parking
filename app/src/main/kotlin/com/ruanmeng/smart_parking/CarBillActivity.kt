@@ -56,20 +56,24 @@ class CarBillActivity : BaseActivity() {
                 .register<CommonData>(R.layout.item_bill_list) { data, injector ->
 
                     val isLast = list.indexOf(data) == list.size - 1
+                    val paySum = data.paySum.toNotDouble()
 
+                    @Suppress("DEPRECATION")
                     injector.text(R.id.item_bill_num, "车牌号：${data.carNo}")
                             .text(R.id.item_bill_start, "开始时间：${data.startDate}")
                             .text(R.id.item_bill_end, "结束时间：${data.endDate}")
                             .text(R.id.item_bill_address, data.daddress)
                             .text(R.id.item_bill_money, DecimalFormat("0.00").format(data.paySum.toNotDouble()))
                             .text(R.id.item_bill_fee, DecimalFormat("0.00").format(data.LateFee.toNotDouble()))
-                            .text(R.id.item_bill_press, "去付款")
+                            .text(R.id.item_bill_press, if (paySum > 0.0) "去付款" else "无需支付")
+                            .background(R.id.item_bill_press, if (paySum > 0.0) R.drawable.rec_bg_trans_stroke_orange else R.drawable.rec_bg_trans_stroke_d0d0d0)
+                            .textColor(R.id.item_bill_press, resources.getColor(if (paySum > 0.0) R.color.orange else R.color.light))
 
                             .visibility(R.id.item_bill_late, if (data.LateFee.isEmpty()) View.GONE else View.VISIBLE)
                             .visibility(R.id.item_bill_divider, if (isLast) View.VISIBLE else View.GONE)
 
                             .clicked(R.id.item_bill_press) {
-                                showChargeDialog(data.goodsOrderId, data.parkingInfoId)
+                                if (paySum > 0.0) showChargeDialog(data.goodsOrderId, data.parkingInfoId)
                             }
                 }
                 .attachTo(recycle_list)

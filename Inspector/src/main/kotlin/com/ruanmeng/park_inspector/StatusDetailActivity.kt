@@ -65,7 +65,7 @@ class StatusDetailActivity : BaseActivity() {
                         parkingInfoId = obj.optString("parkingInfoId")
                         val price = obj.optString("price").toNotDouble()
                         status_price.setRightString("￥${DecimalFormat("0.00").format(price)}")
-                        if (parkingInfoId.isNotEmpty()) status_pay.visible()
+                        if (parkingInfoId.isNotEmpty() && price > 0.0) status_pay.visible()
                     }
 
                 })

@@ -1,5 +1,6 @@
 package com.ruanmeng.receiver;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -14,9 +15,9 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.ruanmeng.iflytek.SpeechSynthesisHelper;
 import com.ruanmeng.park_inspector.MessageActivity;
 import com.ruanmeng.park_inspector.R;
-import com.ruanmeng.utils.SoundHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +25,10 @@ import org.json.JSONObject;
 import java.util.Iterator;
 
 import cn.jpush.android.api.JPushInterface;
+import io.reactivex.Flowable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 import static android.app.Notification.VISIBILITY_SECRET;
 import static android.content.Context.NOTIFICATION_SERVICE;
@@ -44,8 +49,6 @@ public class JPushReceiver extends BroadcastReceiver {
         Bundle bundle = intent.getExtras();
         if (bundle == null) return;
 
-        SoundHelper soundHelper = SoundHelper.getInstande(context);
-
         Log.d(TAG, "[JPushReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
 
         if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
@@ -62,25 +65,8 @@ public class JPushReceiver extends BroadcastReceiver {
             int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
             Log.d(TAG, "[JPushReceiver] 接收到推送下来的通知的ID: " + notifactionId);
 
-            try {
-                JSONObject json = new JSONObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
-                if (!json.isNull("yxtype")) {
-                    String yxtype = json.optString("yxtype");
-                    switch (yxtype) {
-                        case "1":
-                            soundHelper.palyOne();
-                            break;
-                        case "2":
-                            soundHelper.palyTwo();
-                            break;
-                        case "3":
-                            soundHelper.palyThree();
-                            break;
-                    }
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            String value = bundle.getString(JPushInterface.EXTRA_ALERT);
+            startSpeak(context, value);
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             Log.d(TAG, "[JPushReceiver] 用户点击打开了通知");
 
@@ -149,6 +135,31 @@ public class JPushReceiver extends BroadcastReceiver {
     }
 
     /**
+     * 语音播报
+     */
+    @SuppressLint("CheckResult")
+    private void startSpeak(Context context, final String text) {
+        //noinspection ResultOfMethodCallIgnored
+        Flowable.just(context)
+                .map(new Function<Context, SpeechSynthesisHelper>() {
+                    @Override
+                    public SpeechSynthesisHelper apply(Context context) {
+                        return SpeechSynthesisHelper.getInstance(context);
+                    }
+                })
+                //指定Observable自身在哪个调度器上执行
+                .subscribeOn(Schedulers.newThread())
+                //指定observer在哪个调度器上观察Observable
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Consumer<SpeechSynthesisHelper>() {
+                    @Override
+                    public void accept(SpeechSynthesisHelper helper) {
+                        helper.startSpeaking(text);
+                    }
+                });
+    }
+
+    /**
      * 实现自定义推送声音
      */
     private void processCustomMessage(Context context, Bundle bundle) {
@@ -185,7 +196,7 @@ public class JPushReceiver extends BroadcastReceiver {
                 .setContentText(message)
                 .setContentTitle(context.getString(R.string.app_name))
                 .setSmallIcon(R.mipmap.ic_launcher_round)
-                .setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.park_ring01));
+                .setSound(Uri.parse("android.resource://" + context.getPackageName() + "/"/* + R.raw.park_ring01*/));
 
         Intent mIntent = new Intent(context, MessageActivity.class);
         mIntent.putExtras(bundle);
