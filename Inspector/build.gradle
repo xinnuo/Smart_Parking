@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 
 repositories {
     mavenCentral()
+    //编译中依赖的jar包存储在dirs指定的目录
     flatDir { dir 'libs' }
 }
 
