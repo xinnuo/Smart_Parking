@@ -54,6 +54,7 @@ data class CommonData(
         var plat: String = "",
         var plng: String = "",
         var deviceId: String = "",
+        var parkingNo: String = "",
         var parkingStatus: String = "",
         var parkingId: String = "",
         var publicParkingId: String = ""

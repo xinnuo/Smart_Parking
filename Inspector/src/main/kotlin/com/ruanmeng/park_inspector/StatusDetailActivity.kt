@@ -32,7 +32,7 @@ class StatusDetailActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_status_detail)
-        init_title("车位详情")
+        init_title("车位详情", "异常上传")
 
         getData()
     }
@@ -40,10 +40,15 @@ class StatusDetailActivity : BaseActivity() {
     override fun init_title() {
         super.init_title()
         parkingId = intent.getStringExtra("parkId")
-        status_num.setRightString(intent.getStringExtra("space"))
+        val parkingNo = intent.getStringExtra("space")
+        status_num.setRightString(parkingNo)
         status_addr.text = intent.getStringExtra("address")
 
         status_pay.setOneClickListener { showChargeDialog() }
+
+        tvRight.setOneClickListener {
+            startActivity<ScanActivity>("parkingNo" to parkingNo)
+        }
     }
 
     override fun getData() {

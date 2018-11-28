@@ -20,6 +20,9 @@ class ScanActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scan)
         init_title("异常上传", "异常信息上传")
+
+        val parkingNo = intent.getStringExtra("parkingNo") ?: ""
+        scan_place.setText(parkingNo)
     }
 
     override fun init_title() {
