@@ -13,6 +13,7 @@
         <com.allen.library.SuperTextView
             android:id="@+id/main_item1"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="@dimen/dimen_size_75"
             android:layout_marginStart="@dimen/dimen_size_15"
             android:layout_marginTop="@dimen/dimen_size_15"
@@ -108,7 +109,7 @@
             app:sLeftTextColor="@color/black"
             app:sLeftTextMarginLeft="@dimen/dimen_size_15"
             app:sLeftTextSize="@dimen/sp_size_15"
-            app:sLeftTextString="异常状况照片上传"
+            app:sLeftTextString="设备维护"
             app:sLineShow="none"
             app:sRightIconMarginRight="@dimen/dimen_size_10"
             app:sRightIconRes="@mipmap/index_right"

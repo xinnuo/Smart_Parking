@@ -1,1 +1,1 @@
-include ':app', ':okgo', ':AMap', ':Inspector', ':iflytek'
+include ':app', ':okgo', ':AMap', ':Inspector', ':iflytek', ':ocrplateidlibrary'

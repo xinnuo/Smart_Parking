@@ -1,7 +1,5 @@
 apply plugin: 'com.android.library'
 
-apply from: '../dependency.gradle'
-
 android {
     compileSdkVersion versions.compileSdkVersion
     defaultConfig {

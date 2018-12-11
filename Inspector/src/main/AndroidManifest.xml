@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.ruanmeng.park_inspector">
+    package="com.yilanpark">
 
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name="com.ruanmeng.Application"
+        android:name="com.yilanpark.Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -28,7 +28,7 @@
             android:required="false" />
 
         <activity
-            android:name=".GuideActivity"
+            android:name="com.yilanpark.park_inspector.GuideActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,48 +36,48 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.yilanpark.park_inspector.MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name="com.yilanpark.park_inspector.LoginActivity" />
         <activity
-            android:name=".ForgetActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".RegisterActivity"
+            android:name="com.yilanpark.park_inspector.ForgetActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SettingActivity"
+            android:name="com.yilanpark.park_inspector.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ScanActivity"
+            android:name="com.yilanpark.park_inspector.SettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StatusActivity"
+            android:name="com.yilanpark.park_inspector.ScanActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StatusDetailActivity"
+            android:name="com.yilanpark.park_inspector.StatusActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CustomActivity"
+            android:name="com.yilanpark.park_inspector.StatusDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PreviewActivity"
+            android:name="com.yilanpark.park_inspector.CustomActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".WrongActivity"
+            android:name="com.yilanpark.park_inspector.PreviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yilanpark.park_inspector.WrongActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".ClockActivity"
+            android:name="com.yilanpark.park_inspector.ClockActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PasswordActivity"
+            android:name="com.yilanpark.park_inspector.PasswordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MessageActivity"
+            android:name="com.yilanpark.park_inspector.MessageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".WebActivity"
+            android:name="com.yilanpark.park_inspector.WebActivity"
             android:screenOrientation="portrait" />
 
 
@@ -102,7 +102,7 @@
             android:value="wxefefe03c928c5c53" />
 
         <activity
-            android:name=".wxapi.WXPayEntryActivity"
+            android:name="com.yilanpark.park_inspector.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
@@ -112,7 +112,7 @@
         <!-- JPush start -->
         <!-- JPush 用户自定义的广播接收器 -->
         <receiver
-            android:name="com.ruanmeng.receiver.JPushReceiver"
+            android:name="com.yilanpark.receiver.JPushReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -129,7 +129,7 @@
         <!-- 新的tag/alias接口结果返回需要开发者配置一个自定的广播 -->
         <!-- 该广播需要继承JPush提供的JPushMessageReceiver类, 并如下新增一个 Intent-Filter -->
         <receiver
-            android:name="com.ruanmeng.receiver.JPushMessageReceiver"
+            android:name="com.yilanpark.receiver.JPushMessageReceiver"
             tools:ignore="ExportedReceiver">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
@@ -139,7 +139,7 @@
         <!-- JPush end -->
 
         <!-- 前台服务 -->
-        <service android:name="com.ruanmeng.receiver.LocationForegoundService" />
+        <service android:name="com.yilanpark.receiver.LocationForegoundService" />
 
     </application>
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ruanmeng.fragment.ParkFragment">
+    tools:context="com.yilanpark.fragment.ParkFragment">
 
     <com.amap.api.maps.MapView
         android:id="@+id/park_map"
