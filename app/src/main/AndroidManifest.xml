@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.yilanpark.smart_parking">
+    package="com.ruanmeng.smart_parking">
 
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="com.yilanpark.Application"
+        android:name="com.ruanmeng.Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,7 +20,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
         <activity
-            android:name="com.yilanpark.smart_parking.GuideActivity"
+            android:name=".GuideActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,59 +28,59 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.yilanpark.smart_parking.MainActivity"
+            android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
-            android:name="com.yilanpark.smart_parking.BindActivity"
+            android:name=".BindActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yilanpark.smart_parking.LoginActivity"
+            android:name=".LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yilanpark.smart_parking.RegisterActivity"
+            android:name=".RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yilanpark.smart_parking.ForgetActivity"
+            android:name=".ForgetActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yilanpark.smart_parking.InfoActivity"
+            android:name=".InfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yilanpark.smart_parking.BillActivity"
+            android:name=".BillActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yilanpark.smart_parking.TicketActivity"
+            android:name=".TicketActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yilanpark.smart_parking.CarActivity"
+            android:name=".CarActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yilanpark.smart_parking.CarAddActivity"
+            android:name=".CarAddActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yilanpark.smart_parking.CarBindActivity"
+            android:name=".CarBindActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yilanpark.smart_parking.CarBillActivity"
+            android:name=".CarBillActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yilanpark.smart_parking.WalletActivity"
+            android:name=".WalletActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yilanpark.smart_parking.SettingActivity"
+            android:name=".SettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yilanpark.smart_parking.HelpActivity"
+            android:name=".HelpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yilanpark.smart_parking.FeedbackActivity"
+            android:name=".FeedbackActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yilanpark.smart_parking.PasswordActivity"
+            android:name=".PasswordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.yilanpark.smart_parking.SearchActivity"
+            android:name=".SearchActivity"
             android:screenOrientation="portrait" />
 
         <!-- 支付宝 start -->
@@ -114,7 +114,7 @@
         <!-- JPush start -->
         <!-- JPush 用户自定义的广播接收器 -->
         <receiver
-            android:name="com.yilanpark.receiver.JPushReceiver"
+            android:name="com.ruanmeng.receiver.JPushReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -131,7 +131,7 @@
         <!-- 新的tag/alias接口结果返回需要开发者配置一个自定的广播 -->
         <!-- 该广播需要继承JPush提供的JPushMessageReceiver类, 并如下新增一个 Intent-Filter -->
         <receiver
-            android:name="com.yilanpark.receiver.JPushMessageReceiver"
+            android:name="com.ruanmeng.receiver.JPushMessageReceiver"
             tools:ignore="ExportedReceiver">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />

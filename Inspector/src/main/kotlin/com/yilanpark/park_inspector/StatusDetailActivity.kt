@@ -23,7 +23,7 @@ import org.jetbrains.anko.startActivity
 import org.json.JSONObject
 import java.text.DecimalFormat
 import com.yilanpark.R
-@WX(packageName = "com.ruanmeng.park_inspector")
+@WX(packageName = "com.yilanpark")
 class StatusDetailActivity : BaseActivity() {
 
     private var parkingId = ""

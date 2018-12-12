@@ -15,7 +15,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.yilanpark.iflytek.SpeechSynthesisHelper;
+import com.ruanmeng.iflytek.SpeechSynthesisHelper;
 import com.yilanpark.park_inspector.MessageActivity;
 import com.yilanpark.R;
 
