@@ -101,8 +101,24 @@ class CarActivity : BaseActivity() {
         super.doClick(v)
         when (v.id) {
             R.id.car_add -> {
-                if (owmycar == "0") startActivity<CarAddActivity>()
-                else startActivity<CarBindActivity>()
+                when (owmycar) {
+                    "0" -> {
+                        if (list.size > 4) {
+                            showToast("最多可以添加5辆车")
+                            return
+                        }
+
+                        startActivity<CarAddActivity>()
+                    }
+                    "1" -> {
+                        if (list.size > 2) {
+                            showToast("最多可以绑定3辆车")
+                            return
+                        }
+
+                        startActivity<CarBindActivity>()
+                    }
+                }
             }
         }
     }

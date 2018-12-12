@@ -28,6 +28,8 @@ import org.jetbrains.anko.startService
 import org.jetbrains.anko.stopService
 import java.util.concurrent.TimeUnit
 import com.yilanpark.R
+import org.json.JSONObject
+
 class MainActivity : BaseActivity() {
 
     private lateinit var geocoderSearch: GeocodeSearch
@@ -75,26 +77,8 @@ class MainActivity : BaseActivity() {
         main_item3.setOneClickListener { startActivity<CustomActivity>() }
         main_item4.setOneClickListener { startActivity<PreviewActivity>() }
         main_item5.setOneClickListener { startActivity<WrongActivity>() }
-        main_item6.setOneClickListener {
-            alert {
-                title = "上班打卡"
-                message = "确定要打卡吗？"
-                negativeButton("取消") {}
-                positiveButton("确定") {
-                    getData(0)
-                }
-            }.show()
-        }
-        main_item7.setOneClickListener {
-            alert {
-                title = "下班打卡"
-                message = "确定要打卡吗？"
-                negativeButton("取消") {}
-                positiveButton("确定") {
-                    getData(1)
-                }
-            }.show()
-        }
+        main_item6.setOneClickListener { getClockData(0) }
+        main_item7.setOneClickListener { getClockData(1) }
 
         geocoderSearch = GeocodeSearch(baseContext)
         geocoderSearch.setOnGeocodeSearchListener(object : GeocodeSearch.OnGeocodeSearchListener {
@@ -159,10 +143,49 @@ class MainActivity : BaseActivity() {
                         DialogHelper.showHintDialog(baseContext)
                     }
 
-                    override fun onSuccessResponseErrorCode(response: Response<String>, msg: String, msgCode: String) {
+                    /*override fun onSuccessResponseErrorCode(response: Response<String>, msg: String, msgCode: String) {
                         if (msgCode == "102") showToast(msg)
                         else startActivity<ClockActivity>()
+                    }*/
+                })
+    }
+
+    private fun getClockData(type: Int) {
+        OkGo.post<String>(BaseHttp.punchClock_ctn)
+                .tag(this@MainActivity)
+                .headers("token", getString("token"))
+                .params("type", type)
+                .execute(object : StringDialogCallback(baseContext, false) {
+
+                    override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
+                        val obj = JSONObject(response.body()).optString("object")
+
+                        if (obj == "0") {
+                            when (type) {
+                                0 -> {
+                                    alert {
+                                        title = "上班打卡"
+                                        message = "确定要打卡吗？"
+                                        negativeButton("取消") {}
+                                        positiveButton("确定") {
+                                            getData(0)
+                                        }
+                                    }.show()
+                                }
+                                1 -> {
+                                    alert {
+                                        title = "下班打卡"
+                                        message = "确定要打卡吗？"
+                                        negativeButton("取消") {}
+                                        positiveButton("确定") {
+                                            getData(1)
+                                        }
+                                    }.show()
+                                }
+                            }
+                        } else startActivity<ClockActivity>()
                     }
+
                 })
     }
 

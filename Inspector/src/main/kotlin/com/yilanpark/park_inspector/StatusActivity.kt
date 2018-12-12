@@ -48,11 +48,15 @@ class StatusActivity : BaseActivity() {
         mAdapter = SlimAdapter.create()
                 .register<CommonData>(R.layout.item_status_grid) { data, injector ->
                     injector.text(R.id.item_status_title, data.parkingNo)
+                            .text(R.id.item_status_num, data.carNo)
                             .with<ImageView>(R.id.item_status_img) {
-                                when (data.parkingStatus) {
-                                    "0" -> it.setImageResource(R.mipmap.index_icon08)
-                                    "1" -> it.setImageResource(R.mipmap.index_icon09)
-                                    "2" -> it.setImageResource(R.mipmap.index_icon10)
+                                if (data.handexp == "1") it.setImageResource(R.mipmap.index_icon17)
+                                else {
+                                    when (data.parkingStatus) {
+                                        "0" -> it.setImageResource(R.mipmap.index_icon08)
+                                        "1" -> it.setImageResource(R.mipmap.index_icon09)
+                                        "2" -> it.setImageResource(R.mipmap.index_icon10)
+                                    }
                                 }
                             }
                             .clicked(R.id.item_status) {

@@ -137,6 +137,11 @@ dependencies {
     implementation 'cn.jiguang.sdk:jpush:' + versions.jpushSdkVersion
     implementation 'cn.jiguang.sdk:jcore:' + versions.jpushCoreVersion
 
+    //二维码扫描和生成
+    implementation 'com.google.zxing:core:3.3.1'
+    implementation 'cn.bingoogolapple:bga-qrcodecore:1.1.9@aar'
+    implementation 'cn.bingoogolapple:bga-zxing:1.1.9@aar'
+
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
     implementation 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.1.1'

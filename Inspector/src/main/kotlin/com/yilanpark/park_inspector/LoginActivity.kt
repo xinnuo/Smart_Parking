@@ -15,6 +15,8 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 import org.json.JSONObject
 import com.yilanpark.R
+import com.yilanpark.share.Const
+
 class LoginActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,8 +74,8 @@ class LoginActivity : BaseActivity() {
 
                             override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
 
-                                val obj = JSONObject(response.body()).optJSONObject("object")
-                                        ?: JSONObject()
+                                val obj = JSONObject(response.body())
+                                        .optJSONObject("object") ?: JSONObject()
 
                                 putBoolean("isLogin", true)
                                 putString("token", obj.optString("token"))
@@ -96,6 +98,7 @@ class LoginActivity : BaseActivity() {
         putBoolean("isTS", false)
 
         JPushInterface.stopPush(applicationContext)
+        JPushInterface.deleteAlias(baseContext, Const.JPUSH_SEQUENCE)
         JPushInterface.clearAllNotifications(applicationContext)
     }
 

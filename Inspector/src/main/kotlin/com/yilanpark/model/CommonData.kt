@@ -46,6 +46,8 @@ data class CommonData(
         var stype: String = "",
         var createDate: String = "",
         //车位列表
+        var carNo: String = "",
+        var handexp: String = "",
         var paddress: String = "",
         var pprovince: String = "",
         var pcity: String = "",

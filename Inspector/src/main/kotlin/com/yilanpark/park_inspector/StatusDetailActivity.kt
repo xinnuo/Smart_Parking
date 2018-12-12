@@ -1,12 +1,15 @@
 package com.yilanpark.park_inspector
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.RadioGroup
+import cn.bingoogolapple.qrcode.core.BGAQRCodeUtil
+import cn.bingoogolapple.qrcode.zxing.QRCodeEncoder
 import com.cuieney.rxpay_annotation.WX
 import com.cuieney.sdk.rxpay.RxPay
 import com.lzg.extend.StringDialogCallback
@@ -23,6 +26,9 @@ import org.jetbrains.anko.startActivity
 import org.json.JSONObject
 import java.text.DecimalFormat
 import com.yilanpark.R
+import io.reactivex.Flowable
+import io.reactivex.schedulers.Schedulers
+
 @WX(packageName = "com.yilanpark")
 class StatusDetailActivity : BaseActivity() {
 
@@ -58,6 +64,7 @@ class StatusDetailActivity : BaseActivity() {
                 .params("parkingId", parkingId)
                 .execute(object : StringDialogCallback(baseContext) {
 
+                    @SuppressLint("CheckResult")
                     override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
 
                         val obj = JSONObject(response.body())
@@ -68,9 +75,31 @@ class StatusDetailActivity : BaseActivity() {
                         status_long.setRightString(obj.optString("parkingTime"))
 
                         parkingInfoId = obj.optString("parkingInfoId")
+                        val payUrl = obj.optString("payurl")
+
                         val price = obj.optString("price").toNotDouble()
                         status_price.setRightString("￥${DecimalFormat("0.00").format(price)}")
+
                         if (parkingInfoId.isNotEmpty() && price > 0.0) status_pay.visible()
+                        else status_pay.gone()
+
+                        if (payUrl.isNotEmpty() && price > 0.0) {
+                            status_qrcode.visible()
+
+                            Flowable.just(payUrl)
+                                    .map {
+                                        @Suppress("DEPRECATION")
+                                        return@map QRCodeEncoder.syncEncodeQRCode(
+                                                it,
+                                                BGAQRCodeUtil.dp2px(baseContext, 150f),
+                                                Color.BLACK,
+                                                resources.getColor(R.color.background),
+                                                null)
+                                    }
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe { status_qrcode.setImageBitmap(it) }
+                        } else status_qrcode.gone()
                     }
 
                 })

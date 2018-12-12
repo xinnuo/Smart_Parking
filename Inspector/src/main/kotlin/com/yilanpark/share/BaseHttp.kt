@@ -31,6 +31,7 @@ object BaseHttp {
     val find_ctn_parking = "$baseIp/find_ctn_parking.rm"       //车位预览
     val add_abnormal = "$baseIp/add_abnormal.rm"               //异常上传
     val add_punchClock = "$baseIp/add_punchClock.rm"           //打卡
+    val punchClock_ctn = "$baseIp/punchClock_ctn.rm"           //打卡状态
     val punchClock_data = "$baseIp/punchClock_data.rm"         //打卡记录
     val add_scaninfo = "$baseIp/add_scaninfo.rm"               //车位上传
     val add_uposition = "$baseIp/add_uposition.rm"             //位置上传
