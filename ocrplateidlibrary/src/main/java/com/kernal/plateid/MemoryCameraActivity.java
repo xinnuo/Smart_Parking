@@ -680,19 +680,18 @@ public class MemoryCameraActivity extends Activity {
 			}
 	}
 
-	@Override
+	/*@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			fragment.backLastActivtiy();
+			// fragment.backLastActivtiy();
 		}
 		return super.onKeyDown(keyCode, event);
-	}
+	}*/
+
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		if (sensorManager != null) {
+		if (sensorManager != null)
 			sensorManager.unregisterListener(listener);
-		}
 		super.onDestroy();
 	}
 
