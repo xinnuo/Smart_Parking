@@ -53,6 +53,9 @@
             android:name=".TicketActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".TicketBillActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".CarActivity"
             android:screenOrientation="portrait" />
         <activity

@@ -1,48 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="@dimen/dimen_size_5"
-    android:paddingBottom="@dimen/dimen_size_5">
+    android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/item_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_size_20"
         android:orientation="vertical">
 
-        <FrameLayout
-            android:id="@+id/item_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/item_status_img"
-                android:layout_width="@dimen/dimen_size_80"
-                android:layout_height="@dimen/dimen_size_80"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dimen_size_5"
-                android:src="@mipmap/index_icon08"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:id="@+id/item_status_title"
-                style="@style/Font14_white"
-                android:layout_width="@dimen/dimen_size_40"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:maxLines="2"
-                android:textStyle="bold" />
-
-        </FrameLayout>
+        <TextView
+            android:id="@+id/item_status_title"
+            style="@style/Font14_black"
+            android:layout_width="@dimen/dimen_size_75"
+            android:layout_height="@dimen/dimen_size_30"
+            android:layout_gravity="center"
+            android:background="@drawable/rec_bg_white_top_r5"
+            android:gravity="center" />
 
         <TextView
             android:id="@+id/item_status_num"
-            style="@style/Font15_black"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dimen_size_20"
+            style="@style/Font14_white"
+            android:layout_width="@dimen/dimen_size_75"
+            android:layout_height="@dimen/dimen_size_30"
             android:layout_gravity="center"
+            android:background="@drawable/rec_bg_blue_bottom_r5"
             android:gravity="center" />
 
     </LinearLayout>

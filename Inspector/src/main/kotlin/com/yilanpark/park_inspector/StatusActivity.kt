@@ -3,7 +3,6 @@ package com.yilanpark.park_inspector
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v7.widget.GridLayoutManager
-import android.widget.ImageView
 import com.lzg.extend.JsonDialogCallback
 import com.lzg.extend.StringDialogCallback
 import com.lzy.okgo.OkGo
@@ -49,16 +48,16 @@ class StatusActivity : BaseActivity() {
                 .register<CommonData>(R.layout.item_status_grid) { data, injector ->
                     injector.text(R.id.item_status_title, data.parkingNo)
                             .text(R.id.item_status_num, data.carNo)
-                            .with<ImageView>(R.id.item_status_img) {
-                                if (data.handexp == "1") it.setImageResource(R.mipmap.index_icon17)
-                                else {
-                                    when (data.parkingStatus) {
-                                        "0" -> it.setImageResource(R.mipmap.index_icon08)
-                                        "1" -> it.setImageResource(R.mipmap.index_icon09)
-                                        "2" -> it.setImageResource(R.mipmap.index_icon10)
-                                    }
-                                }
-                            }
+                            .background(R.id.item_status_num,
+                                    if (data.handexp == "1") R.drawable.rec_bg_purple_bottom_r5
+                                    else {
+                                        when (data.parkingStatus) {
+                                            "0" -> R.drawable.rec_bg_blue_bottom_r5
+                                            "1" -> R.drawable.rec_bg_orange_bottom_r5
+                                            "2" -> R.drawable.rec_bg_red_bottom_r5
+                                            else -> R.drawable.rec_bg_blue_bottom_r5
+                                        }
+                                    })
                             .clicked(R.id.item_status) {
                                 startActivity<StatusDetailActivity>(
                                         "parkId" to data.parkingId,
