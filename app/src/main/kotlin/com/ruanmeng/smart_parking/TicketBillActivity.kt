@@ -72,6 +72,7 @@ class TicketBillActivity : BaseActivity() {
         OkGo.post<BaseResponse<ArrayList<CommonData>>>(BaseHttp.goodsorder_list_data)
                 .tag(this@TicketBillActivity)
                 .headers("token", getString("token"))
+                .params("itype", 1)
                 .params("status", 5)
                 .execute(object : JacksonDialogCallback<BaseResponse<ArrayList<CommonData>>>(baseContext) {
 

@@ -76,6 +76,7 @@ class TicketActivity : BaseActivity() {
 
                 OkGo.post<String>(BaseHttp.add_invoice)
                         .tag(this@TicketActivity)
+                        .isMultipart(true)
                         .headers("token", getString("token"))
                         .params("goodsOrderId", listId.joinToString(","))
                         .params("invoiceType", invoiceType)
