@@ -8,7 +8,7 @@ import android.view.inputmethod.InputMethodManager
 /**
  * <pre>
  * 键盘相关工具类
-</pre> *
+ * </pre>
  */
 object KeyboardHelper {
 
