@@ -1,5 +1,6 @@
 package com.yilanpark.park_inspector
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputFilter
@@ -29,6 +30,7 @@ class ScanActivity : BaseActivity() {
         scan_place.setText(parkingNo)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun init_title() {
         super.init_title()
         scan_submit.setBackgroundResource(R.drawable.rec_bg_d0d0d0_r5)
@@ -38,11 +40,14 @@ class ScanActivity : BaseActivity() {
         scan_num.addTextChangedListener(this@ScanActivity)
         scan_place.addTextChangedListener(this@ScanActivity)
 
-
         scan_img.onClick {
             startActivityForResult<MemoryCameraActivity>(101)
         }
 
+        scan_clear.onClick {
+            scan_num.setText("豫A88888")
+            scan_num.setSelection(scan_num.text.length)
+        }
 
         tvRight.onClick { startActivity<WrongActivity>() }
         scan_submit.onClick {
