@@ -22,37 +22,19 @@
         android:padding="@dimen/dimen_size_3"
         android:text="扫描" />
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/scan_num"
+        style="@style/Font14_black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_size_20"
         android:layout_marginTop="@dimen/dimen_size_30"
-        android:gravity="center_vertical">
-
-        <EditText
-            android:id="@+id/scan_num"
-            style="@style/Font14_black"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_size_20"
-            android:layout_marginEnd="@dimen/dimen_size_20"
-            android:layout_weight="1"
-            android:background="@drawable/rec_bg_white_r5"
-            android:hint="请输入车牌号"
-            android:maxLength="10"
-            android:maxLines="1"
-            android:padding="@dimen/dimen_size_15" />
-
-        <Button
-            android:id="@+id/scan_clear"
-            style="@style/Font15_white_borderless"
-            android:layout_width="@dimen/dimen_size_80"
-            android:layout_height="@dimen/dimen_size_40"
-            android:layout_marginEnd="@dimen/dimen_size_20"
-            android:background="@drawable/rec_bg_blue_r5"
-            android:onClick="doClick"
-            android:text="置空" />
-
-    </LinearLayout>
+        android:layout_marginEnd="@dimen/dimen_size_20"
+        android:background="@drawable/rec_bg_white_r5"
+        android:hint="请输入车牌号"
+        android:maxLength="10"
+        android:maxLines="1"
+        android:padding="@dimen/dimen_size_15" />
 
     <EditText
         android:id="@+id/scan_place"
@@ -79,5 +61,17 @@
         android:background="@drawable/rec_bg_blue_r5"
         android:onClick="doClick"
         android:text="提交" />
+
+    <Button
+        android:id="@+id/scan_clear"
+        style="@style/Font15_white_borderless"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_size_40"
+        android:layout_marginStart="@dimen/dimen_size_20"
+        android:layout_marginEnd="@dimen/dimen_size_20"
+        android:layout_marginBottom="@dimen/dimen_size_20"
+        android:background="@drawable/rec_bg_blue_r5"
+        android:onClick="doClick"
+        android:text="一键置空" />
 
 </LinearLayout>

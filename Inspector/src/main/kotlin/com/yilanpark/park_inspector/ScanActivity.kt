@@ -17,6 +17,8 @@ import kotlinx.android.synthetic.main.activity_scan.*
 import org.jetbrains.anko.sdk25.listeners.onClick
 import org.jetbrains.anko.startActivity
 import com.yilanpark.R
+import com.yilanpark.model.RefreshMessageEvent
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.startActivityForResult
 
 class ScanActivity : BaseActivity() {
@@ -45,8 +47,27 @@ class ScanActivity : BaseActivity() {
         }
 
         scan_clear.onClick {
-            scan_num.setText("豫A88888")
-            scan_num.setSelection(scan_num.text.length)
+            if (scan_place.text.isBlank()) {
+                showToast("请输入车位号")
+                return@onClick
+            }
+
+            OkGo.post<String>(BaseHttp.add_scaninfo)
+                    .tag(this@ScanActivity)
+                    .isMultipart(true)
+                    .headers("token", getString("token"))
+                    .params("carno", "豫A88888")
+                    .params("dno", scan_place.text.trimString())
+                    .params("exReason", "其他")
+                    .execute(object : StringDialogCallback(baseContext) {
+
+                        override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
+                            showToast("一键置空提交成功")
+                            EventBus.getDefault().post(RefreshMessageEvent("置空成功"))
+                            ActivityStack.screenManager.popActivities(this@ScanActivity::class.java)
+                        }
+
+                    })
         }
 
         tvRight.onClick { startActivity<WrongActivity>() }

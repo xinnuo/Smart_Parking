@@ -21,6 +21,10 @@ import org.jetbrains.anko.collections.forEachWithIndex
 import org.jetbrains.anko.design.listeners.__TabLayout_OnTabSelectedListener
 import org.jetbrains.anko.startActivity
 import com.yilanpark.R
+import com.yilanpark.model.RefreshMessageEvent
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+
 class StatusActivity : BaseActivity() {
 
     private val listTabs = ArrayList<StatusData>()
@@ -31,6 +35,8 @@ class StatusActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_status)
         init_title("车位状况监控")
+
+        EventBus.getDefault().register(this@StatusActivity)
 
         swipe_refresh.isRefreshing = true
         getData()
@@ -195,6 +201,21 @@ class StatusActivity : BaseActivity() {
                     }
 
                 })
+    }
+
+    override fun finish() {
+        EventBus.getDefault().unregister(this@StatusActivity)
+        super.finish()
+    }
+
+    @Subscribe
+    fun onMessageEvent(event: RefreshMessageEvent) {
+        when (event.name) {
+            "置空成功" -> {
+                swipe_refresh.isRefreshing = true
+                getRefreshData()
+            }
+        }
     }
 
     private fun TabLayout.onTabSelectedListener(init: __TabLayout_OnTabSelectedListener.() -> Unit) {

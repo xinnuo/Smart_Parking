@@ -26,8 +26,11 @@ import org.jetbrains.anko.startActivity
 import org.json.JSONObject
 import java.text.DecimalFormat
 import com.yilanpark.R
+import com.yilanpark.model.RefreshMessageEvent
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 @WX(packageName = "com.yilanpark")
 class StatusDetailActivity : BaseActivity() {
@@ -39,6 +42,8 @@ class StatusDetailActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_status_detail)
         init_title("车位详情", "异常上传")
+
+        EventBus.getDefault().register(this@StatusDetailActivity)
 
         getData()
     }
@@ -169,6 +174,18 @@ class StatusDetailActivity : BaseActivity() {
 
         dialog.setContentView(view)
         dialog.show()
+    }
+
+    override fun finish() {
+        EventBus.getDefault().unregister(this@StatusDetailActivity)
+        super.finish()
+    }
+
+    @Subscribe
+    fun onMessageEvent(event: RefreshMessageEvent) {
+        when (event.name) {
+            "置空成功" -> getData()
+        }
     }
 
 }
