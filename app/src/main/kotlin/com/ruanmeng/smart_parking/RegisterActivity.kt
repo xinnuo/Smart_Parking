@@ -138,7 +138,6 @@ class RegisterActivity : BaseActivity() {
                             override fun onSuccessResponse(response: Response<String>, msg: String, msgCode: String) {
 
                                 showToast(msg)
-                                startActivity<LoginActivity>()
                                 ActivityStack.screenManager.popActivities(this@RegisterActivity::class.java)
                             }
 
