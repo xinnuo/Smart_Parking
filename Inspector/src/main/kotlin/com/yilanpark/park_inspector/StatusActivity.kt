@@ -55,7 +55,7 @@ class StatusActivity : BaseActivity() {
                     injector.text(R.id.item_status_title, data.parkingNo)
                             .text(R.id.item_status_num, data.carNo)
                             .background(R.id.item_status_num,
-                                    if (data.handexp == "1") R.drawable.rec_bg_purple_bottom_r5
+                                    if (data.handexp == "1") R.drawable.rec_bg_orange_bottom_r5
                                     else {
                                         when (data.parkingStatus) {
                                             "0" -> R.drawable.rec_bg_blue_bottom_r5
